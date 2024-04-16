@@ -133,7 +133,7 @@ La aplicación se desplegará de manera provisional en el siguiente dominio web:
       - Discord.js v14
 
 **Frontend**:
-  - JavaScript (ES6):
+  - JavaScript (ES11):
       - React Router DOM
       - Editor.js
       - Axios HTTP
