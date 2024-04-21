@@ -39,7 +39,7 @@ Las únicas restricciones son:
 ## Índice
 
 1. [Anteproyecto](docs/1_Anteproyecto.md)
-2. [Análisis](docs/2_Análisis.md)
+2. [Análisis](docs/2_Analisis.md)
 3. [Diseño](docs/3_Diseño.md)
 4. [Codificación y pruebas](docs/4_Codificación-y-pruebas.md)
 5. [Implantación](docs/5_Implantación.md)
