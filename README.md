@@ -13,7 +13,7 @@
 
 ## Tablero del proyecto
 
-**Fase actual**: Desarrollo (Anteproyecto)
+**Fase actual**: En desarrollo - Diseño
 
 ## Descripción
 
