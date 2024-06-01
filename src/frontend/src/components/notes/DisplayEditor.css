@@ -1,0 +1,98 @@
+.ce-block__content {
+  /* @apply prose; */
+  p,
+  ce-paragraph {
+    @apply text-[12px] tracking-wider text-gray-500 dark:text-gray-300;
+  }
+
+  mark {
+    @apply bg-yellow-300 dark:bg-yellow-600 dark:text-white;
+  }
+
+  h1 {
+    @apply text-[32px] font-extrabold leading-8 dark:text-white;
+  }
+
+  h2 {
+    @apply text-[24px] font-bold leading-6 dark:text-white;
+  }
+
+  h3 {
+    @apply text-[18px] font-bold leading-5 dark:text-white;
+  }
+
+  h4 {
+    @apply text-[16px] font-semibold leading-5 dark:text-white;
+  }
+
+  h5 {
+    @apply text-[14px] font-semibold leading-5 dark:text-white;
+  }
+
+  h6 {
+    @apply text-[14px] font-semibold leading-5 dark:text-white;
+  }
+}
+
+.ce-toolbar__plus,
+.ce-toolbar__settings-btn,
+.ce-popover-item__title,
+.ce-popover-item__icon {
+  @apply dark:text-white;
+}
+
+.cdx-search-field.ce-popover__search {
+  @apply dark:border-gray-700 dark:bg-gray-800;
+}
+
+.cdx-search-field__input {
+  @apply dark:text-white;
+}
+
+.cdx-block,
+.ce-block {
+  @apply dark:text-white;
+}
+
+.ce-inline-toolbar,
+.ce-conversion-tool__icon,
+.ce-popover-item__icon {
+  @apply dark:border-gray-700 dark:bg-gray-800 dark:text-white;
+}
+
+.ce-popover,
+.ce-conversion-toolbar,
+.ce-inline-toolbar {
+  @apply dark:border-gray-700 dark:bg-gray-800 dark:shadow-lg;
+}
+
+.ce-inline-tool:hover,
+.ce-inline-toolbar__dropdown:hover,
+.ce-toolbar__plus:hover,
+.ce-toolbar__settings-btn:hover,
+.ce-conversion-tool:hover,
+.ce-popover-item:hover {
+  @apply dark:bg-gray-700;
+}
+
+.ce-block .ce-block__content *::selection,
+.cdx-block *::selection,
+.cdx-search-field__input::selection,
+.ce-block.ce-block--selected .ce-block__content {
+  @apply dark:bg-gray-700;
+}
+
+.dark .ce-popover__items::-webkit-scrollbar {
+  @apply w-2 bg-gray-800;
+}
+
+.dark .ce-popover__items::-webkit-scrollbar-thumb {
+  @apply rounded bg-gray-700;
+}
+
+@media (max-width: 650px) {
+  .ce-toolbar__settings-btn,
+  .ce-toolbar__plus {
+    @apply dark:border-gray-700 dark:bg-gray-800 dark:shadow-lg;
+  }
+}

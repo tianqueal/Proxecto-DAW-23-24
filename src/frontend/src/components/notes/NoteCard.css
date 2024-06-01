@@ -1,0 +1,9 @@
+@media (min-width: 768px) {
+    .expand-on-hover {
+      transition: width 0.3s;
+    }
+  
+    .expand-on-hover:hover {
+      width: 80px;
+    }
+  }
