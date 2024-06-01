@@ -64,14 +64,6 @@ options:
   substitutionOption: ALLOW_LOOSE
   logging: CLOUD_LOGGING_ONLY
 
-substitutions:
-  _AR_HOSTNAME: 'europe-west9-docker.pkg.dev'
-  _DEPLOY_REGION: 'europe-west9'
-  _PLATFORM: 'managed'
-  _SERVICE_NAME: 'proxecto-daw-borrador'
-  REPO_NAME: 'proxecto-daw-borrador'
-  _TRIGGER_ID: '597125d6-c3c5-494b-9e07-fa535a22b3c8'
-
 availableSecrets:
   secretManager:
     - versionName: projects/913542756676/secrets/MASTERNOTE_DB_HOST/versions/latest
