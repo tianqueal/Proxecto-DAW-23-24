@@ -7,7 +7,7 @@ const useNote = ({ noteId, setIsNoteLoading }) => {
   const [isLoading, setIsLoading] = useState(true)
   const [error, setError] = useState(null)
   const [isOwner, setIsOwner] = useState(false)
-  /* const [isAuthenticated, setIsAuthenticated] = useState(true) */
+  const [isAuthenticated, setIsAuthenticated] = useState(true)
 
   useEffect(() => {
     const fetcher = async () => {
@@ -23,7 +23,7 @@ const useNote = ({ noteId, setIsNoteLoading }) => {
         setIsOwner(true)
         setIsLoading(false)
       } catch (err) {
-        /* setIsAuthenticated(false) */
+        setIsAuthenticated(false)
         // Try to get the community note if not authenticated
         try {
           const communityNoteData = await getCommunityNote({ id: noteId })
@@ -47,7 +47,7 @@ const useNote = ({ noteId, setIsNoteLoading }) => {
     isLoading,
     isError: error,
     isOwner,
-    /* isAuthenticated, */
+    isAuthenticated,
   }
 }
 

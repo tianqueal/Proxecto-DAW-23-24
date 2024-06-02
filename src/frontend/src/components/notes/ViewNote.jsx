@@ -5,19 +5,27 @@ import ErrorToastify from '../alerts/ErrorToastify'
 import useNote from '../../hooks/useNote'
 import DisplayEditor from './DisplayEditor'
 import useEditorjs from '../../hooks/useEditorjs'
+import { useNavigate } from 'react-router-dom'
 
 export default function ViewNote({ noteId }) {
   const { setIsNoteLoading } = useEditorjs()
-  const { currentNote, isLoading, isError, isOwner } = useNote({
-    noteId,
-    setIsNoteLoading,
-  })
+  const { currentNote, isLoading, isError, isOwner, isAuthenticated } = useNote(
+    {
+      noteId,
+      setIsNoteLoading,
+    },
+  )
+  const navigate = useNavigate()
 
   useEffect(() => {
     if (!isLoading && isError) {
-      ErrorToastify({ message: 'Error al cargar la nota' })
+      if (!isAuthenticated) {
+        navigate('/not-found')
+        return
+      }
+      ErrorToastify({ message: 'Error al cargar la nota', autoClose: 5000 })
     }
-  }, [isLoading, isError])
+  }, [isLoading, isError, isAuthenticated, navigate])
 
   console.log('currentNote', currentNote)
   return (

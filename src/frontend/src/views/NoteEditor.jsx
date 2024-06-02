@@ -87,14 +87,18 @@ export default function NoteEditor() {
                 />
               </motion.figure>
             )}
-            {!isSaving && !isError && !editorInitData?.readOnly && noteId && (
-              <motion.figure {...motionProps}>
-                <Check
-                  customClasses="size-8 text-green-500 dark:text-green-400"
-                  aria-label="Guardado con éxito"
-                />
-              </motion.figure>
-            )}
+            {!isSaving &&
+              !isError &&
+              !isNoteLoading &&
+              !editorInitData?.readOnly &&
+              noteId && (
+                <motion.figure {...motionProps}>
+                  <Check
+                    customClasses="size-8 text-green-500 dark:text-green-400"
+                    aria-label="Guardado con éxito"
+                  />
+                </motion.figure>
+              )}
             {!isSaving && !isError && editorInitData?.readOnly && (
               <motion.figure {...motionProps}>
                 <BookOpen
@@ -110,7 +114,7 @@ export default function NoteEditor() {
         <section className="w-full">
           <div
             id="editorjs"
-            className={`${isNoteLoading ? 'hidden' : ''}`}
+            className={`${isNoteLoading || isError ? 'hidden' : ''}`}
           ></div>
           {noteId ? <ViewNote noteId={noteId} /> : <CreateNote />}
         </section>
