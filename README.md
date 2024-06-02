@@ -13,7 +13,11 @@
 
 ## Tablero del proyecto
 
-**Fase actual**: En desarrollo - Diseño
+**Fase actual**: Implementación
+
+**Backend**: Despliegue
+
+**Frontend**: Desarrollo y testing - 80%
 
 ## Descripción
 

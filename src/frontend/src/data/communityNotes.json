@@ -1,0 +1,416 @@
+{
+  "data": [
+    {
+      "id": 203,
+      "user": {
+        "id": 45,
+        "username": "user04"
+      },
+      "content": "{\"time\":1715713865000,\"blocks\":[{\"id\":\"WEWtiuah5b\",\"type\":\"header\",\"data\":{\"text\":\"Nemo Nemo Nemo quibusdam dignissimos enim atque ne...\",\"level\":1}},{\"id\":\"Tkq68DztUU\",\"type\":\"paragraph\",\"data\":{\"text\":\"Quam est non dolores velit doloribus accusantium. ...\"}}],\"version\":\"2.29.1\"}",
+      "isPublic": 1,
+      "createdAt": "2024-05-18T10:52:00.000000Z",
+      "updatedAt": "2024-05-18T12:44:38.000000Z",
+      "topics": []
+    },
+    {
+      "id": 1,
+      "user": {
+        "id": 2,
+        "username": "quinten83"
+      },
+      "content": "{\"time\":1715713865000,\"blocks\":[{\"id\":\"nw9WVx28RU\",\"type\":\"header\",\"data\":{\"text\":\"Atque consectetur ut quasi dolorem culpa.\",\"level\":1}},{\"id\":\"xndSifk3dx\",\"type\":\"paragraph\",\"data\":{\"text\":\"Corporis ipsa in quas ullam sint minus. Tenetur te...\"}}],\"version\":\"2.29.1\"}",
+      "isPublic": 1,
+      "createdAt": "2024-05-14T19:11:05.000000Z",
+      "updatedAt": "2024-05-14T19:11:05.000000Z",
+      "topics": [
+        {
+          "id": 21,
+          "name": "Salud y Bienestar"
+        },
+        {
+          "id": 73,
+          "name": "Diseño de Interiores"
+        },
+        {
+          "id": 111,
+          "name": "Microbiología"
+        },
+        {
+          "id": 158,
+          "name": "Gestión Intercultural"
+        },
+        {
+          "id": 166,
+          "name": "Estrategia de Negocios Globales"
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "user": {
+        "id": 2,
+        "username": "quinten83"
+      },
+      "content": "{\"time\":1715713865000,\"blocks\":[{\"id\":\"Suz9kldxon\",\"type\":\"header\",\"data\":{\"text\":\"Illum sit quis soluta architecto consequatur dolor...\",\"level\":1}},{\"id\":\"54YvryxwzL\",\"type\":\"paragraph\",\"data\":{\"text\":\"Doloremque possimus non voluptas est. Et et dolore...\"}}],\"version\":\"2.29.1\"}",
+      "isPublic": 1,
+      "createdAt": "2024-05-14T19:11:05.000000Z",
+      "updatedAt": "2024-05-14T19:11:05.000000Z",
+      "topics": [
+        {
+          "id": 6,
+          "name": "Música"
+        },
+        {
+          "id": 50,
+          "name": "Criptomonedas"
+        },
+        {
+          "id": 52,
+          "name": "Emprendimiento"
+        },
+        {
+          "id": 163,
+          "name": "Marketing Internacional"
+        }
+      ]
+    },
+    {
+      "id": 4,
+      "user": {
+        "id": 2,
+        "username": "quinten83"
+      },
+      "content": "{\"time\":1715713865000,\"blocks\":[{\"id\":\"5Da7ZOTpCM\",\"type\":\"header\",\"data\":{\"text\":\"Voluptatem nam et vel dolorem amet sapiente iste.\",\"level\":1}},{\"id\":\"fnmLKGSJlo\",\"type\":\"paragraph\",\"data\":{\"text\":\"Officia ut ut nihil et nisi. Quis odio maxime dolo...\"}}],\"version\":\"2.29.1\"}",
+      "isPublic": 1,
+      "createdAt": "2024-05-14T19:11:05.000000Z",
+      "updatedAt": "2024-05-14T19:11:05.000000Z",
+      "topics": [
+        {
+          "id": 41,
+          "name": "Trabajo Social"
+        },
+        {
+          "id": 56,
+          "name": "Zoología"
+        },
+        {
+          "id": 74,
+          "name": "Soldadura"
+        },
+        {
+          "id": 83,
+          "name": "Cocina"
+        },
+        {
+          "id": 157,
+          "name": "Negocios Internacionales"
+        }
+      ]
+    },
+    {
+      "id": 5,
+      "user": {
+        "id": 2,
+        "username": "quinten83"
+      },
+      "content": "{\"time\":1715713865000,\"blocks\":[{\"id\":\"lXn5FKK80Z\",\"type\":\"header\",\"data\":{\"text\":\"Similique deserunt natus quo natus similique possi...\",\"level\":1}},{\"id\":\"u49CWLuzW0\",\"type\":\"paragraph\",\"data\":{\"text\":\"Voluptas et et praesentium id. Unde ea occaecati n...\"}}],\"version\":\"2.29.1\"}",
+      "isPublic": 1,
+      "createdAt": "2024-05-14T19:11:05.000000Z",
+      "updatedAt": "2024-05-14T19:11:05.000000Z",
+      "topics": [
+        {
+          "id": 11,
+          "name": "Economía"
+        },
+        {
+          "id": 25,
+          "name": "Astronomía"
+        },
+        {
+          "id": 112,
+          "name": "Inmunología"
+        },
+        {
+          "id": 154,
+          "name": "Diversidad en el Lugar de Trabajo"
+        }
+      ]
+    },
+    {
+      "id": 6,
+      "user": {
+        "id": 3,
+        "username": "athena.grant"
+      },
+      "content": "{\"time\":1715713865000,\"blocks\":[{\"id\":\"9iebSJQdo2\",\"type\":\"header\",\"data\":{\"text\":\"Numquam itaque est incidunt ut non voluptates.\",\"level\":1}},{\"id\":\"pNIbh7A8HY\",\"type\":\"paragraph\",\"data\":{\"text\":\"Necessitatibus qui corporis repellat delectus. Dic...\"}}],\"version\":\"2.29.1\"}",
+      "isPublic": 1,
+      "createdAt": "2024-05-14T19:11:05.000000Z",
+      "updatedAt": "2024-05-14T19:11:05.000000Z",
+      "topics": [
+        {
+          "id": 151,
+          "name": "Capacitación de Empleados"
+        }
+      ]
+    },
+    {
+      "id": 7,
+      "user": {
+        "id": 3,
+        "username": "athena.grant"
+      },
+      "content": "{\"time\":1715713865000,\"blocks\":[{\"id\":\"sK6hZoAD9N\",\"type\":\"header\",\"data\":{\"text\":\"Harum distinctio optio temporibus voluptate.\",\"level\":1}},{\"id\":\"bt6cZdrdbq\",\"type\":\"paragraph\",\"data\":{\"text\":\"Eveniet cupiditate saepe eum ut beatae consequatur...\"}}],\"version\":\"2.29.1\"}",
+      "isPublic": 1,
+      "createdAt": "2024-05-14T19:11:05.000000Z",
+      "updatedAt": "2024-05-14T19:11:05.000000Z",
+      "topics": [
+        {
+          "id": 146,
+          "name": "Desarrollo de Liderazgo"
+        },
+        {
+          "id": 150,
+          "name": "Gestión del Talento"
+        }
+      ]
+    },
+    {
+      "id": 8,
+      "user": {
+        "id": 3,
+        "username": "athena.grant"
+      },
+      "content": "{\"time\":1715713865000,\"blocks\":[{\"id\":\"SAULgoo6LC\",\"type\":\"header\",\"data\":{\"text\":\"Ut repellendus quos dolor officia aut.\",\"level\":1}},{\"id\":\"ON7qMl0pwW\",\"type\":\"paragraph\",\"data\":{\"text\":\"Dolorum ut deserunt tempora impedit voluptatum est...\"}}],\"version\":\"2.29.1\"}",
+      "isPublic": 1,
+      "createdAt": "2024-05-14T19:11:05.000000Z",
+      "updatedAt": "2024-05-14T19:11:05.000000Z",
+      "topics": []
+    },
+    {
+      "id": 11,
+      "user": {
+        "id": 4,
+        "username": "ibogisich"
+      },
+      "content": "{\"time\":1715713865000,\"blocks\":[{\"id\":\"uKYfX6J0vD\",\"type\":\"header\",\"data\":{\"text\":\"Ab atque in illum odit quidem unde odio.\",\"level\":1}},{\"id\":\"qFiU3qONgI\",\"type\":\"paragraph\",\"data\":{\"text\":\"Molestiae odio nobis corporis dolores. Totam itaqu...\"}}],\"version\":\"2.29.1\"}",
+      "isPublic": 1,
+      "createdAt": "2024-05-14T19:11:05.000000Z",
+      "updatedAt": "2024-05-14T19:11:05.000000Z",
+      "topics": [
+        {
+          "id": 19,
+          "name": "Estudios Empresariales"
+        },
+        {
+          "id": 60,
+          "name": "Ciencia Forense"
+        },
+        {
+          "id": 139,
+          "name": "Logística"
+        },
+        {
+          "id": 148,
+          "name": "Gestión de Conflictos"
+        }
+      ]
+    },
+    {
+      "id": 12,
+      "user": {
+        "id": 4,
+        "username": "ibogisich"
+      },
+      "content": "{\"time\":1715713865000,\"blocks\":[{\"id\":\"i3FC1EazJn\",\"type\":\"header\",\"data\":{\"text\":\"Ut sint dolor dolores sequi modi et nulla.\",\"level\":1}},{\"id\":\"L54XCGdKzG\",\"type\":\"paragraph\",\"data\":{\"text\":\"Accusantium nihil soluta dolor accusamus quidem. R...\"}}],\"version\":\"2.29.1\"}",
+      "isPublic": 1,
+      "createdAt": "2024-05-14T19:11:05.000000Z",
+      "updatedAt": "2024-05-14T19:11:05.000000Z",
+      "topics": [
+        {
+          "id": 7,
+          "name": "Informática"
+        },
+        {
+          "id": 44,
+          "name": "Inteligencia Artificial"
+        },
+        {
+          "id": 45,
+          "name": "Robótica"
+        }
+      ]
+    },
+    {
+      "id": 13,
+      "user": {
+        "id": 4,
+        "username": "ibogisich"
+      },
+      "content": "{\"time\":1715713865000,\"blocks\":[{\"id\":\"9Q0pHL77Ew\",\"type\":\"header\",\"data\":{\"text\":\"Deleniti ex quo minus vitae nisi cupiditate aut.\",\"level\":1}},{\"id\":\"IXxqRexYpV\",\"type\":\"paragraph\",\"data\":{\"text\":\"Mollitia temporibus nemo harum vero. Accusamus asp...\"}}],\"version\":\"2.29.1\"}",
+      "isPublic": 1,
+      "createdAt": "2024-05-14T19:11:05.000000Z",
+      "updatedAt": "2024-05-14T19:11:05.000000Z",
+      "topics": [
+        {
+          "id": 2,
+          "name": "Ciencias"
+        },
+        {
+          "id": 36,
+          "name": "Moda"
+        },
+        {
+          "id": 148,
+          "name": "Gestión de Conflictos"
+        },
+        {
+          "id": 160,
+          "name": "Comercio Internacional"
+        }
+      ]
+    },
+    {
+      "id": 16,
+      "user": {
+        "id": 5,
+        "username": "carroll.aurelia"
+      },
+      "content": "{\"time\":1715713865000,\"blocks\":[{\"id\":\"eAATHL12Up\",\"type\":\"header\",\"data\":{\"text\":\"Iste rerum molestiae tempora nobis explicabo.\",\"level\":1}},{\"id\":\"jRjqW4xAvc\",\"type\":\"paragraph\",\"data\":{\"text\":\"Aut corporis consequatur quidem provident exercita...\"}}],\"version\":\"2.29.1\"}",
+      "isPublic": 1,
+      "createdAt": "2024-05-14T19:11:05.000000Z",
+      "updatedAt": "2024-05-14T19:11:05.000000Z",
+      "topics": [
+        {
+          "id": 102,
+          "name": "Justicia Social"
+        },
+        {
+          "id": 145,
+          "name": "Comportamiento Organizacional"
+        },
+        {
+          "id": 166,
+          "name": "Estrategia de Negocios Globales"
+        }
+      ]
+    },
+    {
+      "id": 18,
+      "user": {
+        "id": 5,
+        "username": "carroll.aurelia"
+      },
+      "content": "{\"time\":1715713865000,\"blocks\":[{\"id\":\"gYJWuI351g\",\"type\":\"header\",\"data\":{\"text\":\"Voluptatem blanditiis sint minus repudiandae quibu...\",\"level\":1}},{\"id\":\"ntZhNpqFP1\",\"type\":\"paragraph\",\"data\":{\"text\":\"Est doloribus enim ipsam eos omnis tenetur asperio...\"}}],\"version\":\"2.29.1\"}",
+      "isPublic": 1,
+      "createdAt": "2024-05-14T19:11:05.000000Z",
+      "updatedAt": "2024-05-14T19:11:05.000000Z",
+      "topics": []
+    },
+    {
+      "id": 24,
+      "user": {
+        "id": 6,
+        "username": "alek.romaguera"
+      },
+      "content": "{\"time\":1715713865000,\"blocks\":[{\"id\":\"P5jaVFyyYY\",\"type\":\"header\",\"data\":{\"text\":\"Nihil dolores aut exercitationem distinctio et rer...\",\"level\":1}},{\"id\":\"qsJKQ4p7pn\",\"type\":\"paragraph\",\"data\":{\"text\":\"Nihil iste aliquam aut veniam sit unde voluptatibu...\"}}],\"version\":\"2.29.1\"}",
+      "isPublic": 1,
+      "createdAt": "2024-05-14T19:11:05.000000Z",
+      "updatedAt": "2024-05-14T19:11:05.000000Z",
+      "topics": [
+        {
+          "id": 13,
+          "name": "Sociología"
+        },
+        {
+          "id": 32,
+          "name": "Estudios de Cine"
+        },
+        {
+          "id": 36,
+          "name": "Moda"
+        },
+        {
+          "id": 99,
+          "name": "Entrenamiento Atlético"
+        },
+        {
+          "id": 108,
+          "name": "Anatomía Humana"
+        }
+      ]
+    },
+    {
+      "id": 25,
+      "user": {
+        "id": 6,
+        "username": "alek.romaguera"
+      },
+      "content": "{\"time\":1715713865000,\"blocks\":[{\"id\":\"JsQqueuyr5\",\"type\":\"header\",\"data\":{\"text\":\"Libero dicta in iste consequatur qui et corporis.\",\"level\":1}},{\"id\":\"6h30dNIk53\",\"type\":\"paragraph\",\"data\":{\"text\":\"Ipsum numquam sunt ea est et blanditiis. Non facil...\"}}],\"version\":\"2.29.1\"}",
+      "isPublic": 1,
+      "createdAt": "2024-05-14T19:11:05.000000Z",
+      "updatedAt": "2024-05-14T19:11:05.000000Z",
+      "topics": [
+        {
+          "id": 9,
+          "name": "Geografía"
+        },
+        {
+          "id": 49,
+          "name": "Meteorología"
+        }
+      ]
+    }
+  ],
+  "links": {
+    "first": "http://localhost:8000/api/v1/public/communityNotes?page=1",
+    "last": "http://localhost:8000/api/v1/public/communityNotes?page=5",
+    "prev": null,
+    "next": "http://localhost:8000/api/v1/public/communityNotes?page=2"
+  },
+  "meta": {
+    "current_page": 1,
+    "from": 1,
+    "last_page": 5,
+    "links": [
+      {
+        "url": null,
+        "label": "&laquo; Previous",
+        "active": false
+      },
+      {
+        "url": "http://localhost:8000/api/v1/public/communityNotes?page=1",
+        "label": "1",
+        "active": true
+      },
+      {
+        "url": "http://localhost:8000/api/v1/public/communityNotes?page=2",
+        "label": "2",
+        "active": false
+      },
+      {
+        "url": "http://localhost:8000/api/v1/public/communityNotes?page=3",
+        "label": "3",
+        "active": false
+      },
+      {
+        "url": "http://localhost:8000/api/v1/public/communityNotes?page=4",
+        "label": "4",
+        "active": false
+      },
+      {
+        "url": "http://localhost:8000/api/v1/public/communityNotes?page=5",
+        "label": "5",
+        "active": false
+      },
+      {
+        "url": "http://localhost:8000/api/v1/public/communityNotes?page=2",
+        "label": "Next &raquo;",
+        "active": false
+      }
+    ],
+    "path": "http://localhost:8000/api/v1/public/communityNotes",
+    "per_page": 15,
+    "to": 15,
+    "total": 75
+  }
+}

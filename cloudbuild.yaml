@@ -1,0 +1,94 @@
+steps:
+  - name: 'gcr.io/cloud-builders/docker'
+    secretEnv: [
+      "MASTERNOTE_DB_HOST",
+      "MASTERNOTE_DB_DATABASE",
+      "MASTERNOTE_DB_USERNAME",
+      "MASTERNOTE_DB_PASSWORD",
+      "MASTERNOTE_MAIL_MAILER",
+      "MASTERNOTE_MAIL_HOST",
+      "MASTERNOTE_MAIL_PORT",
+      "MASTERNOTE_MAIL_USERNAME",
+      "MASTERNOTE_MAIL_PASSWORD",
+      "MASTERNOTE_MAIL_FROM_ADDRESS",
+      "MASTERNOTE_MAIL_FROM_NAME",
+      "MASTERNOTE_CLIENT_URL",
+      "MASTERNOTE_API_URL"
+    ]
+    entrypoint: bash
+    args: 
+     - -c
+     - |
+        docker build \
+          --build-arg MASTERNOTE_DB_HOST="$$MASTERNOTE_DB_HOST" \
+          --build-arg MASTERNOTE_DB_DATABASE="$$MASTERNOTE_DB_DATABASE" \
+          --build-arg MASTERNOTE_DB_USERNAME="$$MASTERNOTE_DB_USERNAME" \
+          --build-arg MASTERNOTE_DB_PASSWORD="$$MASTERNOTE_DB_PASSWORD" \
+          --build-arg MASTERNOTE_MAIL_MAILER="$$MASTERNOTE_MAIL_MAILER" \
+          --build-arg MASTERNOTE_MAIL_HOST="$$MASTERNOTE_MAIL_HOST" \
+          --build-arg MASTERNOTE_MAIL_PORT="$$MASTERNOTE_MAIL_PORT" \
+          --build-arg MASTERNOTE_MAIL_USERNAME="$$MASTERNOTE_MAIL_USERNAME" \
+          --build-arg MASTERNOTE_MAIL_PASSWORD="$$MASTERNOTE_MAIL_PASSWORD" \
+          --build-arg MASTERNOTE_MAIL_FROM_ADDRESS="$$MASTERNOTE_MAIL_FROM_ADDRESS" \
+          --build-arg MASTERNOTE_MAIL_FROM_NAME="$$MASTERNOTE_MAIL_FROM_NAME" \
+          --build-arg MASTERNOTE_CLIENT_URL="$$MASTERNOTE_CLIENT_URL" \
+          --build-arg MASTERNOTE_API_URL="$$MASTERNOTE_API_URL" \
+          -t ${_AR_HOSTNAME}/${PROJECT_ID}/cloud-run-source-deploy/${REPO_NAME}/${_SERVICE_NAME}:${COMMIT_SHA} \
+          --no-cache \
+          -f Dockerfile .
+
+  - name: 'gcr.io/cloud-builders/docker'
+    args:
+      - push
+      - '${_AR_HOSTNAME}/${PROJECT_ID}/cloud-run-source-deploy/${REPO_NAME}/${_SERVICE_NAME}:${COMMIT_SHA}'
+    id: Push
+
+  - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk:slim'
+    entrypoint: gcloud
+    args:
+      - run
+      - services
+      - update
+      - '${_SERVICE_NAME}'
+      - '--platform=managed'
+      - '--image=${_AR_HOSTNAME}/${PROJECT_ID}/cloud-run-source-deploy/${REPO_NAME}/${_SERVICE_NAME}:${COMMIT_SHA}'
+      - '--labels=managed-by=gcp-cloud-build-deploy-cloud-run,commit-sha=${COMMIT_SHA},gcb-build-id=${BUILD_ID},gcb-trigger-id=${_TRIGGER_ID}'
+      - '--region=${_DEPLOY_REGION}'
+      - '--quiet'
+    id: Deploy
+
+images:
+  - '${_AR_HOSTNAME}/${PROJECT_ID}/cloud-run-source-deploy/${REPO_NAME}/${_SERVICE_NAME}:${COMMIT_SHA}'
+
+options:
+  substitutionOption: ALLOW_LOOSE
+  logging: CLOUD_LOGGING_ONLY
+
+availableSecrets:
+  secretManager:
+    - versionName: projects/913542756676/secrets/MASTERNOTE_DB_HOST/versions/latest
+      env: "MASTERNOTE_DB_HOST"
+    - versionName: projects/913542756676/secrets/MASTERNOTE_DB_DATABASE/versions/latest
+      env: "MASTERNOTE_DB_DATABASE"
+    - versionName: projects/913542756676/secrets/MASTERNOTE_DB_USERNAME/versions/latest
+      env: "MASTERNOTE_DB_USERNAME"
+    - versionName: projects/913542756676/secrets/MASTERNOTE_DB_PASSWORD/versions/latest
+      env: "MASTERNOTE_DB_PASSWORD"
+    - versionName: projects/913542756676/secrets/MASTERNOTE_MAIL_MAILER/versions/latest
+      env: "MASTERNOTE_MAIL_MAILER"
+    - versionName: projects/913542756676/secrets/MASTERNOTE_MAIL_HOST/versions/latest
+      env: "MASTERNOTE_MAIL_HOST"
+    - versionName: projects/913542756676/secrets/MASTERNOTE_MAIL_PORT/versions/latest
+      env: "MASTERNOTE_MAIL_PORT"
+    - versionName: projects/913542756676/secrets/MASTERNOTE_MAIL_USERNAME/versions/latest
+      env: "MASTERNOTE_MAIL_USERNAME"
+    - versionName: projects/913542756676/secrets/MASTERNOTE_MAIL_PASSWORD/versions/latest
+      env: "MASTERNOTE_MAIL_PASSWORD"
+    - versionName: projects/913542756676/secrets/MASTERNOTE_MAIL_FROM_ADDRESS/versions/latest
+      env: "MASTERNOTE_MAIL_FROM_ADDRESS"
+    - versionName: projects/913542756676/secrets/MASTERNOTE_MAIL_FROM_NAME/versions/latest
+      env: "MASTERNOTE_MAIL_FROM_NAME"
+    - versionName: projects/913542756676/secrets/MASTERNOTE_CLIENT_URL/versions/latest
+      env: "MASTERNOTE_CLIENT_URL"
+    - versionName: projects/913542756676/secrets/MASTERNOTE_API_URL/versions/latest
+      env: "MASTERNOTE_API_URL"
