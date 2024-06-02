@@ -35,9 +35,9 @@ const useNote = ({ noteId, setIsNoteLoading }) => {
         } catch (err) {
           setError(err)
         }
-        setIsLoading(false)
-        setIsNoteLoading(false)
       }
+      setIsLoading(false)
+      setIsNoteLoading(false)
     }
     fetcher()
   }, [noteId, getMyNote, getCommunityNote, setIsNoteLoading])

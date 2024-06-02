@@ -24,7 +24,7 @@ export default function DisplayEditor({ data, isOwner, onSuccess = null }) {
       prevData.current = data
     }
   }, [data, setEditorInitData, isOwner, onSuccess])
-  return <div id="editorjs" className="editor-container"></div>
+  /* return <div id="editorjs" className="editor-container"></div> */
 }
 
 DisplayEditor.propTypes = {

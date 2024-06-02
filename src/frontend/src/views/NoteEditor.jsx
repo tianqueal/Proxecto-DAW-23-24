@@ -37,9 +37,10 @@ export default function NoteEditor() {
 
   useEffect(() => {
     if (noteId) {
+      console.log('noteId !!!', noteId)
       setNoteId(noteId)
     }
-  }, [noteId, setNoteId])
+  }, [])
 
   console.log('editorInitData !!!!', editorInitData)
 
@@ -107,8 +108,11 @@ export default function NoteEditor() {
       </section>
       <section className="flex flex-col items-center justify-between">
         <section className="w-full">
+          <div
+            id="editorjs"
+            className={`${isNoteLoading ? 'hidden' : ''}`}
+          ></div>
           {noteId ? <ViewNote noteId={noteId} /> : <CreateNote />}
-          {(!isNoteLoading || !noteId) && <div id="editorjs"></div>}
         </section>
       </section>
     </>
