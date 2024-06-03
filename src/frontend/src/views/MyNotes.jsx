@@ -30,7 +30,9 @@ export default function MyNotes() {
     getNoteTopics,
     updateNoteTopics,
   } = useApi()
-  const { user } = useAuth({ /* middleware: 'auth' */ })
+  const { user } = useAuth({
+    /* middleware: 'auth' */
+  })
   const [noteContent, setNoteContent] = useState('')
   const [isActionNoteLoading, setIsActionNoteLoading] = useState(null)
   const [errorActionNote, setErrorActionNote] = useState(null)
@@ -170,6 +172,13 @@ export default function MyNotes() {
     setNoteTopicDropdown(show)
   }
 
+  const showNoteInfo =
+    noteContent || selectedTopics.length > 0 ? (
+      <NoteNotFound />
+    ) : (
+      <span className="text-xl font-semibold">¡Crea tu primera nota!</span>
+    )
+
   return (
     <>
       <header className="mt-8 flex items-center justify-between">
@@ -204,9 +213,11 @@ export default function MyNotes() {
           <TopicSearch onChange={handleTopicSearchChange} />
         </div>
       </div>
-      {!isLoading && !isError && !isValidating && notes?.length === 0 && (
-        <NoteNotFound />
-      )}
+      {!isLoading &&
+        !isError &&
+        !isValidating &&
+        notes?.length === 0 &&
+        showNoteInfo}
       {!isLoading && notes && notes.length > 0 && (
         <NoteList
           notes={notes}

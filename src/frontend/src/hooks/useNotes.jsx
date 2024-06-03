@@ -49,6 +49,7 @@ export default function useNotes({ type }) {
     useSWRInfinite(getKey, fetchNotes, {
       revalidateOnFocus: false,
       revalidateOnReconnect: false,
+      revalidateOnMount: false,
       refreshInterval: 10000,
     })
 
