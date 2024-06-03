@@ -63,15 +63,18 @@ export default function Navbar() {
 
       <AnimatePresence>
         {isMenuOpen && (
-          <motion.div
+          <motion.nav
             initial={{ opacity: 0, translateX: '100%' }}
             animate={{ opacity: 1, translateX: 0 }}
             exit={{ opacity: 0, translateX: '100%' }}
             transition={{ type: 'just', duration: 0.5 }}
             className="fixed inset-0 z-40 flex h-screen flex-col items-center justify-center bg-white bg-opacity-80 backdrop-blur-lg dark:bg-gray-900 dark:bg-opacity-80 md:hidden"
+            role="dialog"
           >
             <ul className="mt-10 flex flex-col items-center gap-4 text-gray-700 dark:text-gray-300">
-              <NavbarLink to="/" option="Inicio" onClick={handleMenuClose} />
+              {!user && (
+                <NavbarLink to="/" option="Inicio" onClick={handleMenuClose} />
+              )}
               <NavbarLink
                 to="/community"
                 option="Comunidad"
@@ -152,7 +155,7 @@ export default function Navbar() {
                 )}
               </NavbarLink>
             </ul>
-          </motion.div>
+          </motion.nav>
         )}
       </AnimatePresence>
     </nav>

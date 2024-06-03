@@ -115,7 +115,6 @@ export const ApiProvider = ({ children }) => {
         try {
           let response
           if (noteId) {
-            console.log('Updating note...', data)
             response = await axiosInstance.put(
               `/notes/${noteId}`,
               { content: JSON.stringify(data) },
@@ -136,7 +135,6 @@ export const ApiProvider = ({ children }) => {
               },
             )
             noteId = response.data.data.id
-            console.log('Creating note...', noteId)
           }
           setError(null)
           if (onSuccess) onSuccess(noteId)

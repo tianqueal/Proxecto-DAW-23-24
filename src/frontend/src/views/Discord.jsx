@@ -2,14 +2,14 @@ import { useEffect } from 'react'
 import CubeLoader from '../components/loaders/CubeLoader'
 import Button from '../components/form/Button'
 import { useNavigate } from 'react-router-dom'
+import { DiscordClientURL } from '../helpers/constants'
 
 export default function Discord() {
   const navigate = useNavigate()
   useEffect(() => {
     const id = setTimeout(() => {
-      window.location.href =
-        'https://discord.com/api/oauth2/authorize?client_id=YOUR_CLIENT_ID&redirect_uri=http%3A%2F%2Flocalhost%3A3000%2Fauth%2Fdiscord%2Fredirect&response_type=code&scope=identify%20email%20guilds'
-    }, 3000)
+      window.location.href = DiscordClientURL()
+    }, 4000)
     return () => {
       clearTimeout(id)
     }

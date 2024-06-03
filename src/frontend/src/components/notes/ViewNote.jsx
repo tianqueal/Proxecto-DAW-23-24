@@ -27,7 +27,6 @@ export default function ViewNote({ noteId }) {
     }
   }, [isLoading, isError, isAuthenticated, navigate])
 
-  console.log('currentNote', currentNote)
   return (
     <>
       {(isLoading || isError || !currentNote) && (

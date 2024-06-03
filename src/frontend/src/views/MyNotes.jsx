@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from 'react'
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import useApi from '../hooks/useApi'
 import useNotes from '../hooks/useNotes'
 import { NoteFetchTypes } from '../helpers/constants'
@@ -53,12 +53,19 @@ export default function MyNotes() {
     type: NoteFetchTypes.MY_NOTES,
   })
 
-  const debouncedUpdateFilters = useCallback(
-    debounce((content, topics) => {
-      setFilters({ content, topics })
-    }, 500),
+  const updateFilters = useCallback(
+    (content, topics) => {
+      return setFilters({ content, topics })
+    },
     [setFilters],
   )
+
+  const debouncedUpdateFilters = useMemo(
+    () => debounce(updateFilters, 500),
+    [updateFilters],
+  )
+
+  const debouncedUpdateFiltersRef = useRef(debouncedUpdateFilters)
 
   const handleContentChange = (event) => {
     const newContent = event.target.value
@@ -78,8 +85,8 @@ export default function MyNotes() {
   }
 
   useEffect(() => {
-    debouncedUpdateFilters(noteContent, selectedTopics)
-  }, [noteContent, selectedTopics, debouncedUpdateFilters])
+    debouncedUpdateFiltersRef.current(noteContent, selectedTopics)
+  }, [noteContent, selectedTopics])
 
   const handleClickCreateNote = () => {
     navigate('/notes/create')
@@ -103,7 +110,7 @@ export default function MyNotes() {
       default:
         break
     }
-    debouncedUpdateFilters(noteContent, selectedTopics)
+    debouncedUpdateFiltersRef.current(noteContent, selectedTopics)
   }
 
   const handleDeleteNote = async (noteId) => {
@@ -149,7 +156,6 @@ export default function MyNotes() {
   }
 
   const handleSyncNoteTopics = async (newTopics) => {
-    console.log('newTopics', newTopics)
     setNoteTopics(newTopics)
     await updateNoteTopics({
       noteId: selectedNoteId,
@@ -171,13 +177,6 @@ export default function MyNotes() {
   const handleSetShowDropdown = (show) => {
     setNoteTopicDropdown(show)
   }
-
-  const showNoteInfo =
-    noteContent || selectedTopics.length > 0 ? (
-      <NoteNotFound />
-    ) : (
-      <span className="text-xl font-semibold">¡Crea tu primera nota!</span>
-    )
 
   return (
     <>
@@ -213,11 +212,9 @@ export default function MyNotes() {
           <TopicSearch onChange={handleTopicSearchChange} />
         </div>
       </div>
-      {!isLoading &&
-        !isError &&
-        !isValidating &&
-        notes?.length === 0 &&
-        showNoteInfo}
+      {!isLoading && !isError && !isValidating && notes?.length === 0 && (
+        <NoteNotFound />
+      )}
       {!isLoading && notes && notes.length > 0 && (
         <NoteList
           notes={notes}
@@ -227,7 +224,7 @@ export default function MyNotes() {
           errorActionNote={errorActionNote}
         />
       )}
-      {(isLoading || isError || isValidating) && !notes?.length && (
+      {(isLoading || isError || isValidating) && notes?.length !== 0 && (
         <NoteListSkeleton />
       )}
       <AnimatePresence>
@@ -237,6 +234,7 @@ export default function MyNotes() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
+            role="dialog"
           >
             <motion.div
               className="mx-auto h-60 w-11/12 rounded-lg bg-white p-4 shadow-md dark:bg-neutral-900 md:w-2/4"

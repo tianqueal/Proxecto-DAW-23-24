@@ -18,7 +18,6 @@ const useNote = ({ noteId, setIsNoteLoading }) => {
         if (myNoteData?.response?.status >= 400) {
           throw new Error(myNoteData?.response?.statusText)
         }
-        console.log('myNoteData fetch', myNoteData)
         setData(myNoteData.data)
         setIsOwner(true)
         setIsLoading(false)

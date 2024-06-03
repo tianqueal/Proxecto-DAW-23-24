@@ -38,7 +38,6 @@ export default function Profile() {
       if (actionError) throw new Error(actionError)
       SuccessToastify({ message: 'Correo de verificación enviado' })
     } catch (error) {
-      console.log(error)
       ErrorToastify({
         message: actionError,
         autoClose: true,
@@ -84,7 +83,7 @@ export default function Profile() {
   return (
     <>
       <h1 className="mt-8 text-3xl font-bold dark:text-white">Mi perfil</h1>
-      <div className="my-8 grid grid-cols-1 md:flex md:flex-col gap-2 md:gap-4">
+      <div className="my-8 grid grid-cols-1 gap-2 md:flex md:flex-col md:gap-4">
         {(isLoading || isError) && <ProfileSkeleton />}
         {!isLoading && !isError && user && (
           <>

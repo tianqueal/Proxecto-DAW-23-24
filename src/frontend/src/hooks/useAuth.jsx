@@ -40,11 +40,6 @@ const useAuth = (/* { middleware, url, requiredRole } */) => {
       const { data } = await axiosInstance.post('/login', formData)
       localStorage.setItem('accessToken', data.data.access_token)
       await mutateUser(data.data.user, false)
-
-      console.log(
-        'Redirect to admin/dashboard?',
-        data.data.user?.roles?.some((role) => role?.name === Roles.ADMIN),
-      )
       navigate(
         data.data.user?.roles?.some((role) => role?.name === Roles.ADMIN)
           ? '/admin/dashboard'
@@ -67,7 +62,6 @@ const useAuth = (/* { middleware, url, requiredRole } */) => {
     try {
       setErrors({})
       setIsLoading(true)
-      console.log(formData)
       const { data } = await axiosInstance.post('/register', formData)
       localStorage.setItem('accessToken', data.data.access_token)
       await mutateUser(data.data.user, false)
@@ -98,10 +92,10 @@ const useAuth = (/* { middleware, url, requiredRole } */) => {
       )
       localStorage.removeItem('accessToken')
       mutateUser(undefined)
-    } catch (error) {
-      console.log(error)
+      navigate('/')
+    } finally {
+      setIsLoading(false)
     }
-    setIsLoading(false)
   }
 
   const resendEmailVerification = async ({ setIsLoading, setError }) => {
@@ -115,12 +109,12 @@ const useAuth = (/* { middleware, url, requiredRole } */) => {
         },
       })
     } catch (error) {
-      console.log(error)
       setError('Ha ocurrido un error al enviar el correo de verificación')
+    } finally {
+      setIsLoading({
+        resendEmailVerification: { isLoading: false },
+      })
     }
-    setIsLoading({
-      resendEmailVerification: { isLoading: false },
-    })
   }
 
   const logoutOtherDevices = async ({ setIsLoading, setError }) => {
@@ -139,14 +133,14 @@ const useAuth = (/* { middleware, url, requiredRole } */) => {
       )
       setError(null)
     } catch (error) {
-      console.log(error)
       setError(
         'Ha ocurrido un error al cerrar sesión en todos los dispositivos',
       )
+    } finally {
+      setIsLoading({
+        logoutOtherDevices: { isLoading: false },
+      })
     }
-    setIsLoading({
-      logoutOtherDevices: { isLoading: false },
-    })
   }
 
   const deleteAccount = async ({ setIsLoading, setError }) => {
@@ -163,7 +157,6 @@ const useAuth = (/* { middleware, url, requiredRole } */) => {
       await mutateUser(null, false)
       setError(null)
     } catch (error) {
-      console.log(error)
       setError('Ha ocurrido un error al eliminar la cuenta')
     } finally {
       setIsLoading({

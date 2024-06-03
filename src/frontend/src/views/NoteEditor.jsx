@@ -37,12 +37,9 @@ export default function NoteEditor() {
 
   useEffect(() => {
     if (noteId) {
-      console.log('noteId !!!', noteId)
       setNoteId(noteId)
     }
   }, [])
-
-  console.log('editorInitData !!!!', editorInitData)
 
   return (
     <>
