@@ -14,8 +14,8 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg?style=for-the-badge)](https://opensource.org/licenses/MIT)
 ![GitHub branch check runs](https://img.shields.io/github/check-runs/tianqueal/Proxecto-DAW-23-24/main?style=for-the-badge)
 
-![React App](https://img.shields.io/badge/React%20App-grey?style=for-the-badge&logo=react)
-![Laravel API](https://img.shields.io/badge/Laravel%20API%20REST-grey?style=for-the-badge&logo=Laravel)
+[![React App](https://img.shields.io/badge/React%20App-grey?style=for-the-badge&logo=react)](https://react.dev)
+[![Laravel API](https://img.shields.io/badge/Laravel%20API%20REST-grey?style=for-the-badge&logo=Laravel)](https://laravel.com/)
 
 ## Tablero del proyecto
 
