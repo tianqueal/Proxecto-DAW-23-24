@@ -1,0 +1,59 @@
+name: Laravel
+
+on:
+  push:
+    branches: ["main"]
+  pull_request:
+    branches: ["main"]
+
+jobs:
+  laravel-tests:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v4
+
+    - uses: shivammathur/setup-php@v2
+      with:
+        php-version: '8.2'
+
+    - name: Install Dependencies
+      run: |
+        cd src/backend
+        composer install --no-interaction
+
+    - name: Copy .env
+      run: cp src/backend/.env.example src/backend/.env
+
+    - name: Set database credentials in .env
+      run: |
+        echo "DB_CONNECTION=sqlite" >> src/backend/.env
+        echo "DB_DATABASE=database/database.sqlite" >> src/backend/.env
+
+    - name: Generate key
+      run: |
+        cd src/backend
+        php artisan key:generate
+
+    - name: Directory Permissions
+      run: |
+        cd src/backend
+        chmod -R 777 storage bootstrap/cache
+
+    - name: Create Database
+      run: |
+        mkdir -p src/backend/database
+        touch src/backend/database/database.sqlite
+
+    - name: Run Migrations
+      run: |
+        cd src/backend
+        php artisan migrate --force
+
+    - name: Execute tests (Unit and Feature tests) via PHPUnit/Pest
+      env:
+        DB_CONNECTION: sqlite
+        DB_DATABASE: database/database.sqlite
+      run: |
+        cd src/backend
+        php artisan test
