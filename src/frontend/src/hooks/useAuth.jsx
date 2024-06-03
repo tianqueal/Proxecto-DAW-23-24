@@ -51,11 +51,9 @@ const useAuth = (/* { middleware, url, requiredRole } */) => {
           : '/my-notes',
       )
     } catch (error) {
-      if (!(error?.response?.data?.errors instanceof Object)) {
+      if (error?.response?.status >= 500) {
         ErrorToastify({
-          message:
-            error?.response?.data?.errors ??
-            'Error de conexión con el servidor',
+          message: 'Error de conexión con el servidor',
         })
       } else {
         setErrors(error?.response?.data?.errors)
@@ -73,12 +71,11 @@ const useAuth = (/* { middleware, url, requiredRole } */) => {
       const { data } = await axiosInstance.post('/register', formData)
       localStorage.setItem('accessToken', data.data.access_token)
       await mutateUser(data.data.user, false)
+      navigate('/my-notes')
     } catch (error) {
-      if (!(error?.response?.data?.errors instanceof Object)) {
+      if (error?.response?.status >= 500) {
         ErrorToastify({
-          message:
-            error?.response?.data?.errors ??
-            'Error de conexión con el servidor',
+          message: 'Error de conexión con el servidor',
         })
       } else {
         setErrors(error?.response?.data?.errors)
