@@ -11,6 +11,7 @@ import Sun from '../../assets/heroicons/Sun'
 import Moon from '../../assets/heroicons/Moon'
 import MenuToggle from './MenuToggle'
 import { resetScrollPosition } from '../../helpers/resetScrollPosition'
+import './Navbar.css'
 
 export default function Navbar() {
   const { currentTheme, setTheme } = useApi()
@@ -21,19 +22,32 @@ export default function Navbar() {
   const [isMenuUserOpen, setIsMenuUserOpen] = useState(false)
 
   const handleMenuClose = () => {
+    resetScrollPosition()
     setIsMenuOpen(false)
+  }
+
+  const handleMenuClick = () => {
     resetScrollPosition()
   }
 
   return (
-    <nav className="sticky top-0 z-30 flex h-16 w-full justify-center bg-white bg-opacity-30 px-2 backdrop-blur-lg backdrop-saturate-150 dark:bg-gray-900 dark:bg-opacity-30">
-      <div className="flex w-full max-w-7xl items-center justify-between">
-        <div>
+    /* overlay-A positioner sticky top-0 z-30 flex h-16 w-full justify-center bg-white bg-opacity-30 px-2 backdrop-blur-lg backdrop-saturate-150 dark:bg-gray-900 dark:bg-opacity-30 */
+    <nav className="overlay__blur sticky top-0 z-10 flex h-16 w-full justify-center px-2">
+      <div className="z-30 flex w-full max-w-7xl items-center justify-between">
+        <NavbarLink to="/" onClick={handleMenuClick}>
           <Logo />
-        </div>
+        </NavbarLink>
         <ul className="hidden items-center gap-4 md:flex">
-          <NavbarLink to="/community" option="Comunidad" />
-          <NavbarLink to="/discord" option="Discord" />
+          <NavbarLink
+            to="/community"
+            option="Comunidad"
+            onClick={handleMenuClick}
+          />
+          <NavbarLink
+            to="/discord"
+            option="Discord"
+            onClick={handleMenuClick}
+          />
           {user && (
             <UserActionSelector
               username={user?.username ?? 'user'}
@@ -43,8 +57,16 @@ export default function Navbar() {
           )}
           {!user && (
             <>
-              <NavbarLink to="/register" option="Registro" />
-              <NavbarLink to="/login" option="Iniciar sesión" />
+              <NavbarLink
+                to="/register"
+                option="Registro"
+                onClick={handleMenuClick}
+              />
+              <NavbarLink
+                to="/login"
+                option="Iniciar sesión"
+                onClick={handleMenuClick}
+              />
             </>
           )}
           <ThemeSelector
@@ -67,11 +89,11 @@ export default function Navbar() {
             initial={{ opacity: 0, translateX: '100%' }}
             animate={{ opacity: 1, translateX: 0 }}
             exit={{ opacity: 0, translateX: '100%' }}
-            transition={{ type: 'just', duration: 0.5 }}
-            className="fixed inset-0 z-40 flex h-screen flex-col items-center justify-center bg-white bg-opacity-80 backdrop-blur-lg dark:bg-gray-900 dark:bg-opacity-80 md:hidden"
+            transition={{ duration: 0.1, type: 'just' }}
+            className="overlay__blur fixed inset-0 z-20 flex h-screen flex-col items-center justify-center md:hidden"
             role="dialog"
           >
-            <ul className="mt-10 flex flex-col items-center gap-4 text-gray-700 dark:text-gray-300">
+            <ul className="z-50 mt-10 flex flex-col items-center gap-4 text-gray-700 dark:text-gray-300">
               {!user && (
                 <NavbarLink to="/" option="Inicio" onClick={handleMenuClose} />
               )}
