@@ -68,9 +68,11 @@ RUN npm install
 
 # Variable de entorno para React
 ARG MASTERNOTE_API_URL
+ARG MASTERNOTE_DISCORD_CLIENT_ID
 
 COPY src/frontend ./
 RUN echo "VITE_API_URL=$MASTERNOTE_API_URL" > .env.local
+RUN echo "VITE_DISCORD_CLIENT_ID=$MASTERNOTE_DISCORD_CLIENT_ID" >> .env.local
 RUN npm run build
 
 # Combinación de las etapas de construcción de Laravel y React

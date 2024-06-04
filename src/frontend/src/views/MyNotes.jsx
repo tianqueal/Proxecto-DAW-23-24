@@ -1,19 +1,20 @@
-import { useCallback, useEffect, useState } from 'react'
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
+import { useNavigate } from 'react-router-dom'
+import { AnimatePresence, motion } from 'framer-motion'
+import debounce from 'just-debounce-it'
 import useApi from '../hooks/useApi'
+import useAuth from '../hooks/useAuth'
 import useNotes from '../hooks/useNotes'
 import { NoteFetchTypes } from '../helpers/constants'
-import debounce from 'just-debounce-it'
 import MagnifyingGlass from '../assets/heroicons/MagnifyingGlass'
 import InputField from '../components/form/InputField'
 import TopicSearch from '../components/notes/TopicSearch'
 import NoteListSkeleton from '../components/skeletons/NoteListSkeleton'
 import ErrorToastify from '../components/alerts/ErrorToastify'
+import SuccessToastify from '../components/alerts/SuccessToastify'
 import NoteList from '../components/notes/NoteList'
 import NoteNotFound from '../components/notes/NoteNotFound'
 import Button from '../components/form/Button'
-import { useNavigate } from 'react-router-dom'
-import useAuth from '../hooks/useAuth'
-import { AnimatePresence, motion } from 'framer-motion'
 import BouncyLoader from '../components/loaders/BouncyLoader'
 import TopicSearchGeneric from '../components/notes/TopicSearchGeneric'
 
@@ -30,7 +31,9 @@ export default function MyNotes() {
     getNoteTopics,
     updateNoteTopics,
   } = useApi()
-  const { user } = useAuth({ /* middleware: 'auth' */ })
+  const { user } = useAuth({
+    /* middleware: 'auth' */
+  })
   const [noteContent, setNoteContent] = useState('')
   const [isActionNoteLoading, setIsActionNoteLoading] = useState(null)
   const [errorActionNote, setErrorActionNote] = useState(null)
@@ -51,12 +54,19 @@ export default function MyNotes() {
     type: NoteFetchTypes.MY_NOTES,
   })
 
-  const debouncedUpdateFilters = useCallback(
-    debounce((content, topics) => {
-      setFilters({ content, topics })
-    }, 500),
+  const updateFilters = useCallback(
+    (content, topics) => {
+      return setFilters({ content, topics })
+    },
     [setFilters],
   )
+
+  const debouncedUpdateFilters = useMemo(
+    () => debounce(updateFilters, 500),
+    [updateFilters],
+  )
+
+  const debouncedUpdateFiltersRef = useRef(debouncedUpdateFilters)
 
   const handleContentChange = (event) => {
     const newContent = event.target.value
@@ -76,8 +86,8 @@ export default function MyNotes() {
   }
 
   useEffect(() => {
-    debouncedUpdateFilters(noteContent, selectedTopics)
-  }, [noteContent, selectedTopics, debouncedUpdateFilters])
+    debouncedUpdateFiltersRef.current(noteContent, selectedTopics)
+  }, [noteContent, selectedTopics])
 
   const handleClickCreateNote = () => {
     navigate('/notes/create')
@@ -101,7 +111,7 @@ export default function MyNotes() {
       default:
         break
     }
-    debouncedUpdateFilters(noteContent, selectedTopics)
+    debouncedUpdateFiltersRef.current(noteContent, selectedTopics)
   }
 
   const handleDeleteNote = async (noteId) => {
@@ -109,6 +119,11 @@ export default function MyNotes() {
       id: noteId,
       setIsLoading: setIsActionNoteLoading,
       setError: setErrorActionNote,
+      onSuccess: ({ message }) => {
+        SuccessToastify({
+          message,
+        })
+      },
     })
   }
 
@@ -134,6 +149,11 @@ export default function MyNotes() {
       id: noteId,
       setIsLoading: setIsActionNoteLoading,
       setError: setErrorActionNote,
+      onSuccess: ({ message }) => {
+        SuccessToastify({
+          message,
+        })
+      },
     })
   }
 
@@ -143,11 +163,15 @@ export default function MyNotes() {
       id: noteId,
       setIsLoading: setIsActionNoteLoading,
       setError: setErrorActionNote,
+      onSuccess: ({ message }) => {
+        SuccessToastify({
+          message,
+        })
+      },
     })
   }
 
   const handleSyncNoteTopics = async (newTopics) => {
-    console.log('newTopics', newTopics)
     setNoteTopics(newTopics)
     await updateNoteTopics({
       noteId: selectedNoteId,
@@ -216,7 +240,7 @@ export default function MyNotes() {
           errorActionNote={errorActionNote}
         />
       )}
-      {(isLoading || isError || isValidating) && !notes?.length && (
+      {(isLoading || isError || isValidating) && notes?.length !== 0 && (
         <NoteListSkeleton />
       )}
       <AnimatePresence>
@@ -226,6 +250,7 @@ export default function MyNotes() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
+            role="dialog"
           >
             <motion.div
               className="mx-auto h-60 w-11/12 rounded-lg bg-white p-4 shadow-md dark:bg-neutral-900 md:w-2/4"

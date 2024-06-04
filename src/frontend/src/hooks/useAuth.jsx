@@ -25,12 +25,13 @@ const useAuth = (/* { middleware, url, requiredRole } */) => {
       })
       return response.data.data
     } catch (error) {
+      mutateUser(undefined, false)
       throw Error(error?.response?.data?.errors)
     }
   })
   /* const navigate = useNavigate() */
 
-  const login = async ({ formData, setIsLoading, setErrors }) => {
+  const login = async ({ formData, setIsLoading, setErrors, onSuccess }) => {
     try {
       localStorage.removeItem('accessToken')
       await mutateUser(null, false)
@@ -40,22 +41,18 @@ const useAuth = (/* { middleware, url, requiredRole } */) => {
       const { data } = await axiosInstance.post('/login', formData)
       localStorage.setItem('accessToken', data.data.access_token)
       await mutateUser(data.data.user, false)
-
-      console.log(
-        'Redirect to admin/dashboard?',
-        data.data.user?.roles?.some((role) => role?.name === Roles.ADMIN),
-      )
-      navigate(
-        data.data.user?.roles?.some((role) => role?.name === Roles.ADMIN)
+      onSuccess({
+        message: data?.data?.message,
+        navigateTo: data.data.user?.roles?.some(
+          (role) => role?.name === Roles.ADMIN,
+        )
           ? '/admin/dashboard'
           : '/my-notes',
-      )
+      })
     } catch (error) {
-      if (!(error?.response?.data?.errors instanceof Object)) {
+      if (error?.response?.status >= 500) {
         ErrorToastify({
-          message:
-            error?.response?.data?.errors ??
-            'Error de conexión con el servidor',
+          message: 'Error de conexión con el servidor',
         })
       } else {
         setErrors(error?.response?.data?.errors)
@@ -69,16 +66,14 @@ const useAuth = (/* { middleware, url, requiredRole } */) => {
     try {
       setErrors({})
       setIsLoading(true)
-      console.log(formData)
       const { data } = await axiosInstance.post('/register', formData)
       localStorage.setItem('accessToken', data.data.access_token)
       await mutateUser(data.data.user, false)
+      navigate('/my-notes')
     } catch (error) {
-      if (!(error?.response?.data?.errors instanceof Object)) {
+      if (error?.response?.status >= 500) {
         ErrorToastify({
-          message:
-            error?.response?.data?.errors ??
-            'Error de conexión con el servidor',
+          message: 'Error de conexión con el servidor',
         })
       } else {
         setErrors(error?.response?.data?.errors)
@@ -101,10 +96,10 @@ const useAuth = (/* { middleware, url, requiredRole } */) => {
       )
       localStorage.removeItem('accessToken')
       mutateUser(undefined)
-    } catch (error) {
-      console.log(error)
+      navigate('/')
+    } finally {
+      setIsLoading(false)
     }
-    setIsLoading(false)
   }
 
   const resendEmailVerification = async ({ setIsLoading, setError }) => {
@@ -118,12 +113,12 @@ const useAuth = (/* { middleware, url, requiredRole } */) => {
         },
       })
     } catch (error) {
-      console.log(error)
       setError('Ha ocurrido un error al enviar el correo de verificación')
+    } finally {
+      setIsLoading({
+        resendEmailVerification: { isLoading: false },
+      })
     }
-    setIsLoading({
-      resendEmailVerification: { isLoading: false },
-    })
   }
 
   const logoutOtherDevices = async ({ setIsLoading, setError }) => {
@@ -142,29 +137,32 @@ const useAuth = (/* { middleware, url, requiredRole } */) => {
       )
       setError(null)
     } catch (error) {
-      console.log(error)
       setError(
         'Ha ocurrido un error al cerrar sesión en todos los dispositivos',
       )
+    } finally {
+      setIsLoading({
+        logoutOtherDevices: { isLoading: false },
+      })
     }
-    setIsLoading({
-      logoutOtherDevices: { isLoading: false },
-    })
   }
 
-  const deleteAccount = async ({ setIsLoading, setError }) => {
+  const deleteAccount = async ({ setIsLoading, setError, onSuccess }) => {
     try {
       setIsLoading({
         deleteAccount: { isLoading: true },
       })
-      await axiosInstance.delete('/user', {
+      const { data } = await axiosInstance.delete('/user', {
         headers: {
           Authorization: `Bearer ${accessToken}`,
         },
       })
       localStorage.removeItem('accessToken')
-      await mutateUser(null, false)
+      mutateUser(undefined)
+      navigate('/')
       setError(null)
+      console.log(data)
+      onSuccess({ message: data?.data?.message })
     } catch (error) {
       console.log(error)
       setError('Ha ocurrido un error al eliminar la cuenta')

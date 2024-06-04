@@ -38,7 +38,6 @@ export default function Profile() {
       if (actionError) throw new Error(actionError)
       SuccessToastify({ message: 'Correo de verificación enviado' })
     } catch (error) {
-      console.log(error)
       ErrorToastify({
         message: actionError,
         autoClose: true,
@@ -55,7 +54,7 @@ export default function Profile() {
         setIsLoading: setActionLoading,
         setError: setActionError,
       })
-      /* SuccessToastify({ message: 'Sesión cerrada en todos los dispositivos' }) */
+      SuccessToastify({ message: 'Sesión cerrada en todos los dispositivos' })
     }
   }
 
@@ -67,24 +66,29 @@ export default function Profile() {
       await deleteAccount({
         setIsLoading: setActionLoading,
         setError: setActionError,
+        onSuccess: ({ message }) => {
+          SuccessToastify({ message })
+        },
       })
-      /* window.location.href = '/login' */
     }
   }
 
   useEffect(() => {
     if (isError && !isLoading) {
-      ErrorToastify({ message: 'No se ha podido cargar el perfil' })
+      ErrorToastify({
+        message: 'No se ha podido cargar el perfil',
+        autoClose: true,
+      })
     }
     if (actionError) {
-      ErrorToastify({ message: actionError })
+      ErrorToastify({ message: actionError, autoClose: true })
     }
   }, [isError, isLoading, actionError])
 
   return (
     <>
       <h1 className="mt-8 text-3xl font-bold dark:text-white">Mi perfil</h1>
-      <div className="my-8 grid grid-cols-1 md:flex md:flex-col gap-2 md:gap-4">
+      <div className="my-8 grid grid-cols-1 gap-2 md:flex md:flex-col md:gap-4">
         {(isLoading || isError) && <ProfileSkeleton />}
         {!isLoading && !isError && user && (
           <>

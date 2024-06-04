@@ -8,7 +8,6 @@ export default function CreateNote() {
   const navigate = useNavigate()
 
   const onSuccess = (newNoteId) => {
-    console.log('onSuccess newNoteId !!! Navigate !!!: ', newNoteId)
     navigate(`/notes/${newNoteId}`)
   }
   return <DisplayEditor data={{}} isOwner={true} onSuccess={onSuccess} />

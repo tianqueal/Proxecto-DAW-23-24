@@ -10,11 +10,6 @@ export default function DisplayEditor({ data, isOwner, onSuccess = null }) {
   useEffect(() => {
     if (JSON.stringify(data) !== JSON.stringify(prevData.current)) {
       const newData = data && data?.blocks?.length > 0 ? data : { blocks: [] }
-      console.log('DisplayEditor new policy', {
-        data: newData,
-        readOnly: !isOwner,
-        autofocus: isOwner,
-      })
       setEditorInitData({
         data: newData,
         readOnly: !isOwner,
@@ -24,7 +19,7 @@ export default function DisplayEditor({ data, isOwner, onSuccess = null }) {
       prevData.current = data
     }
   }, [data, setEditorInitData, isOwner, onSuccess])
-  return <div id="editorjs" className="editor-container"></div>
+  /* return <div id="editorjs" className="editor-container"></div> */
 }
 
 DisplayEditor.propTypes = {

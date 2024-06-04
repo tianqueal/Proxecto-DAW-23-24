@@ -112,7 +112,7 @@ return [
 
     'password_timeout' => 10800,
 
-    'token' => 'auth_token',
+    'token' => 'access_token',
 
     'verification' => [
         'expire' => 60,

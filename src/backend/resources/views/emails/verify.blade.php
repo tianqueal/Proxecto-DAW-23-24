@@ -2,6 +2,9 @@
     <x-slot name="title">
         {{ $subject }} | {{ $app }}
     </x-slot>
+    <x-slot name="appName">
+        {{ $app }}
+    </x-slot>
     <!-- Email Body -->
     <tr>
         <td class="body" width="100%" cellpadding="0" cellspacing="0">

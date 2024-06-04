@@ -27,8 +27,9 @@ class AuthController extends Controller
 
         $user = User::create($validatedData);
         $user->assignRole(Config::get('default_roles.default_user'));
+        $nameToken = Config::get('auth.token');
 
-        $accessToken = $user->createToken(Config::get('auth.token'))->plainTextToken;
+        $accessToken = $user->createToken($nameToken)->plainTextToken;
 
         event(new Registered($user));
 
@@ -36,8 +37,8 @@ class AuthController extends Controller
             [
                 'data' => [
                     'message' => Lang::get('auth.registered'),
-                    'user' => $user,
-                    'access_token' => $accessToken
+                    'user' => UserResource::make($user->loadMissing('roles')),
+                    $nameToken => $accessToken
                 ],
             ],
             Response::HTTP_CREATED

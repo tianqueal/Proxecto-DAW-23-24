@@ -5,9 +5,7 @@ import { Roles } from './helpers/constants'
 
 import CubeLoader from './components/loaders/CubeLoader'
 import Layout from './layouts/Layout'
-import HomeLayout from './layouts/HomeLayout'
 import NoteEditorLayout from './layouts/NoteEditorLayout'
-import AdministrationLayout from './layouts/AdministrationLayout'
 
 const Home = lazy(() => import('./views/Home'))
 const Community = lazy(() => import('./views/Community'))
@@ -19,7 +17,7 @@ const Profile = lazy(() => import('./views/Profile'))
 import NoteEditor from './views/NoteEditor'
 import ProtectedRoute from './ProtectedRoute'
 const MyNotes = lazy(() => import('./views/MyNotes'))
-const Test = lazy(() => import('./views/Test'))
+// const Test = lazy(() => import('./views/Test'))
 /* const NoteEditor = lazy(() => import('./views/NoteEditor')) */
 
 /* import Home from './views/Home'
@@ -36,23 +34,30 @@ import Test from './views/Test' */
 const router = createBrowserRouter([
   {
     path: '/',
-    element: <HomeLayout />,
+    element: <Layout className="mx-auto w-full flex-1" />,
     children: [
       {
         index: true,
         element: (
-          <Suspense
-            fallback={<CubeLoader className="bg-gray-800 dark:bg-white" />}
-          >
-            <Home />
-          </Suspense>
+          <ProtectedRoute
+            element={
+              <Suspense
+                fallback={<CubeLoader className="bg-gray-800 dark:bg-white" />}
+              >
+                <Home />
+              </Suspense>
+            }
+            allowedRoles={[Roles.GUEST]}
+          />
         ),
       },
     ],
   },
   {
     path: '/',
-    element: <Layout />,
+    element: (
+      <Layout className='2xl:max-w-7xl" mx-auto min-h-screen w-full flex-1 p-4 sm:max-w-xl md:w-screen md:max-w-2xl lg:max-w-4xl xl:max-w-6xl' />
+    ),
     children: [
       {
         path: 'community',
@@ -77,21 +82,31 @@ const router = createBrowserRouter([
       {
         path: 'register',
         element: (
-          <Suspense
-            fallback={<CubeLoader className="bg-gray-800 dark:bg-white" />}
-          >
-            <Register />
-          </Suspense>
+          <ProtectedRoute
+            element={
+              <Suspense
+                fallback={<CubeLoader className="bg-gray-800 dark:bg-white" />}
+              >
+                <Register />
+              </Suspense>
+            }
+            allowedRoles={[Roles.GUEST]}
+          />
         ),
       },
       {
         path: 'login',
         element: (
-          <Suspense
-            fallback={<CubeLoader className="bg-gray-800 dark:bg-white" />}
-          >
-            <Login />
-          </Suspense>
+          <ProtectedRoute
+            element={
+              <Suspense
+                fallback={<CubeLoader className="bg-gray-800 dark:bg-white" />}
+              >
+                <Login />
+              </Suspense>
+            }
+            allowedRoles={[Roles.GUEST]}
+          />
         ),
       },
       {
@@ -143,7 +158,7 @@ const router = createBrowserRouter([
                 <Profile />
               </Suspense>
             }
-            allowedRoles={[Roles.USER, Roles.ADMIN]}
+            allowedRoles={[Roles.USER_AUTHENTICATED]}
           />
         ),
       },
@@ -167,7 +182,7 @@ const router = createBrowserRouter([
           <Suspense
             fallback={<CubeLoader className="bg-gray-800 dark:bg-white" />}
           >
-            <AdministrationLayout />
+            <Layout className="mx-auto w-full flex-1" />
           </Suspense>
         }
         allowedRoles={[Roles.ADMIN]}
@@ -181,7 +196,7 @@ const router = createBrowserRouter([
           <Suspense
             fallback={<CubeLoader className="bg-gray-800 dark:bg-white" />}
           >
-            <Test />
+            <h2 className="mt-8 text-2xl font-semibold">Dashboard Admin</h2>
           </Suspense>
         ),
       },

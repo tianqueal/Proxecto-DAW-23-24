@@ -1,9 +1,11 @@
-import { Link } from 'react-router-dom'
-
 export default function Logo() {
   return (
-    <Link to="/" className="text-2xl font-semibold">
+    <h2
+      role="banner"
+      aria-label="MasterNote Logo"
+      className="text-2xl font-semibold"
+    >
       MasterNote
-    </Link>
+    </h2>
   )
 }

@@ -22,7 +22,6 @@ export const EditorJsProvider = ({ children }) => {
     readOnly: false,
     autofocus: false,
     onSuccess: (newNoteId) => {
-      console.log('onSuccess newNoteId !!! Navigate !!!: ', newNoteId)
       navigate(`/notes/${newNoteId}`)
     },
   })
@@ -38,7 +37,7 @@ export const EditorJsProvider = ({ children }) => {
     }
     if (instance.current && !editorInitData.readOnly) {
       setIsSaving(true)
-      console.log('Saving data...')
+
       try {
         const outputData = await instance.current.save()
         if (
@@ -46,12 +45,10 @@ export const EditorJsProvider = ({ children }) => {
           !outputData.blocks ||
           outputData.blocks.length === 0
         ) {
-          console.log('No data to save. Data not saved.', outputData)
           setIsSaving(false)
           return
         }
-        console.log('Data: ', outputData)
-        console.log('onSuccess editorInitData: ', editorInitData.onSuccess)
+
         await saveNoteToDatabase({
           noteId,
           data: outputData,
@@ -64,11 +61,6 @@ export const EditorJsProvider = ({ children }) => {
       } finally {
         setIsSaving(false)
       }
-    } else {
-      console.log('Editor is read-only. Data not saved.', {
-        instance,
-        editorInitData,
-      })
     }
   }, [editorInitData, noteId, saveNoteToDatabase, isSaving])
 
@@ -76,7 +68,6 @@ export const EditorJsProvider = ({ children }) => {
 
   useEffect(() => {
     if (!instance.current) {
-      console.log('Creating editor...')
       instance.current = new EditorJS({
         holder: 'editorjs',
         tools: EDITOR_JS_TOOLS,
@@ -87,11 +78,9 @@ export const EditorJsProvider = ({ children }) => {
         placeholder: '¡Escribe algo increíble!',
       })
     } else {
-      console.log('Editor already exists. Updating data...')
       instance.current.isReady.then(() => {
         instance.current.readOnly.toggle(editorInitData.readOnly)
         if (editorInitData.data) {
-          console.log('Clearing editor and rendering new data...')
           instance.current.clear()
           instance.current.render(editorInitData.data)
         }
@@ -101,7 +90,6 @@ export const EditorJsProvider = ({ children }) => {
     return () => {
       debouncedSaveData.cancel()
       if (instance.current && typeof instance.current.destroy === 'function') {
-        console.log('Destroying editor...', instance.current)
         instance.current.destroy()
         instance.current = null
       }

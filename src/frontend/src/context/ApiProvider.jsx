@@ -115,7 +115,6 @@ export const ApiProvider = ({ children }) => {
         try {
           let response
           if (noteId) {
-            console.log('Updating note...', data)
             response = await axiosInstance.put(
               `/notes/${noteId}`,
               { content: JSON.stringify(data) },
@@ -136,7 +135,6 @@ export const ApiProvider = ({ children }) => {
               },
             )
             noteId = response.data.data.id
-            console.log('Creating note...', noteId)
           }
           setError(null)
           if (onSuccess) onSuccess(noteId)
@@ -150,15 +148,16 @@ export const ApiProvider = ({ children }) => {
 
   const deleteMyNote = useMemo(
     () =>
-      async ({ id, setIsLoading, setError }) => {
+      async ({ id, setIsLoading, setError, onSuccess }) => {
         try {
           setIsLoading(id)
-          const response = await axiosInstance.delete(`/notes/${id}`, {
+          const { data } = await axiosInstance.delete(`/notes/${id}`, {
             headers: {
               Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
             },
           })
-          return response
+          setError(null)
+          if (onSuccess) onSuccess({ message: data?.data?.message })
         } catch (error) {
           console.error(error)
           setError(error)
@@ -230,10 +229,10 @@ export const ApiProvider = ({ children }) => {
 
   const publishNote = useMemo(
     () =>
-      async ({ id, setIsLoading, setError }) => {
+      async ({ id, setIsLoading, setError, onSuccess }) => {
         try {
           setIsLoading(id)
-          await axiosInstance.post(
+          const { data } = await axiosInstance.post(
             `/notes/${id}/publish`,
             {},
             {
@@ -243,6 +242,7 @@ export const ApiProvider = ({ children }) => {
             },
           )
           setError(null)
+          if (onSuccess) onSuccess({ message: data?.data?.message })
         } catch (error) {
           console.error(error)
           setError(error)
@@ -255,10 +255,10 @@ export const ApiProvider = ({ children }) => {
 
   const unpublishNote = useMemo(
     () =>
-      async ({ id, setIsLoading, setError }) => {
+      async ({ id, setIsLoading, setError, onSuccess }) => {
         try {
           setIsLoading(id)
-          await axiosInstance.post(
+          const { data } = await axiosInstance.post(
             `/notes/${id}/unpublish`,
             {},
             {
@@ -268,6 +268,7 @@ export const ApiProvider = ({ children }) => {
             },
           )
           setError(null)
+          if (onSuccess) onSuccess({ message: data?.data?.message })
         } catch (error) {
           console.error(error)
           setError(error)
