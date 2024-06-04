@@ -5,10 +5,8 @@ import NoteCardSlider from '../components/home_components/NoteCardSlider'
 import CustomLink from '../components/home_components/CustomLink'
 import DiscordSection from '../components/home_components/DiscordSection'
 import './Home.css'
-/* import useAuth from '../hooks/useAuth' */
 
 export default function Home() {
-  /* useAuth({ middleware: 'guest', url: '/my-notes' }) */
   return (
     <main className="min-h-screen">
       <header
