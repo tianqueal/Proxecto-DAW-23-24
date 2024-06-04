@@ -8,6 +8,7 @@ import InfoToastify from '../components/alerts/InfoToastify'
 import SuccessToastify from '../components/alerts/SuccessToastify'
 import { shortFormatDate } from '../helpers/formatDate'
 import { useEffect, useState } from 'react'
+import { resetScrollPosition } from '../helpers/resetScrollPosition'
 
 export default function Profile() {
   const {
@@ -54,7 +55,7 @@ export default function Profile() {
         setIsLoading: setActionLoading,
         setError: setActionError,
       })
-      /* SuccessToastify({ message: 'Sesión cerrada en todos los dispositivos' }) */
+      SuccessToastify({ message: 'Sesión cerrada en todos los dispositivos' })
     }
   }
 
@@ -66,17 +67,23 @@ export default function Profile() {
       await deleteAccount({
         setIsLoading: setActionLoading,
         setError: setActionError,
+        onSuccess: ({ message }) => {
+          SuccessToastify({ message })
+          resetScrollPosition()
+        },
       })
-      /* window.location.href = '/login' */
     }
   }
 
   useEffect(() => {
     if (isError && !isLoading) {
-      ErrorToastify({ message: 'No se ha podido cargar el perfil' })
+      ErrorToastify({
+        message: 'No se ha podido cargar el perfil',
+        autoClose: true,
+      })
     }
     if (actionError) {
-      ErrorToastify({ message: actionError })
+      ErrorToastify({ message: actionError, autoClose: true })
     }
   }, [isError, isLoading, actionError])
 
