@@ -71,6 +71,7 @@ const TopicSearch = ({ onChange }) => {
             placeholder="Buscar temas"
             onChange={onChange}
             className="dark:bg-gray-800 dark:text-gray-200"
+            autoComplete='off'
           />
           {isLoading && topicName.current?.value !== '' && (
             <DropdownWindow customClasses="flex justify-center p-2 dark:bg-gray-800">
