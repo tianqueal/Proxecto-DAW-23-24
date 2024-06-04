@@ -1,11 +1,16 @@
 import { useState } from 'react'
 import FormLogin from '../components/auth/FormLogin'
 import useAuth from '../hooks/useAuth'
+import { useNavigate } from 'react-router-dom'
+import { resetScrollPosition } from '../helpers/resetScrollPosition'
 
 export default function Login() {
-  const { login } = useAuth({ /* middleware: 'guest', url: '/my-notes'  */})
+  const { login } = useAuth({
+    /* middleware: 'guest', url: '/my-notes'  */
+  })
   const [isLoading, setIsLoading] = useState(false)
   const [errors, setErrors] = useState({})
+  const navigate = useNavigate()
 
   const handleSubmit = async (e) => {
     e.preventDefault()
@@ -15,7 +20,15 @@ export default function Login() {
       password: e.target.elements.password.value,
     }
 
-    await login({ formData, setIsLoading, setErrors })
+    await login({
+      formData,
+      setIsLoading,
+      setErrors,
+      onSuccess: ({ navigateTo }) => {
+        navigate(navigateTo)
+        resetScrollPosition()
+      },
+    })
   }
 
   const handleOnChange = () => {
