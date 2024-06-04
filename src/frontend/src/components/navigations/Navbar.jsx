@@ -10,7 +10,7 @@ import useApi from '../../hooks/useApi'
 import Sun from '../../assets/heroicons/Sun'
 import Moon from '../../assets/heroicons/Moon'
 import MenuToggle from './MenuToggle'
-import { resetScrollPosition } from '../../helpers/resetScrollPosition'
+import './Navbar.css'
 
 export default function Navbar() {
   const { currentTheme, setTheme } = useApi()
@@ -22,15 +22,15 @@ export default function Navbar() {
 
   const handleMenuClose = () => {
     setIsMenuOpen(false)
-    resetScrollPosition()
   }
 
   return (
-    <nav className="sticky top-0 z-30 flex h-16 w-full justify-center bg-white bg-opacity-30 px-2 backdrop-blur-lg backdrop-saturate-150 dark:bg-gray-900 dark:bg-opacity-30">
-      <div className="flex w-full max-w-7xl items-center justify-between">
-        <div>
+    /* overlay-A positioner sticky top-0 z-30 flex h-16 w-full justify-center bg-white bg-opacity-30 px-2 backdrop-blur-lg backdrop-saturate-150 dark:bg-gray-900 dark:bg-opacity-30 */
+    <nav className="overlay__blur sticky top-0 z-10 flex h-16 w-full justify-center px-2">
+      <div className="z-30 flex w-full max-w-7xl items-center justify-between">
+        <NavbarLink to="/">
           <Logo />
-        </div>
+        </NavbarLink>
         <ul className="hidden items-center gap-4 md:flex">
           <NavbarLink to="/community" option="Comunidad" />
           <NavbarLink to="/discord" option="Discord" />
@@ -64,14 +64,14 @@ export default function Navbar() {
       <AnimatePresence>
         {isMenuOpen && (
           <motion.nav
-            initial={{ opacity: 0, translateX: '100%' }}
-            animate={{ opacity: 1, translateX: 0 }}
-            exit={{ opacity: 0, translateX: '100%' }}
-            transition={{ type: 'just', duration: 0.5 }}
-            className="fixed inset-0 z-40 flex h-screen flex-col items-center justify-center bg-white bg-opacity-80 backdrop-blur-lg dark:bg-gray-900 dark:bg-opacity-80 md:hidden"
+            initial={{ translateX: '100%' }}
+            animate={{ translateX: 0 }}
+            exit={{ translateX: '100%' }}
+            transition={{ duration: 0.4 }}
+            className="overlay__blur fixed inset-0 z-20 flex h-screen flex-col items-center justify-center md:hidden"
             role="dialog"
           >
-            <ul className="mt-10 flex flex-col items-center gap-4 text-gray-700 dark:text-gray-300">
+            <ul className="z-50 mt-10 flex flex-col items-center gap-4 text-gray-700 dark:text-gray-300">
               {!user && (
                 <NavbarLink to="/" option="Inicio" onClick={handleMenuClose} />
               )}

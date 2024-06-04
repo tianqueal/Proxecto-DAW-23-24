@@ -1,19 +1,20 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
+import { useNavigate } from 'react-router-dom'
+import { AnimatePresence, motion } from 'framer-motion'
+import debounce from 'just-debounce-it'
 import useApi from '../hooks/useApi'
+import useAuth from '../hooks/useAuth'
 import useNotes from '../hooks/useNotes'
 import { NoteFetchTypes } from '../helpers/constants'
-import debounce from 'just-debounce-it'
 import MagnifyingGlass from '../assets/heroicons/MagnifyingGlass'
 import InputField from '../components/form/InputField'
 import TopicSearch from '../components/notes/TopicSearch'
 import NoteListSkeleton from '../components/skeletons/NoteListSkeleton'
 import ErrorToastify from '../components/alerts/ErrorToastify'
+import SuccessToastify from '../components/alerts/SuccessToastify'
 import NoteList from '../components/notes/NoteList'
 import NoteNotFound from '../components/notes/NoteNotFound'
 import Button from '../components/form/Button'
-import { useNavigate } from 'react-router-dom'
-import useAuth from '../hooks/useAuth'
-import { AnimatePresence, motion } from 'framer-motion'
 import BouncyLoader from '../components/loaders/BouncyLoader'
 import TopicSearchGeneric from '../components/notes/TopicSearchGeneric'
 
@@ -118,6 +119,11 @@ export default function MyNotes() {
       id: noteId,
       setIsLoading: setIsActionNoteLoading,
       setError: setErrorActionNote,
+      onSuccess: ({ message }) => {
+        SuccessToastify({
+          message,
+        })
+      },
     })
   }
 
@@ -143,6 +149,11 @@ export default function MyNotes() {
       id: noteId,
       setIsLoading: setIsActionNoteLoading,
       setError: setErrorActionNote,
+      onSuccess: ({ message }) => {
+        SuccessToastify({
+          message,
+        })
+      },
     })
   }
 
@@ -152,6 +163,11 @@ export default function MyNotes() {
       id: noteId,
       setIsLoading: setIsActionNoteLoading,
       setError: setErrorActionNote,
+      onSuccess: ({ message }) => {
+        SuccessToastify({
+          message,
+        })
+      },
     })
   }
 

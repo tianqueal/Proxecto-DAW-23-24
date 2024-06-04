@@ -22,8 +22,10 @@ export default function ProtectedRoute({ element, allowedRoles = [] }) {
   }
 
   /* console.log({ element, allowedRoles, user }) */
-  if (!user?.roles?.some((role) => allowedRoles.includes(role.name))) {
+  if (!user?.roles?.some((role) => allowedRoles.includes(role.name)) && user) {
     return <Navigate to="/unauthorized" />
+  } else if (!user) {
+    return <Navigate to="/login" />
   }
 
   return element

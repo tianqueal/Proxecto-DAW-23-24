@@ -54,7 +54,7 @@ export default function Profile() {
         setIsLoading: setActionLoading,
         setError: setActionError,
       })
-      /* SuccessToastify({ message: 'Sesión cerrada en todos los dispositivos' }) */
+      SuccessToastify({ message: 'Sesión cerrada en todos los dispositivos' })
     }
   }
 
@@ -66,17 +66,22 @@ export default function Profile() {
       await deleteAccount({
         setIsLoading: setActionLoading,
         setError: setActionError,
+        onSuccess: ({ message }) => {
+          SuccessToastify({ message })
+        },
       })
-      /* window.location.href = '/login' */
     }
   }
 
   useEffect(() => {
     if (isError && !isLoading) {
-      ErrorToastify({ message: 'No se ha podido cargar el perfil' })
+      ErrorToastify({
+        message: 'No se ha podido cargar el perfil',
+        autoClose: true,
+      })
     }
     if (actionError) {
-      ErrorToastify({ message: actionError })
+      ErrorToastify({ message: actionError, autoClose: true })
     }
   }, [isError, isLoading, actionError])
 

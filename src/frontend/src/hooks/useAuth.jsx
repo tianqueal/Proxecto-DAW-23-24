@@ -25,12 +25,13 @@ const useAuth = (/* { middleware, url, requiredRole } */) => {
       })
       return response.data.data
     } catch (error) {
+      mutateUser(undefined, false)
       throw Error(error?.response?.data?.errors)
     }
   })
   /* const navigate = useNavigate() */
 
-  const login = async ({ formData, setIsLoading, setErrors }) => {
+  const login = async ({ formData, setIsLoading, setErrors, onSuccess }) => {
     try {
       localStorage.removeItem('accessToken')
       await mutateUser(null, false)
@@ -40,11 +41,14 @@ const useAuth = (/* { middleware, url, requiredRole } */) => {
       const { data } = await axiosInstance.post('/login', formData)
       localStorage.setItem('accessToken', data.data.access_token)
       await mutateUser(data.data.user, false)
-      navigate(
-        data.data.user?.roles?.some((role) => role?.name === Roles.ADMIN)
+      onSuccess({
+        message: data?.data?.message,
+        navigateTo: data.data.user?.roles?.some(
+          (role) => role?.name === Roles.ADMIN,
+        )
           ? '/admin/dashboard'
           : '/my-notes',
-      )
+      })
     } catch (error) {
       if (error?.response?.status >= 500) {
         ErrorToastify({
@@ -143,20 +147,24 @@ const useAuth = (/* { middleware, url, requiredRole } */) => {
     }
   }
 
-  const deleteAccount = async ({ setIsLoading, setError }) => {
+  const deleteAccount = async ({ setIsLoading, setError, onSuccess }) => {
     try {
       setIsLoading({
         deleteAccount: { isLoading: true },
       })
-      await axiosInstance.delete('/user', {
+      const { data } = await axiosInstance.delete('/user', {
         headers: {
           Authorization: `Bearer ${accessToken}`,
         },
       })
       localStorage.removeItem('accessToken')
-      await mutateUser(null, false)
+      mutateUser(undefined)
+      navigate('/')
       setError(null)
+      console.log(data)
+      onSuccess({ message: data?.data?.message })
     } catch (error) {
+      console.log(error)
       setError('Ha ocurrido un error al eliminar la cuenta')
     } finally {
       setIsLoading({

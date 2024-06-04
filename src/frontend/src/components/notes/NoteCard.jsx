@@ -6,7 +6,6 @@ import NoteContent from './propierties/NoteContent'
 import NoteDetails from './propierties/NoteDetails'
 import NoteActions from './propierties/NoteActions'
 import './NoteCard.css'
-import { resetScrollPosition } from '../../helpers/resetScrollPosition'
 
 const item = {
   hidden: { opacity: 0, y: -10 },
@@ -20,7 +19,6 @@ const NoteCard = forwardRef(
 
     const handleOnClick = () => {
       navigate(`/notes/${note.id}`)
-      resetScrollPosition()
     }
 
     const noteContent = JSON.parse(note.content).blocks

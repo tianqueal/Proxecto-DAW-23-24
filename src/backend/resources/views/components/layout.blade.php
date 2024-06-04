@@ -233,7 +233,7 @@
                 <table class="content" width="100%" cellpadding="0" cellspacing="0" role="presentation">
                     <tr>
                         <td class="header">
-                            <h2>MasterNote</h2>
+                            <h2>{{ $appName ?? 'App' }}</h2>
                         </td>
                     </tr>
 
