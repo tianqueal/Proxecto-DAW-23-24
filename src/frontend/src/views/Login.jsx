@@ -2,7 +2,6 @@ import { useState } from 'react'
 import FormLogin from '../components/auth/FormLogin'
 import useAuth from '../hooks/useAuth'
 import { useNavigate } from 'react-router-dom'
-import { resetScrollPosition } from '../helpers/resetScrollPosition'
 
 export default function Login() {
   const { login } = useAuth({
@@ -26,7 +25,6 @@ export default function Login() {
       setErrors,
       onSuccess: ({ navigateTo }) => {
         navigate(navigateTo)
-        resetScrollPosition()
       },
     })
   }
@@ -36,11 +34,13 @@ export default function Login() {
   }
 
   return (
-    <FormLogin
-      onSubmit={handleSubmit}
-      isLoading={isLoading}
-      errors={errors}
-      onChange={handleOnChange}
-    />
+    <>
+      <FormLogin
+        onSubmit={handleSubmit}
+        isLoading={isLoading}
+        errors={errors}
+        onChange={handleOnChange}
+      />
+    </>
   )
 }

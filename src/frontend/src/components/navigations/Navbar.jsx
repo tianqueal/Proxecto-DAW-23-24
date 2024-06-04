@@ -10,7 +10,6 @@ import useApi from '../../hooks/useApi'
 import Sun from '../../assets/heroicons/Sun'
 import Moon from '../../assets/heroicons/Moon'
 import MenuToggle from './MenuToggle'
-import { resetScrollPosition } from '../../helpers/resetScrollPosition'
 import './Navbar.css'
 
 export default function Navbar() {
@@ -22,32 +21,19 @@ export default function Navbar() {
   const [isMenuUserOpen, setIsMenuUserOpen] = useState(false)
 
   const handleMenuClose = () => {
-    resetScrollPosition()
     setIsMenuOpen(false)
-  }
-
-  const handleMenuClick = () => {
-    resetScrollPosition()
   }
 
   return (
     /* overlay-A positioner sticky top-0 z-30 flex h-16 w-full justify-center bg-white bg-opacity-30 px-2 backdrop-blur-lg backdrop-saturate-150 dark:bg-gray-900 dark:bg-opacity-30 */
     <nav className="overlay__blur sticky top-0 z-10 flex h-16 w-full justify-center px-2">
       <div className="z-30 flex w-full max-w-7xl items-center justify-between">
-        <NavbarLink to="/" onClick={handleMenuClick}>
+        <NavbarLink to="/">
           <Logo />
         </NavbarLink>
         <ul className="hidden items-center gap-4 md:flex">
-          <NavbarLink
-            to="/community"
-            option="Comunidad"
-            onClick={handleMenuClick}
-          />
-          <NavbarLink
-            to="/discord"
-            option="Discord"
-            onClick={handleMenuClick}
-          />
+          <NavbarLink to="/community" option="Comunidad" />
+          <NavbarLink to="/discord" option="Discord" />
           {user && (
             <UserActionSelector
               username={user?.username ?? 'user'}
@@ -57,16 +43,8 @@ export default function Navbar() {
           )}
           {!user && (
             <>
-              <NavbarLink
-                to="/register"
-                option="Registro"
-                onClick={handleMenuClick}
-              />
-              <NavbarLink
-                to="/login"
-                option="Iniciar sesión"
-                onClick={handleMenuClick}
-              />
+              <NavbarLink to="/register" option="Registro" />
+              <NavbarLink to="/login" option="Iniciar sesión" />
             </>
           )}
           <ThemeSelector

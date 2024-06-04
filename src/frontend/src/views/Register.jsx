@@ -3,7 +3,9 @@ import useAuth from '../hooks/useAuth'
 import FormRegister from '../components/auth/FormRegister'
 
 export default function Login() {
-  const { register } = useAuth({ /* middleware: 'guest', url: '/my-notes' */ })
+  const { register } = useAuth({
+    /* middleware: 'guest', url: '/my-notes' */
+  })
   const [isLoading, setIsLoading] = useState(false)
   const [errors, setErrors] = useState({})
 
@@ -25,11 +27,13 @@ export default function Login() {
   }
 
   return (
-    <FormRegister
-      onSubmit={handleSubmit}
-      isLoading={isLoading}
-      errors={errors}
-      onChange={handleOnChange}
-    />
+    <>
+      <FormRegister
+        onSubmit={handleSubmit}
+        isLoading={isLoading}
+        errors={errors}
+        onChange={handleOnChange}
+      />
+    </>
   )
 }

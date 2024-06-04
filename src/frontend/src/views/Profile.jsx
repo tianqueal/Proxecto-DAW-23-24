@@ -8,7 +8,6 @@ import InfoToastify from '../components/alerts/InfoToastify'
 import SuccessToastify from '../components/alerts/SuccessToastify'
 import { shortFormatDate } from '../helpers/formatDate'
 import { useEffect, useState } from 'react'
-import { resetScrollPosition } from '../helpers/resetScrollPosition'
 
 export default function Profile() {
   const {
@@ -69,7 +68,6 @@ export default function Profile() {
         setError: setActionError,
         onSuccess: ({ message }) => {
           SuccessToastify({ message })
-          resetScrollPosition()
         },
       })
     }
