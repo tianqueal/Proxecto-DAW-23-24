@@ -5,9 +5,7 @@ import { Roles } from './helpers/constants'
 
 import CubeLoader from './components/loaders/CubeLoader'
 import Layout from './layouts/Layout'
-import HomeLayout from './layouts/HomeLayout'
 import NoteEditorLayout from './layouts/NoteEditorLayout'
-import AdministrationLayout from './layouts/AdministrationLayout'
 
 const Home = lazy(() => import('./views/Home'))
 const Community = lazy(() => import('./views/Community'))
@@ -36,7 +34,7 @@ import Test from './views/Test' */
 const router = createBrowserRouter([
   {
     path: '/',
-    element: <HomeLayout />,
+    element: <Layout className="mx-auto w-full flex-1" />,
     children: [
       {
         index: true,
@@ -57,7 +55,9 @@ const router = createBrowserRouter([
   },
   {
     path: '/',
-    element: <Layout />,
+    element: (
+      <Layout className='2xl:max-w-7xl" mx-auto min-h-screen w-full flex-1 p-4 sm:max-w-xl md:w-screen md:max-w-2xl lg:max-w-4xl xl:max-w-6xl' />
+    ),
     children: [
       {
         path: 'community',
@@ -182,7 +182,7 @@ const router = createBrowserRouter([
           <Suspense
             fallback={<CubeLoader className="bg-gray-800 dark:bg-white" />}
           >
-            <AdministrationLayout />
+            <Layout className="mx-auto w-full flex-1" />
           </Suspense>
         }
         allowedRoles={[Roles.ADMIN]}
