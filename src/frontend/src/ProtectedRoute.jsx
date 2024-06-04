@@ -5,7 +5,6 @@ import { Roles } from './helpers/constants'
 
 export default function ProtectedRoute({ element, allowedRoles = [] }) {
   const { user } = useAuth({})
-  console.log({ allowedRoles, user })
 
   if (allowedRoles.includes(Roles.GUEST) && user) {
     if (user?.roles?.some((role) => role.name === Roles.ADMIN)) {
