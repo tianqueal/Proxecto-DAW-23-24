@@ -1,5 +1,5 @@
 import { useEffect } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import { useParams } from 'react-router-dom'
 import { AnimatePresence, motion } from 'framer-motion'
 import useEditorjs from '../hooks/useEditorjs'
@@ -11,7 +11,6 @@ import ArrowPath from '../assets/heroicons/ArrowPath'
 import ExclamationTriangle from '../assets/heroicons/ExclamationTriangle'
 import Check from '../assets/heroicons/Check'
 import PencilSquare from '../assets/heroicons/PencilSquare'
-// import { resetScrollPosition } from '../helpers/resetScrollPosition'
 
 const motionProps = {
   initial: { opacity: 0 },
@@ -21,7 +20,6 @@ const motionProps = {
 
 export default function NoteEditor() {
   const { noteId } = useParams()
-  const navigate = useNavigate()
   const {
     isSaving,
     error: isError,
@@ -29,11 +27,6 @@ export default function NoteEditor() {
     editorInitData,
     isNoteLoading,
   } = useEditorjs()
-
-  const handleBack = () => {
-    navigate(editorInitData?.readOnly ? -1 : '/my-notes')
-    /* resetScrollPosition() */
-  }
 
   useEffect(() => {
     if (noteId) {
@@ -44,15 +37,15 @@ export default function NoteEditor() {
   return (
     <>
       <section className="my-6 flex items-center justify-between">
-        <button
-          type="button"
-          onClick={handleBack}
-          aria-label="Volver atrás"
+        <Link
+          to={editorInitData?.readOnly ? '/community' : '/my-notes'}
           className="flex items-center gap-2 text-gray-700 transition-colors duration-300 hover:text-indigo-500 focus:text-indigo-500 focus:outline-none dark:text-gray-300 dark:hover:text-indigo-300 dark:focus:text-indigo-300"
+          aria-label="Volver a las notas"
         >
-          <ChevronLeft className="size-8" aria-hidden="true" />
+          <ChevronLeft className="size-6" aria-hidden="true" />
           <h2 className="text-xl font-semibold">Volver atrás</h2>
-        </button>
+        </Link>
+
         <section>
           <AnimatePresence>
             {isSaving && (
