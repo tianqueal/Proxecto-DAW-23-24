@@ -86,10 +86,10 @@ export default function Navbar() {
       <AnimatePresence>
         {isMenuOpen && (
           <motion.nav
-            initial={{ opacity: 0, translateX: '100%' }}
-            animate={{ opacity: 1, translateX: 0 }}
-            exit={{ opacity: 0, translateX: '100%' }}
-            transition={{ duration: 0.1, type: 'just' }}
+            initial={{ translateX: '100%' }}
+            animate={{ translateX: 0 }}
+            exit={{ translateX: '100%' }}
+            transition={{ duration: 0.4 }}
             className="overlay__blur fixed inset-0 z-20 flex h-screen flex-col items-center justify-center md:hidden"
             role="dialog"
           >
