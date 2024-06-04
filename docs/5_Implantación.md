@@ -43,7 +43,8 @@ vim .env
 
 **Un posible resultado**
 
-```bash
+```plaintext
+
 # .env
 
 MASTERNOTE_DB_HOST=tu_db_host
@@ -64,7 +65,7 @@ MASTERNOTE_API_URL=tu_api_url
 
 **Ejemplo de docker-composer.yaml**
 
-```bash
+```yaml
 
 # docker-composer.yaml
 # Un resultado simplificado, se pueden agregar las variables y configuraciones adicionales necesarias
@@ -127,6 +128,18 @@ cd backend
 composer install
 
 ```
+
+**Generar clave**
+
+Clave necesaria para cifrar las cookies de sesión, los datos de las contraseñas y otros datos sensibles. Es una medida de seguridad obligatoria en el Framework.
+
+```bash
+
+php artisan key:generate
+
+```
+
+Este comando generará una nueva clave y la colocará automáticamente en el fichero `.env`. Es importante que esta clave se mantenga segura y no se comparta públicamente.
 
 **Pruebas**
 
