@@ -8,6 +8,7 @@ import InputField from '../components/form/InputField'
 import TopicSearch from '../components/notes/TopicSearch'
 import NoteListSkeleton from '../components/skeletons/NoteListSkeleton'
 import ErrorToastify from '../components/alerts/ErrorToastify'
+import SuccessToastify from '../components/alerts/SuccessToastify'
 import NoteList from '../components/notes/NoteList'
 import NoteNotFound from '../components/notes/NoteNotFound'
 import Button from '../components/form/Button'
@@ -118,6 +119,11 @@ export default function MyNotes() {
       id: noteId,
       setIsLoading: setIsActionNoteLoading,
       setError: setErrorActionNote,
+      onSuccess: ({ message }) => {
+        SuccessToastify({
+          message,
+        })
+      },
     })
   }
 
@@ -143,6 +149,11 @@ export default function MyNotes() {
       id: noteId,
       setIsLoading: setIsActionNoteLoading,
       setError: setErrorActionNote,
+      onSuccess: ({ message }) => {
+        SuccessToastify({
+          message,
+        })
+      },
     })
   }
 
@@ -152,6 +163,11 @@ export default function MyNotes() {
       id: noteId,
       setIsLoading: setIsActionNoteLoading,
       setError: setErrorActionNote,
+      onSuccess: ({ message }) => {
+        SuccessToastify({
+          message,
+        })
+      },
     })
   }
 
