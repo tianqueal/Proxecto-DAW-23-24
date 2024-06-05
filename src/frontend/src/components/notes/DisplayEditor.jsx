@@ -1,15 +1,15 @@
-import { useEffect, useRef } from 'react'
+import { useEffect, /* useRef */ } from 'react'
 import PropTypes from 'prop-types'
 import useEditorjs from '../../hooks/useEditorjs'
 import './DisplayEditor.css'
 
 export default function DisplayEditor({ data, isOwner, onSuccess = null }) {
   const { setEditorInitData } = useEditorjs()
-  const prevData = useRef()
-  const dataRef = useRef(data)
+  /* const prevData = useRef()
+  const dataRef = useRef(data) */
 
   useEffect(() => {
-    if (JSON.stringify(dataRef.current) !== JSON.stringify(prevData.current)) {
+    /* if (JSON.stringify(dataRef.current) !== JSON.stringify(prevData.current)) {
       const newData =
         dataRef.current && dataRef.current?.blocks?.length > 0
           ? dataRef.current
@@ -21,8 +21,14 @@ export default function DisplayEditor({ data, isOwner, onSuccess = null }) {
         onSuccess,
       })
       prevData.current = data
-    }
-  }, [data, setEditorInitData, isOwner, onSuccess])
+    } */
+    setEditorInitData({
+      data,
+      readOnly: !isOwner,
+      autofocus: isOwner,
+      onSuccess,
+    })
+  }, [])
 
   /* editorjs.current.isReady.then(() => {
         editorjs.current.render(newData)
