@@ -10,5 +10,5 @@ export default function CreateNote() {
   const onSuccess = (newNoteId) => {
     navigate(`/notes/${newNoteId}`)
   }
-  return <DisplayEditor data={{}} isOwner={true} onSuccess={onSuccess} />
+  return <DisplayEditor data={null} isOwner={true} onSuccess={onSuccess} />
 }
