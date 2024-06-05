@@ -6,29 +6,37 @@ import { Roles } from './helpers/constants'
 export default function ProtectedRoute({ element, allowedRoles = [] }) {
   const { user } = useAuth({})
 
-  if (allowedRoles.includes(Roles.GUEST) && user) {
-    if (user?.roles?.some((role) => role.name === Roles.ADMIN)) {
-      return <Navigate to="/admin/dashboard" />
+  // Se verifica si el usuario está autenticado
+  if (user) {
+    // Si es una ruta para invitados
+    if (allowedRoles.includes(Roles.GUEST)) {
+      // Si el usuario es administrador
+      if (user?.roles?.some((role) => role.name === Roles.ADMIN)) {
+        return <Navigate to="/admin/dashboard" />
+      }
+      // Para cualquier otro usuario (de momento)
+      return <Navigate to="/my-notes" />
     }
-    return <Navigate to="/my-notes" />
-  }
 
-  if (allowedRoles.includes(Roles.GUEST) && !user) {
-    return element
-  }
+    // Si es una ruta para usuarios autenticados o con roles permitidos
+    if (
+      allowedRoles.includes(Roles.USER_AUTHENTICATED) ||
+      user?.roles?.some((role) => allowedRoles.includes(role.name))
+    ) {
+      return element
+    }
 
-  if (allowedRoles.includes(Roles.USER_AUTHENTICATED) && user) {
-    return element
-  }
-
-  /* console.log({ element, allowedRoles, user }) */
-  if (!user?.roles?.some((role) => allowedRoles.includes(role.name)) && user) {
+    // Si el usuario no tiene roles permitidos
     return <Navigate to="/unauthorized" />
-  } else if (!user) {
-    return <Navigate to="/login" />
   }
 
-  return element
+  // Si el usuario no está autenticado y la ruta es para invitados
+  if (allowedRoles.includes(Roles.GUEST)) {
+    return element
+  }
+
+  // Si el usuario no está autenticado y la ruta es para usuarios autenticados
+  return <Navigate to="/login" />
 }
 
 ProtectedRoute.propTypes = {
