@@ -54,7 +54,7 @@ export default function NoteEditor() {
                 animate={{ ...motionProps.animate, rotate: 360 }}
                 transition={{ duration: 2, repeat: Infinity }}
               >
-                <ArrowPath customClasses="size-8 text-gray-700 dark:text-gray-300" />
+                <ArrowPath className="size-8 text-gray-700 dark:text-gray-300" />
               </motion.figure>
             )}
             {!isSaving && isError && (

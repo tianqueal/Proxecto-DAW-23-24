@@ -1,12 +1,12 @@
 import { PropTypes } from 'prop-types'
 
-export default function ArrowPath({ customClasses }) {
+export default function ArrowPath({ className }) {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
       viewBox="0 0 24 24"
       fill="currentColor"
-      className={customClasses}
+      className={className}
     >
       <path
         fillRule="evenodd"
@@ -18,5 +18,5 @@ export default function ArrowPath({ customClasses }) {
 }
 
 ArrowPath.propTypes = {
-  customClasses: PropTypes.string,
+  className: PropTypes.string,
 }
