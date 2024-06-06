@@ -60,6 +60,7 @@ MASTERNOTE_MAIL_FROM_ADDRESS=tu_mail_from_address
 MASTERNOTE_MAIL_FROM_NAME=tu_mail_from_name
 MASTERNOTE_CLIENT_URL=tu_client_url
 MASTERNOTE_API_URL=tu_api_url
+MASTERNOTE_CLIENT_DISCORD_TOKEN=tu_client_discord_token
 MASTERNOTE_CLIENT_DISCORD_ID=tu_client_discord_id
 
 ```
@@ -112,9 +113,9 @@ Primero se recomienda crear las variables de entorno según las plantillas dispu
 
 ```bash
 
-backend/.env o backend/.env.example
-frontend/.env.local o frontend/.env.local.example
-discordjs-client/.env o discordjs-client/.env.example
+cp src/backend/.env.example src/backend/.env
+cp src/frontend/.env.local.example src/frontend/.env.local
+cp src/discordjs-client/.env.example src/discordjs-client/.env
 
 ```
 

@@ -1,0 +1,19 @@
+FROM node:lts
+
+WORKDIR /app
+
+COPY src/discord-client/package*.json ./
+
+RUN npm install
+
+COPY src/discord-client/ .
+
+ARG MASTERNOTE_DISCORD_CLIENT_TOKEN
+ARG MASTERNOTE_API_URL
+ARG MASTERNOTE_DISCORD_CLIENT_ID
+
+RUN echo "TOKEN=$MASTERNOTE_DISCORD_CLIENT_TOKEN" > .env \
+&& echo "API_URL=$MASTERNOTE_API_URL" >> .env \
+&& echo "CLIENT_ID=$MASTERNOTE_DISCORD_CLIENT_ID" >> .env
+
+CMD ["npm", "start"]
