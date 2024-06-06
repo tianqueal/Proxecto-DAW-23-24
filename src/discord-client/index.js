@@ -1,59 +1,20 @@
 require("dotenv").config()
-
-const {
-  Client,
-  GatewayIntentBits,
-  Partials,
-  ActivityType,
-} = require("discord.js")
-const { registerCommand, commandsMap } = require("./commands/registerCommand")
+const express = require("express")
+const path = require("path")
 const config = require("./config")
+const startBot = require("./startBot")
+const app = express()
+const port = config.PORT || 80
 
-async function startBot() {
-  const client = new Client({
-    intents: [GatewayIntentBits.Guilds],
-    partials: [Partials.Channel],
-  })
+// Configura Express para servir archivos estáticos desde el directorio 'public'
+app.use(express.static(path.join(__dirname, "public")))
 
-  try {
-    await registerCommand(client)
-    console.log("Comandos slash registrados!")
-  } catch (error) {
-    console.error("Error al registrar comandos slash:", error)
-  }
+app.get("/", (_, res) => {
+  // Envía el archivo HTML
+  res.sendFile(path.join(__dirname, "public", "index.html"))
+})
 
-  client.once("ready", () => {
-    client.user.setPresence({
-      activities: [{ name: `notes...`, type: ActivityType.Watching }],
-      status: "online",
-    })
-
-    console.log(`Conectando como ${client.user.tag}!`)
-  })
-
-  client.on("interactionCreate", async (interaction) => {
-    if (!interaction.isChatInputCommand()) return
-
-    const command = commandsMap.get(interaction.commandName)
-
-    if (!command) return
-
-    try {
-      await command(interaction)
-    } catch (error) {
-      console.error("Error executing command:", error)
-      await interaction.reply("Something went wrong!")
-    }
-  })
-
-  const token = config.token
-
-  try {
-    await client.login(token)
-    console.log("Cliente conectado!")
-  } catch (error) {
-    console.error("Error al iniciar sesión:", error)
-  }
-}
-
-startBot()
+app.listen(port, () => {
+  console.log(`App listening at http://localhost:${port}`)
+  startBot()
+})

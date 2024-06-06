@@ -53,6 +53,36 @@ const commands = [
       }
     },
   },
+  {
+    name: "masternote_test",
+    description: "[TEST] Test command for MasterNote API",
+    type: ApplicationCommandType.ChatInput,
+    interaction: async (interaction) => {
+      try {
+        const res = await fetch(config.apiUrl)
+        if (!res?.ok) throw new Error()
+        const json = await res.json()
+
+        const embed = {
+          title: "MasterNote API Test",
+          description: "This is a test command for MasterNote API",
+          color: parseInt("0099ff", 16),
+          fields: [
+            {
+              name: "Response",
+              value: "```json\n" + JSON.stringify(json, null, 2) + "\n```	",
+            },
+          ],
+          timestamp: new Date(),
+        }
+
+        await interaction.reply({ embeds: [embed] })
+      } catch (error) {
+        console.log(error)
+        await interaction.reply("Ha ocurrido un error")
+      }
+    },
+  },
 ]
 
 module.exports.commandsMap = new Map(
