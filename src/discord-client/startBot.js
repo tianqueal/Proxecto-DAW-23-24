@@ -6,9 +6,9 @@ const {
   Partials,
   ActivityType,
 } = require("discord.js")
-const { registerCommand, commandsMap } = require("./commands/registerCommand")
+const { registerCommand, commandsMap } = require("./registerCommand")
 
-async function startBot() {
+module.exports.startBot = async () => {
   const client = new Client({
     intents: [GatewayIntentBits.Guilds],
     partials: [Partials.Channel],
@@ -54,5 +54,3 @@ async function startBot() {
     console.error("Error al iniciar sesión:", error)
   }
 }
-
-module.exports = startBot

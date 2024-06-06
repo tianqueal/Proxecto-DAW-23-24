@@ -1,5 +1,11 @@
-const { Routes, ApplicationCommandType } = require("discord.js")
-const config = require("../config")
+const {
+  Routes,
+  ApplicationCommandType,
+  ApplicationCommandOptionType,
+} = require("discord.js")
+const config = require("./config")
+const { listCommunityNotes } = require("./commands/listCommunityNotes")
+const { showCommunityNote } = require("./commands/showCommunityNote")
 
 const commands = [
   {
@@ -82,6 +88,26 @@ const commands = [
         await interaction.reply("Ha ocurrido un error")
       }
     },
+  },
+  {
+    name: "community",
+    description: "[TEST] Test command for community",
+    type: ApplicationCommandType.ChatInput,
+    interaction: listCommunityNotes,
+  },
+  {
+    name: "show-community-note",
+    description: "[TEST] Show a community note",
+    type: ApplicationCommandType.ChatInput,
+    options: [
+      {
+        name: "id",
+        description: "ID of the note",
+        type: ApplicationCommandOptionType.Integer,
+        required: true,
+      },
+    ],
+    interaction: showCommunityNote,
   },
 ]
 
