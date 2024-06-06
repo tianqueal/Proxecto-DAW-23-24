@@ -50,12 +50,21 @@ const useAuth = (/* { middleware, url, requiredRole } */) => {
           : '/my-notes',
       })
     } catch (error) {
-      if (error?.response?.status >= 500) {
-        ErrorToastify({
-          message: 'Error de conexión con el servidor',
-        })
-      } else {
-        setErrors(error?.response?.data?.errors)
+      switch (true) {
+        case error?.response?.status === 401:
+          ErrorToastify({
+            message: 'Las credenciales no coinciden con nuestros registros',
+            autoClose: true,
+          })
+          break
+        case error?.response?.status >= 500:
+          ErrorToastify({
+            message: 'Error de conexión con el servidor',
+          })
+          break
+        default:
+          setErrors(error?.response?.data?.errors)
+          break
       }
     }
     await mutateUser()
