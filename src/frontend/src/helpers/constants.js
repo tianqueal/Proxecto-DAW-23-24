@@ -17,5 +17,5 @@ export const DiscordClientURL = () => {
     client_id: clientId,
   })
 
-  return `https://discord.com/api/oauth2/authorize?${params.toString()}`
+  return `https://discord.com/oauth2/authorize?${params.toString()}`
 }
