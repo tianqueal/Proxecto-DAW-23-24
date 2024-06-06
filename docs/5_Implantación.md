@@ -60,6 +60,7 @@ MASTERNOTE_MAIL_FROM_ADDRESS=tu_mail_from_address
 MASTERNOTE_MAIL_FROM_NAME=tu_mail_from_name
 MASTERNOTE_CLIENT_URL=tu_client_url
 MASTERNOTE_API_URL=tu_api_url
+MASTERNOTE_CLIENT_DISCORD_ID=tu_client_discord_id
 
 ```
 
@@ -236,7 +237,7 @@ Puede usarse tanto en la 'Vista previa' como al hacer sembrado de datos sobre la
 {
   "email": "admin@masternote.com",
   "username": "admin",
-  "password": "Abcd12345$"
+  "password": "Abcd12345$",
   "roles": ["Admin"],
   "emailVerifiedAt": "[FECHA_MIGRACION]",
 }
@@ -254,7 +255,7 @@ Son usados para algunas pruebas de funcionalidad. Se recomienda no eliminarlos a
 {
   "email": "test_verified@masternote.com",
   "username": "test_verified",
-  "password": "Abcd12345$"
+  "password": "Abcd12345$",
   "roles": ["User"],
   "emailVerifiedAt": "[FECHA_MIGRACION]"
 }
@@ -266,7 +267,7 @@ Son usados para algunas pruebas de funcionalidad. Se recomienda no eliminarlos a
 {
   "email": "test@masternote.com",
   "username": "test",
-  "password": "Abcd12345$"
+  "password": "Abcd12345$",
   "roles": ["User"],
   "emailVerifiedAt": "NULL"
 }
@@ -275,9 +276,7 @@ Son usados para algunas pruebas de funcionalidad. Se recomienda no eliminarlos a
 
 **Otros usuarios**
 
-Existen muchos otros usuarios generados. Tienen por defecto la contraseña ``password``.
-
-Aquí tienes la documentación en Markdown de las rutas de la API, con una tabla que incluye una breve descripción para cada ruta. Además, he añadido algo de texto a las primeras secciones para una mejor introducción.
+Existen muchos otros usuarios generados aleatoriamente por el sembrado. Se les asigna un número de notas y temas (a cada nota) entre 0 y 5, y si el usuario está verificado, tiene un 50% de probabilidad de que la nota sea pública. Tienen todos por defecto la contraseña ``password``.
 
 ### Uso de la API
 

@@ -34,6 +34,7 @@ Para el diseño y la experiencia del usuario (UX), he optado por TailwindCSS y F
 Los desafíos principales del proyecto han sido la integración y unificación efectiva de todas estas tecnologías, aplicando conocimientos adquiridos tanto en formación como en práctica. Todas las tecnologías elegidas fueron evaluadas y probadas exhaustivamente antes del desarrollo del proyecto. Se realizaron aproximadamente 10 pruebas de diferentes funcionalidades, algunas de las cuales incluyen:
 
 - Inicio de sesión, registro, verificación de correo electrónico, cerrado de sesión actual y en todos los dispositivos y persistencia de sesiones usando Laravel 11 (Monolithic application) y el kit de inicio Laravel Breeze.
+- Funcionalidad CRUD usando React Redux Toolkit, TypeScript y Tremor React Components, con el propósito de probar alternativas a API Context propio de React.
 - Funcionalidad CRUD usando Express.js, React, Sequelize, TailwindCSS y Editor.js con una base de datos MariaDB sin registro ni control de usuarios con el propósito de probar la librería en un entorno familiarizado.
 - Funcionalidad CRUD usando Laravel 11 (Monolithic application) y Editor.js con subida de ficheros (editorjs/image) usando una base de datos MariaDB sin registro ni control de usuarios. El propósito de esta prueba fue comprobar el funcionamiento de Editorjs con diferentes tipos de bloques y en un entorno fuera de JavaScript.
 - Pruebas de consultas y respuestas usando Postman y Laravel 10 como API REST a una base de datos MariaDB de prueba.
