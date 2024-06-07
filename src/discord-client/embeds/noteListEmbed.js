@@ -1,4 +1,5 @@
-const { noteEmbed } = require("./noteEmbed")
+const config = require("../config")
+const { noteField } = require("./noteField")
 
 module.exports.noteListEmbed = ({ notes }) => {
   let description = "List of community notes"
@@ -6,13 +7,20 @@ module.exports.noteListEmbed = ({ notes }) => {
     description = "No community notes to display"
   }
 
+  const fields = notes.data
+    ? notes.data.map((note, index, array) =>
+        noteField({ note, isLastNote: index === array.length - 1 })
+      )
+    : []
+
   return {
     title: "Community Notes",
+    url: `${config.frontendUrl}/community`,
     description,
     color: 0x0099ff,
-    fields: notes.data ? notes.data.map((note) => noteEmbed({ note })) : [],
+    fields: [{ name: "\u200b", value: "" }, ...fields],
     footer: {
-      text: `Page ${notes.meta.current_page} of ${notes.meta.last_page}`,
+      text: `Page ${notes.meta.current_page} of ${notes.meta.last_page} | Total notes: ${notes.meta.total}`,
     },
   }
 }

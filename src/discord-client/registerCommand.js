@@ -6,6 +6,8 @@ const {
 const config = require("./config")
 const { listCommunityNotes } = require("./commands/listCommunityNotes")
 const { showCommunityNote } = require("./commands/showCommunityNote")
+const { listTopics } = require("./commands/listTopics")
+const { showTopic } = require("./commands/showTopic")
 
 const commands = [
   {
@@ -93,6 +95,18 @@ const commands = [
     name: "community",
     description: "[TEST] Test command for community",
     type: ApplicationCommandType.ChatInput,
+    options: [
+      {
+        name: "content",
+        description: "Content of the note",
+        type: ApplicationCommandOptionType.String,
+      },
+      {
+        name: "topics-ids",
+        description: "ID of the topics. Format `1,2,3`",
+        type: ApplicationCommandOptionType.String,
+      },
+    ],
     interaction: listCommunityNotes,
   },
   {
@@ -108,6 +122,26 @@ const commands = [
       },
     ],
     interaction: showCommunityNote,
+  },
+  {
+    name: "topics",
+    description: "[TEST] List topics",
+    type: ApplicationCommandType.ChatInput,
+    interaction: listTopics,
+  },
+  {
+    name: "show-topic",
+    description: "[TEST] Show a topic",
+    type: ApplicationCommandType.ChatInput,
+    options: [
+      {
+        name: "id",
+        description: "ID of the topic",
+        type: ApplicationCommandOptionType.Integer,
+        required: true,
+      },
+    ],
+    interaction: showTopic,
   },
 ]
 
