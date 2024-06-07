@@ -32,7 +32,11 @@ class NoteFilter extends ApiFilter
                     case 'content':
                         $query->whereRaw('LOWER(' . $column . ') LIKE ?', ['%' . strtolower($request->$param) . '%']);
                         break;
-
+                    case 'username':
+                        $query->whereHas('user', function ($q) use ($request, $param) {
+                            $q->where('username', '=', $request->$param);
+                        });
+                        break;
                         // Here we can add more cases for different types of filters
                     default:
                         $query->where($column, $request->$param);

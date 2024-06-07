@@ -14,6 +14,7 @@ return [
     'note' => (object) [
         'filters' => [
             'userId' => 'user_id',
+            'username' => 'username',
             'topicId' => 'topic_id',
             'content' => 'content'
         ],
