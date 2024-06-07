@@ -11,10 +11,13 @@ module.exports.topicListEmbed = ({ topics }) => {
     description,
     color: 0x0099ff,
     fields: topics.data
-      ? topics.data.map((topic) => topicField({ topic }))
+      ? [
+          { name: "\u200b", value: "" },
+          ...topics.data.map((topic) => topicField({ topic })),
+        ]
       : [],
     footer: {
-      text: `Page ${topics.meta.current_page} of ${topics.meta.last_page} | Total topics: ${topics.meta.total}`,
+      text: `Page ${topics.meta.current_page} of ${topics.meta.last_page}  |  Total topics: ${topics.meta.total}`,
     },
   }
 }

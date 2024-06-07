@@ -1,4 +1,9 @@
-module.exports.noteField = ({ note, allDescriptions = true, isLastNote }) => {
+module.exports.noteField = ({
+  note,
+  allDescriptions = true,
+  isLastNote,
+  locale,
+}) => {
   const noteContent = JSON.parse(note.content)
     .blocks.map((block, index, array) => {
       if (block.type === "header") {
@@ -17,7 +22,7 @@ module.exports.noteField = ({ note, allDescriptions = true, isLastNote }) => {
   const topics = note.topics
     .map((topic) => `\`#${topic.name.replace(/\s/g, "-")}\``)
     .join(" ")
-  const separator = isLastNote ? "" : "---------------"
+  const separator = isLastNote ? "" : "\n─────────────────────────"
 
   if (!allDescriptions) {
     return {
@@ -41,12 +46,11 @@ module.exports.noteField = ({ note, allDescriptions = true, isLastNote }) => {
     
     **Topics**: ${topics || "No topics"}
     
-    **Created At**: ${new Date(note.createdAt).toLocaleString()}
+    **Created At**: ${new Date(note.createdAt).toLocaleString(locale)}
     ${
       note.updatedAt !== note.createdAt
-        ? `**Updated At**: ${new Date(note.updatedAt).toLocaleString()}`
+        ? `**Updated At**: ${new Date(note.updatedAt).toLocaleString(locale)}`
         : ""
-    }
-    ${separator}`,
+    }${separator}`,
   }
 }

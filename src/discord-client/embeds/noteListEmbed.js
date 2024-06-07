@@ -1,7 +1,7 @@
 const config = require("../config")
 const { noteField } = require("./noteField")
 
-module.exports.noteListEmbed = ({ notes }) => {
+module.exports.noteListEmbed = ({ notes, locale }) => {
   let description = "List of community notes"
   if (!notes.data || notes.data.length === 0) {
     description = "No community notes to display"
@@ -9,7 +9,7 @@ module.exports.noteListEmbed = ({ notes }) => {
 
   const fields = notes.data
     ? notes.data.map((note, index, array) =>
-        noteField({ note, isLastNote: index === array.length - 1 })
+        noteField({ note, isLastNote: index === array.length - 1, locale })
       )
     : []
 
@@ -20,7 +20,7 @@ module.exports.noteListEmbed = ({ notes }) => {
     color: 0x0099ff,
     fields: [{ name: "\u200b", value: "" }, ...fields],
     footer: {
-      text: `Page ${notes.meta.current_page} of ${notes.meta.last_page} | Total notes: ${notes.meta.total}`,
+      text: `Page ${notes.meta.current_page} of ${notes.meta.last_page}  |  Total notes: ${notes.meta.total}`,
     },
   }
 }

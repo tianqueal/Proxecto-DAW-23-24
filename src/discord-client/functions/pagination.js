@@ -96,10 +96,9 @@ module.exports.pagination = async ({
     })
   } catch (error) {
     console.error(error)
-    try {
-      await interaction.reply("An error occurred while fetching the notes.")
-    } catch (err) {
-      console.error("Failed to send error message: ", err)
-    }
+    await interaction.editReply({
+      content: "An error occurred while fetching the data",
+      ephemeral: true,
+    })
   }
 }

@@ -7,10 +7,20 @@ module.exports.listTopics = async (interaction) => {
     const getData = async ({ page }) => {
       const params = new URLSearchParams({
         page: page,
-        perPage: 5,
+        perPage: 9,
       })
 
-      const res = await fetch(`${config.apiUrl}/topics?${params.toString()}`)
+      const name = interaction.options.getString("name")
+
+      if (name) params.append("name", name.trim())
+
+      const res = await fetch(`${config.apiUrl}/topics?${params.toString()}`, {
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+          "Accept-Language": interaction.locale.split("-")[0],
+        },
+      })
       if (!res.ok) throw new Error()
       const data = await res.json()
 
