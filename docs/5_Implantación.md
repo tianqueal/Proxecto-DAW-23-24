@@ -29,11 +29,11 @@ previas para su correcto funcionamiento:
    - Debido a la naturaleza del propósito de la app, en el contenedor no se incluye una conexión con un sistema gestor de bases de datos, por lo que las credenciales deben ser proporcionadas en el momento de la creación de la imagen.
    - Configurar cualquier proveedor de servicio SMTP, por ejemplo, existen alternativas gratuitas como MailTrap. Es necesario proveer esas credenciales para pasar los tests funcionales.
   
-   Esta configuración se puede personalizar completamente a través del fichero Docker. Se puede priorizar por automatización, comodidad, separación de estructuras, etc.
+   Esta configuración se puede personalizar completamente a través de los ficheros Dockerfile. Se puede priorizar por automatización, comodidad, separación de estructuras, etc.
 
 #### Docker Composer
 
-**Primero crear un fichero de variables con las credenciales personales de acceso o usar el fichero `.env.docker-composer.example` de plantilla**
+**Primero crear un fichero de variables en la raíz con las credenciales personales de acceso o usar el fichero `.env.docker-compose.example` de plantilla**
 ```bash
 
 vim .env
@@ -64,11 +64,11 @@ MASTERNOTE_CLIENT_DISCORD_ID=tu_client_discord_id
 
 ```
 
-**Ejemplo de docker-composer.yaml**
+**Ejemplo de docker-compose.yaml**
 
 ```yaml
 
-# docker-composer.yaml
+# docker-compose.yaml
 # Un resultado simplificado, se pueden agregar las variables y configuraciones adicionales necesarias
 # Existe un ejemplo más completo en la raíz del repositorio
 # Todas las variables de entorno se encuentran en .env.docker-compose.example
@@ -182,7 +182,7 @@ Este comando generará una nueva clave y la colocará automáticamente en el fic
 
 Mediante los comandos integrados de Artisan se puede instanciar las pruebas programadas con PHPUnit.
 Es importante recordar que si se ejecutan todas las pruebas, también se incluye la de migración, en la cual se
-verifica si el SGBD está preparado para el funcionamiento con Laravel. Información adicional en [4. Codificación y pruebas](4_codificación_y_pruebas#pruebas)
+verifica si el SGBD está preparado para el funcionamiento con Laravel. Información adicional en [4. Codificación y pruebas](4_codificacion_y_pruebas#pruebas)
 
 ```bash
 
@@ -259,11 +259,12 @@ Para instanciar el cliente Discord en un entorno de desarrollo es necesario segu
 
 **Variables de entorno**
 
-El cliente Discord desarrollado funciona con simplemente 3 variables que se tienen que asignar antes de ejecutarlo en modo desarrollo.
+El cliente Discord desarrollado funciona con simplemente estas variables que se tienen que asignar antes de ejecutarlo en modo desarrollo:
 
-- **Token de acceso**: Este es un token proporcionado por la API de Discord.
-- **Cliente ID**: Identificador proporcionado por la API de Discord.
-- **API URL**: La dirección de la API de MasterNote. Debe tener también incluida los prefijos API `api` y versión `v[N]`, siendo `[N]` la versión actual desarrollada. Ejemplo: `http://localhost:8000/api/v1`
+- **Token de acceso**: Este es un token proporcionado por la API de Discord. Necesario para conectarse al WebSocket de Discord.
+- **Cliente ID**: Identificador proporcionado por la API de Discord. Necesario para registrar los comandos y para crear el enlace de invitación en el Front-end.
+- **API URL**: La dirección de la API de MasterNote. Debe tener también incluida los prefijos API `api` y versión `v[N]`, siendo `[N]` la versión actual desarrollada. Ejemplo: `http://localhost:8000/api/v1`.
+- **Front-end URL**: Dirección del cliente Front (Aplicación web). En algunos comandos se hace uso de la dirección del Front para facilitar la redirección a las zonas principales de la App. Por ejemplo, en el footer de una nota, se agrega un botón de tipo enlace que permite ver la nota completa en la web.
 
 **Discord API**
 
@@ -271,7 +272,55 @@ Es necesario obtener las credenciales mencionadas antes a través de https://dis
 
 El primer paso es registrarse en la plataforma y tras obtener acceso, se procederá a crear una nueva aplicación en https://discord.com/developers/applications.
 
+![image](https://github.com/tianqueal/Proxecto-DAW-23-24/assets/132884719/e3b8c1be-0045-4cb2-a0da-1e99700cae78)
 
+<img width="511" alt="image" src="https://github.com/tianqueal/Proxecto-DAW-23-24/assets/132884719/c87a4da2-1d8d-486e-a015-39cd029940a0">
+
+En el menú lateral, se encuentran las principales opciones para obtener las credenciales necesarias.
+
+<img width="361" alt="image" src="https://github.com/tianqueal/Proxecto-DAW-23-24/assets/132884719/aed71663-e744-42da-a787-1a2293f28526">
+
+El ID del cliente se encuentra en esta sección:
+
+<img width="500" alt="imagen" src="https://github.com/tianqueal/Proxecto-DAW-23-24/assets/132884719/aaf11838-1db9-4f2c-ac3c-61d8733e8886">
+
+El Bot es público en este caso, no existe ningún problema en mostrar el identificador.
+
+Con el token pasa algo diferente. Se recomienda tenerlo a resguardo. Discord tiene medidas de seguridad, como por ejemplo, cada vez que generas uno, invalidas automaticamente el
+anterior.
+
+![image](https://github.com/tianqueal/Proxecto-DAW-23-24/assets/132884719/d7e0715f-ecee-4c0f-8962-e6421070d649)
+
+**Instalación de dependencias**
+
+En el `package.json` se encuentra una dependencia que no se esperaba instalar en este proyecto; `Express.js`. Fue necesario instalarla para el 'correcto' funcionamiento del
+contenedor en Google Cloud. `Express.js` es un Framework para desarrollar aplicaciones web con JavaScript desde el lado del servidor. En este caso, se lanza un servicio web en el puerto 80 del contenedor para pasar las verificaciones de tráfico de Cloud Run. Realmente al ser (Discord.js) un WebSocket, es posible ejecutar el bot sin `Express.js`, omitiendo el contenedor y conectar al cliente mientras se tenga la terminal en segundo plano.
+
+```bash
+cd src/discord-client
+npm i
+```
+
+**Puesta en marcha**
+
+```bash
+npm start
+```
+
+<img width="322" alt="image" src="https://github.com/tianqueal/Proxecto-DAW-23-24/assets/132884719/af40c24e-4cb1-439f-8aaa-c0780d0431a1">
+
+Es posible cambiar el puerto por defecto desde las variables de entorno.
+
+**Sobre la localización o internacionalización**
+
+Discord asigna la localización según los ajustes del usuario. Esta es obtenida del objeto `interaction`, que es el enviado por el usuario. Por lo que en cada llamada a la API se
+envía el Header `Accept-Language` del usuario.
+
+El funcionamiento se puede probar por ejemplo en la búsqueda de temas. Si se busca un tema en inglés o en un idioma compatible (allowedLocales), la API devuelve las coincidencias de los temas traducidas.
+
+<img width="383" alt="image" src="https://github.com/tianqueal/Proxecto-DAW-23-24/assets/132884719/4e8f0d62-711d-483e-aaed-cce487739c95">
+
+<img width="383" alt="image" src="https://github.com/tianqueal/Proxecto-DAW-23-24/assets/132884719/6596d825-fc0a-48d6-80c3-16f44366c4c3">
 
 #### Usuarios por defecto de la aplicación
 
@@ -414,7 +463,7 @@ La API está abierta a implementar procesos de automatización, como copias de s
 
 Esta aplicación de notas ha sido diseñada pensando en la simplicidad y la funcionalidad. Permite a los usuarios registrados crear, organizar y gestionar notas de manera eficiente. Las características principales incluyen la capacidad de agregar texto, imágenes y enlaces a las notas, organizar notas en temas específicos, y buscar notas rápidamente a través de una función de filtros.
 
-### Guía Rápida de Uso
+### Guía Rápida de Uso Web
 
 **Inicio de Sesión y Registro:**
 
@@ -447,6 +496,23 @@ Las notas se pueden compartir en la comunidad si se tiene verificado el correo u
 El usuario puede configurar los temas de la nota y todos los cambios se ven reflejados al instante
 
 Los usuarios pueden personalizar la interfaz de la aplicación cambiando el tema a modo claro, oscuro o por defecto a tu dispositivo.
+
+### Comandos del bot de Discord
+
+Estos comandos pueden ser usados tras añadir el bot a un servidor de Discord. Es necesario tener una cuenta en [Discord](https://discord.com) e invitar al bot mediante el enlace dispuesto en la web.
+
+<img width="500" alt="image" src="https://github.com/tianqueal/Proxecto-DAW-23-24/assets/132884719/2e1de923-277c-45d1-9462-6f80d858f704">
+
+- `/community`. Comando principal para visualizar las notas de la comunidad
+  - `list`. Lista las últimas notas en un embed con botones interactivos para navegar entre las páginas obtenidas. Es posible asignar diferentes combinaciones de filtros, además de uno adicional con respecto a la web.
+    - `content`. Filtra las notas por un contenido en específico
+    - `topics-ids`. Filtra las notas por temas en específico. Los temas deben ser introducidos en formato `1,2,3,4`. Solo se contemplarán los códigos correctos.
+    - `username`. Filtra las notas por un nombre de usuario en específico.
+  -  `note`. Muestra una nota comunitaria específica en un embed y un enlace para visualizarlo en la web de MasterNote. No se mostrarán las notas donde el contenido sea superior al permitido por el elemento.
+-  `/info`. Muestra información relevante sobre el proyecto.
+-  `/ping`. Comando de prueba del bot.
+-  `/topics`. Permite listar los temas, con identificador y nombre.
+   - `name`. Filtra los temas por búsqueda parcial de nombres. Puede usarse tanto el nombre original (inglés) como los permitidos en la localización de la API. La localización es asignada automáticamente por la API de Discord y asignada desde el bot hacía la API de MasterNote.
 
 ### Preguntas Frecuentes (FAQ)
 
