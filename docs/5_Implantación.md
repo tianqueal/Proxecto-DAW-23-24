@@ -24,13 +24,12 @@ en un fichero zip o la última Release estable a través de la portada del repos
 3. **Contenedor**. CI/CD está implementado en este proyecto gracias a Google Cloud y los contenedores en la nube. Esta es una forma de replicar el proyecto y asegurar su correcto
 funcionamiento en diversos entornos. Pueden usarse herramientas avanzadas como [Docker](https://www.docker.com) para desplegar una imagen del programa en sistemas compatibles. Por lo tanto, es incorporar el fichero ``Dockerfile`` para crear una imagen local y ser lanzada en cualquier contenedor deseado. Se debe tener en cuenta que la aplicación necesita de unas configuraciones
 previas para su correcto funcionamiento:
-  - Obligatorio:
-    - Pasar las variables, asignarlas directamente o escribir un fichero .env para la configuración de Laravel.
-    - Pasar la variable con la ruta del servidor (Backend) al Frontend en el momento de la compilación o usar un fichero .env manual
-    - Debido a la naturaleza del propósito de la app, en el contenedor no se incluye una conexión con un sistema gestor de bases de datos, por lo que las credenciales deben ser proporcionadas en el momento de la creación de la imagen.
-  - Opcional:
-    - Configurar a través de las variables de entorno un proveedor de servicios de correo electrónico para la verificación de usuarios
-Esta configuración se puede personalizar completamente a través del fichero Docker. Se puede priorizar por automatización, comodidad, separación de estructuras, etc.
+   - Pasar las variables, asignarlas directamente o escribir un fichero .env para la configuración de Laravel.
+   - Pasar la variable con la ruta del servidor (Backend) al Frontend en el momento de la compilación o usar un fichero .env manual
+   - Debido a la naturaleza del propósito de la app, en el contenedor no se incluye una conexión con un sistema gestor de bases de datos, por lo que las credenciales deben ser proporcionadas en el momento de la creación de la imagen.
+   - Configurar cualquier proveedor de servicio SMTP, por ejemplo, existen alternativas gratuitas como MailTrap. Es necesario proveer esas credenciales para pasar los tests funcionales.
+  
+   Esta configuración se puede personalizar completamente a través del fichero Docker. Se puede priorizar por automatización, comodidad, separación de estructuras, etc.
 
 #### Docker Composer
 
@@ -72,28 +71,55 @@ MASTERNOTE_CLIENT_DISCORD_ID=tu_client_discord_id
 # docker-composer.yaml
 # Un resultado simplificado, se pueden agregar las variables y configuraciones adicionales necesarias
 # Existe un ejemplo más completo en la raíz del repositorio
-
-version: '3.8'
+# Todas las variables de entorno se encuentran en .env.docker-compose.example
 
 services:
-  masternote:
+  api:
+    container_name: masternote_api
     build:
       context: .
-      dockerfile: Dockerfile
+      dockerfile: Dockerfile-api
       args:
         MASTERNOTE_DB_HOST: ${MASTERNOTE_DB_HOST}
         MASTERNOTE_DB_DATABASE: ${MASTERNOTE_DB_DATABASE}
         MASTERNOTE_DB_USERNAME: ${MASTERNOTE_DB_USERNAME}
-        MASTERNOTE_DB_PASSWORD: ${MASTERNOTE_DB_PASSWORD}
         ...
     environment:
       MASTERNOTE_DB_HOST: ${MASTERNOTE_DB_HOST}
       MASTERNOTE_DB_DATABASE: ${MASTERNOTE_DB_DATABASE}
       MASTERNOTE_DB_USERNAME: ${MASTERNOTE_DB_USERNAME}
-      MASTERNOTE_DB_PASSWORD: ${MASTERNOTE_DB_PASSWORD}
       ...
     ports:
       - "8080:80"
+
+  frontend:
+    container_name: masternote_frontend
+    build:
+      context: .
+      dockerfile: Dockerfile-frontend
+      args:
+        MASTERNOTE_API_URL: ${MASTERNOTE_API_URL}
+        MASTERNOTE_DISCORD_CLIENT_ID: ${MASTERNOTE_DISCORD_CLIENT_ID}
+    environment:
+      MASTERNOTE_API_URL: ${MASTERNOTE_API_URL}
+    ports:
+      - "8081:80"
+
+  discord-client:
+    container_name: masternote_discord_client
+    build:
+      context: .
+      dockerfile: Dockerfile-discord-client
+      args:
+        MASTERNOTE_DISCORD_CLIENT_TOKEN: ${MASTERNOTE_DISCORD_CLIENT_TOKEN}
+        MASTERNOTE_API_URL: ${MASTERNOTE_API_URL}
+        ...
+    environment:
+      MASTERNOTE_DISCORD_CLIENT_TOKEN: ${MASTERNOTE_DISCORD_CLIENT_TOKEN}
+      MASTERNOTE_API_URL: ${MASTERNOTE_API_URL}
+      ...
+    ports:
+      - "8082:80"
 
 ```
 
@@ -226,6 +252,26 @@ npm run test
 npm run dev
 
 ```
+
+#### Cliente Discord
+
+Para instanciar el cliente Discord en un entorno de desarrollo es necesario seguir con unos pasos diferentes y posiblemente un poco más largos que los anteriores.
+
+**Variables de entorno**
+
+El cliente Discord desarrollado funciona con simplemente 3 variables que se tienen que asignar antes de ejecutarlo en modo desarrollo.
+
+- **Token de acceso**: Este es un token proporcionado por la API de Discord.
+- **Cliente ID**: Identificador proporcionado por la API de Discord.
+- **API URL**: La dirección de la API de MasterNote. Debe tener también incluida los prefijos API `api` y versión `v[N]`, siendo `[N]` la versión actual desarrollada. Ejemplo: `http://localhost:8000/api/v1`
+
+**Discord API**
+
+Es necesario obtener las credenciales mencionadas antes a través de https://discord.com/developers.
+
+El primer paso es registrarse en la plataforma y tras obtener acceso, se procederá a crear una nueva aplicación en https://discord.com/developers/applications.
+
+
 
 #### Usuarios por defecto de la aplicación
 
