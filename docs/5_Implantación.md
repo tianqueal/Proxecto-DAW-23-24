@@ -34,7 +34,7 @@ Esta configuración se puede personalizar completamente a través del fichero Do
 
 #### Docker Composer
 
-**Primero crear un fichero de variables con las credenciales personales de acceso**
+**Primero crear un fichero de variables con las credenciales personales de acceso o usar el fichero `.env.docker-composer.example` de plantilla**
 ```bash
 
 vim .env
@@ -71,6 +71,7 @@ MASTERNOTE_CLIENT_DISCORD_ID=tu_client_discord_id
 
 # docker-composer.yaml
 # Un resultado simplificado, se pueden agregar las variables y configuraciones adicionales necesarias
+# Existe un ejemplo más completo en la raíz del repositorio
 
 version: '3.8'
 
@@ -93,6 +94,14 @@ services:
       ...
     ports:
       - "8080:80"
+
+```
+
+Por último se compilan los contenedores con el siguiente comando:
+
+```yaml
+
+docker-compose up --build
 
 ```
 
@@ -151,7 +160,7 @@ verifica si el SGBD está preparado para el funcionamiento con Laravel. Informac
 
 ```bash
 
-php artisan test # Ejecuta las 10 pruebas del sistema
+php artisan test # Ejecuta las pruebas del sistema
 
 ```
 
@@ -240,7 +249,7 @@ Puede usarse tanto en la 'Vista previa' como al hacer sembrado de datos sobre la
   "username": "admin",
   "password": "Abcd12345$",
   "roles": ["Admin"],
-  "emailVerifiedAt": "[FECHA_MIGRACION]",
+  "emailVerifiedAt": "[FECHA_MIGRACION]"
 }
 
 ```
