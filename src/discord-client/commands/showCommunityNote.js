@@ -36,7 +36,7 @@ module.exports.showCommunityNote = async (interaction) => {
       title: `Community Note`,
       author: {
         name: note.user.username,
-        icon_url: `https://ui-avatars.com/api/?name=${note.user.username}`,
+        icon_url: config.avatarUrl({ username: note.user.username }),
       },
       description: ``,
       fields: [noteContent],
