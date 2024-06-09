@@ -56,7 +56,7 @@ Durante el desarrollo se han hecho pruebas unitarias mediante la herramienta Pos
 Para la automatización de pruebas, se ha usado el integrado por Laravel: PHPUnit. Aquí solo se han programado las pruebas por funcionalidad y no por unidad a las principales rutas de la aplicación.
 En primera instancia, las pruebas borraban todo el contenido de las tablas de la base de datos. Por lo que investigando, se ha optado por cambiar el trait encargado de hacer los Refresh por uno que ejecuta las operaciones en memoria mediante transacciones y luego son revertidas al finalizar las pruebas.
 
-En total hay 11 ficheros de pruebas programadas de funcionalidad en el back-end. Cada uno con diferentes métodos que verifican peticiones y respuestas comunes que se tendrían que hacer a la API. Cada test es resuelto si el código de respuesta es el esperado según sea la acción y ruta llamada. En la Wiki se describen los comandos a usar en caso de pruebas. Un ejemplo de uso:
+En total hay 11 ficheros de pruebas programadas de funcionalidad en el back-end. Cada uno con diferentes métodos que verifican peticiones y respuestas comunes que se tendrían que hacer a la API. Cada test es resuelto si el código de respuesta es el esperado según sea la acción y ruta llamada. En la [Wiki](https://github.com/tianqueal/Proxecto-DAW-23-24/wiki/ES_DOCS#pruebas) se describen los comandos a usar en caso de pruebas. Un ejemplo de uso:
 
 ```bash
 
