@@ -65,7 +65,7 @@ class NoteCommunityController extends Controller
             ], Response::HTTP_NOT_FOUND);
         }
 
-        $communityNote->loadMissing(['user', 'topics']);
+        $communityNote->loadMissing(['user', 'user.roles', 'topics']);
 
         return NoteResource::make($communityNote);
     }

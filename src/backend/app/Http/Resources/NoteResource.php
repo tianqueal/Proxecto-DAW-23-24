@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources;
 
+use App\Http\Resources\User\UserPublicResource;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
@@ -16,7 +17,7 @@ class NoteResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'user' => UserResource::make($this->whenLoaded('user')),
+            'user' => UserPublicResource::make($this->whenLoaded('user')),
             'content' => $this->content,
             'isPublic' => $this->is_public,
             'createdAt' => $this->created_at,
