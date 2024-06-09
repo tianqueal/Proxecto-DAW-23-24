@@ -24,8 +24,9 @@ en un fichero zip o la última Release estable a través de la portada del repos
 3. **Contenedor**. CI/CD está implementado en este proyecto gracias a Google Cloud y los contenedores en la nube. Esta es una forma de replicar el proyecto y asegurar su correcto
 funcionamiento en diversos entornos. Pueden usarse herramientas avanzadas como [Docker](https://www.docker.com) para desplegar una imagen del programa en sistemas compatibles. Por lo tanto, es incorporar el fichero ``Dockerfile`` para crear una imagen local y ser lanzada en cualquier contenedor deseado. Se debe tener en cuenta que la aplicación necesita de unas configuraciones
 previas para su correcto funcionamiento:
-   - Pasar las variables, asignarlas directamente o escribir un fichero .env para la configuración de Laravel.
-   - Pasar la variable con la ruta del servidor (Backend) al Frontend en el momento de la compilación o usar un fichero .env manual
+   - Pasar las variables, asignarlas directamente o escribir un fichero `.env` para la configuración de Laravel.
+   - Pasar las variables (o completar el fichero `.env.local`) con la ruta del servidor (Backend) y el identificador del cliente Discord al Frontend en el momento de la compilación o usar un fichero .env manual
+   - Pasar las variables o completar la plantilla `.env.example` del directorio del cliente Discord.
    - Debido a la naturaleza del propósito de la app, en el contenedor no se incluye una conexión con un sistema gestor de bases de datos, por lo que las credenciales deben ser proporcionadas en el momento de la creación de la imagen.
    - Configurar cualquier proveedor de servicio SMTP, por ejemplo, existen alternativas gratuitas como MailTrap. Es necesario proveer esas credenciales para pasar los tests funcionales.
   
@@ -33,7 +34,8 @@ previas para su correcto funcionamiento:
 
 #### Docker Composer
 
-**Primero crear un fichero de variables en la raíz con las credenciales personales de acceso o usar el fichero `.env.docker-compose.example` de plantilla**
+Primero crear un fichero de variables en la raíz con las credenciales personales de acceso o usar el fichero `.env.docker-compose.example` de plantilla
+
 ```bash
 
 vim .env
@@ -44,7 +46,7 @@ vim .env
 
 ```plaintext
 
-# .env
+# .env en la raíz del repositorio
 
 MASTERNOTE_DB_HOST=tu_db_host
 MASTERNOTE_DB_DATABASE=tu_db_database
@@ -72,6 +74,7 @@ MASTERNOTE_CLIENT_DISCORD_ID=tu_client_discord_id
 # Un resultado simplificado, se pueden agregar las variables y configuraciones adicionales necesarias
 # Existe un ejemplo más completo en la raíz del repositorio
 # Todas las variables de entorno se encuentran en .env.docker-compose.example
+# Adicionalmente, se puede usar el fichero docker-compose.yaml.example como plantilla
 
 services:
   api:
@@ -130,6 +133,8 @@ Por último se compilan los contenedores con el siguiente comando:
 docker-compose up --build
 
 ```
+
+<img width="469" alt="image" src="https://github.com/tianqueal/Proxecto-DAW-23-24/assets/132884719/9428616f-fffc-47d3-80c4-aa7e32c204e3">
 
 #### Modo desarrollo del proyecto
 
