@@ -187,7 +187,7 @@ Este comando generará una nueva clave y la colocará automáticamente en el fic
 
 Mediante los comandos integrados de Artisan se puede instanciar las pruebas programadas con PHPUnit.
 Es importante recordar que si se ejecutan todas las pruebas, también se incluye la de migración, en la cual se
-verifica si el SGBD está preparado para el funcionamiento con Laravel. Información adicional en [4. Codificación y pruebas](4_codificacion_y_pruebas#pruebas)
+verifica si el SGBD está preparado para el funcionamiento con Laravel. Información adicional en [4. Codificación y pruebas](4_Codificacion_y_pruebas.md#4--pruebas)
 
 ```bash
 
