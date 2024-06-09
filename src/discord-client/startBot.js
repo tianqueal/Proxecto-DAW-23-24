@@ -16,9 +16,9 @@ module.exports.startBot = async () => {
 
   try {
     await registerCommand(client)
-    console.log("Comandos slash registrados!")
+    console.log('Slash commands registered!')
   } catch (error) {
-    console.error("Error al registrar comandos slash:", error)
+    console.error(error)
   }
 
   client.once("ready", () => {
@@ -27,7 +27,7 @@ module.exports.startBot = async () => {
       status: "online",
     })
 
-    console.log(`Conectando como ${client.user.tag}!`)
+    console.log(`Logged in as ${client.user.tag}!`)
   })
 
   client.on("interactionCreate", async (interaction) => {
@@ -41,7 +41,7 @@ module.exports.startBot = async () => {
       await command(interaction)
     } catch (error) {
       console.error("Error executing command:", error)
-      await interaction.reply("Something went wrong!")
+      await interaction.reply("Something went wrong! :(")
     }
   })
 
@@ -49,8 +49,8 @@ module.exports.startBot = async () => {
 
   try {
     await client.login(token)
-    console.log("Cliente conectado!")
+    console.log('Bot logged in!')
   } catch (error) {
-    console.error("Error al iniciar sesión:", error)
+    console.error(error)
   }
 }
