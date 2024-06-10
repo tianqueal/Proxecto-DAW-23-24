@@ -56,54 +56,6 @@ const router = createBrowserRouter([
           />
         ),
       },
-      {
-        path: 'admin',
-        element: (
-          <ProtectedRoute
-            element={
-              <Suspense fallback={<Loader />}>
-                <AdministrationLayout />
-              </Suspense>
-            }
-            allowedRoles={[Roles.ADMIN]}
-          />
-        ),
-        children: [
-          {
-            path: 'dashboard',
-            index: true,
-            element: (
-              <Suspense fallback={<Loader />}>
-                <Dashboard />
-              </Suspense>
-            ),
-          },
-          {
-            path: 'users',
-            element: (
-              <Suspense fallback={<Loader />}>
-                <Users />
-              </Suspense>
-            ),
-          },
-          {
-            path: 'notes',
-            element: (
-              <Suspense fallback={<Loader />}>
-                <Notes />
-              </Suspense>
-            ),
-          },
-          {
-            path: 'topics',
-            element: (
-              <Suspense fallback={<Loader />}>
-                <Topics />
-              </Suspense>
-            ),
-          },
-        ],
-      },
     ],
   },
   {
@@ -208,6 +160,54 @@ const router = createBrowserRouter([
             <PageNotFound />
           </Suspense>
         ),
+      },
+      {
+        path: 'admin',
+        element: (
+          <ProtectedRoute
+            element={
+              <Suspense fallback={<Loader />}>
+                <AdministrationLayout />
+              </Suspense>
+            }
+            allowedRoles={[Roles.ADMIN]}
+          />
+        ),
+        children: [
+          {
+            path: 'dashboard',
+            index: true,
+            element: (
+              <Suspense fallback={<Loader />}>
+                <Dashboard />
+              </Suspense>
+            ),
+          },
+          {
+            path: 'users',
+            element: (
+              <Suspense fallback={<Loader />}>
+                <Users />
+              </Suspense>
+            ),
+          },
+          {
+            path: 'notes',
+            element: (
+              <Suspense fallback={<Loader />}>
+                <Notes />
+              </Suspense>
+            ),
+          },
+          {
+            path: 'topics',
+            element: (
+              <Suspense fallback={<Loader />}>
+                <Topics />
+              </Suspense>
+            ),
+          },
+        ],
       },
     ],
   },
