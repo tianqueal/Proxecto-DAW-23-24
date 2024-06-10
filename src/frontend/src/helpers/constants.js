@@ -10,6 +10,12 @@ export const Roles = {
   USER_AUTHENTICATED: 'UserAuthenticated',
 }
 
+export const LayoutTypes = {
+  DEFAULT:
+    '2xl:max-w-7xl" mx-auto min-h-screen w-full flex-1 p-4 sm:max-w-xl md:w-screen md:max-w-2xl lg:max-w-4xl xl:max-w-6xl',
+  FULLSCREEN: 'mx-auto w-full flex-1',
+}
+
 export const DiscordClientURL = () => {
   const clientId = import.meta.env.VITE_DISCORD_CLIENT_ID
 
