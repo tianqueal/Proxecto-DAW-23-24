@@ -5,7 +5,7 @@ export default function TopTopics({ topics }) {
   return (
     <article className="rounded-lg bg-white p-4 shadow-md dark:bg-gray-800">
       <h2 className="mb-4 text-xl font-semibold text-gray-800 dark:text-gray-200">
-        Temas más utilizados
+        Temas del momento
       </h2>
       <ol className="list-inside space-y-2">
         {Object.values(topics).map((topic, index) => (
