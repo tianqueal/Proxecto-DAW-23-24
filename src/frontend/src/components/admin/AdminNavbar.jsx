@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
-import { Link } from 'react-router-dom'
+import { useLocation, Link } from 'react-router-dom'
+import { motion } from 'framer-motion'
 import PropTypes from 'prop-types'
 import DropdownWindow from '../navigations/DropdownWindow'
 import DropdownIcon from '../navigations/DropdownIcon'
@@ -9,15 +10,42 @@ import Pencil from '../../assets/heroicons/Pencil'
 import Hashtag from '../../assets/heroicons/Hashtag'
 
 const NavbarItem = ({ to, children }) => {
+  const { pathname } = useLocation()
+  const isActive = pathname === to
+
+  const variants = {
+    active: {
+      x: 0,
+      opacity: 1,
+      transition: {
+        type: 'spring',
+        stiffness: 300,
+      },
+    },
+    inactive: {
+      x: -2,
+      opacity: 0.7,
+    },
+  }
+
   return (
-    <li className="list-none">
+    <motion.li
+      className="list-none"
+      initial={isActive ? 'inactive' : 'active'}
+      animate={isActive ? 'active' : 'inactive'}
+      variants={variants}
+    >
       <Link
         to={to}
-        className="flex items-center gap-2 rounded-md px-3 py-2 text-sm font-medium text-gray-800 hover:bg-gray-200 focus:outline-none dark:text-white dark:hover:bg-gray-700 "
+        className={`flex items-center gap-2 rounded-md px-3 py-2 text-sm font-medium focus:outline-none ${
+          isActive
+            ? 'bg-blue-500 text-white dark:bg-blue-600'
+            : 'text-gray-800 hover:bg-gray-200 dark:text-white dark:hover:bg-gray-700'
+        }`}
       >
         {children}
       </Link>
-    </li>
+    </motion.li>
   )
 }
 
@@ -98,7 +126,7 @@ export default function AdminNavbar() {
           </section>
           <button
             onClick={toggleNavbar}
-            className="inline-flex items-center justify-center rounded-md bg-white p-2 text-gray-600 hover:bg-gray-200 hover:text-white focus:outline-none dark:bg-gray-800 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white dark:focus:text-white md:hidden"
+            className="inline-flex items-center justify-center rounded-md bg-white p-2 text-gray-600 hover:bg-gray-200 focus:outline-none dark:bg-gray-800 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white dark:focus:text-white md:hidden"
           >
             <DropdownIcon isOpen={isOpen} />
           </button>
@@ -107,7 +135,7 @@ export default function AdminNavbar() {
           className={`${isOpen ? 'block' : 'hidden'} w-full rounded-md bg-white px-4 shadow-md dark:bg-gray-800 md:hidden`}
         >
           <DropdownWindow customClasses="w-full">
-            <NavbarGroup onClick={() => setIsOpen(!isOpen)} />
+            <NavbarGroup onClick={() => setIsOpen(!isOpen)} className='flex flex-col gap-4' />
           </DropdownWindow>
         </section>
       </nav>
