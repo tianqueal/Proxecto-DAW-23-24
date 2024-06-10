@@ -350,7 +350,7 @@ export const ApiProvider = ({ children }) => {
     () =>
       async ({ page = 1 }) => {
         try {
-          const params = new URLSearchParams({ page })
+          const params = new URLSearchParams({ page, perPage: 10 })
           const { data } = await axiosInstance.get(
             `/admin/users?${params.toString()}`,
             {
@@ -364,6 +364,64 @@ export const ApiProvider = ({ children }) => {
           console.error(error)
         }
       },
+    [],
+  )
+
+  const getAdminCommunityNotes = useMemo(
+    () =>
+      async ({ page = 1 }) => {
+        try {
+          const params = new URLSearchParams({ page, perPage: 10 })
+          const { data } = await axiosInstance.get(
+            `/admin/notes?${params.toString()}`,
+            {
+              headers: {
+                Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
+              },
+            },
+          )
+          return data
+        } catch (error) {
+          console.error(error)
+        }
+      },
+    [],
+  )
+
+  const getAdminTopics = useMemo(
+    () =>
+      async ({ page = 1 }) => {
+        try {
+          const params = new URLSearchParams({ page, perPage: 10 })
+          const { data } = await axiosInstance.get(
+            `/admin/topics?${params.toString()}`,
+            {
+              headers: {
+                Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
+              },
+            },
+          )
+          return data
+        } catch (error) {
+          console.error(error)
+        }
+      },
+    [],
+  )
+
+  const getAdminStats = useMemo(
+    () => async () => {
+      try {
+        const { data } = await axiosInstance.get('/admin/stats', {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
+          },
+        })
+        return data
+      } catch (error) {
+        console.error(error)
+      }
+    },
     [],
   )
 
@@ -399,6 +457,9 @@ export const ApiProvider = ({ children }) => {
       getNoteTopics,
       updateNoteTopics,
       getUsers,
+      getAdminCommunityNotes,
+      getAdminTopics,
+      getAdminStats,
     }),
     [
       getCommunityNotes,
@@ -425,6 +486,9 @@ export const ApiProvider = ({ children }) => {
       getNoteTopics,
       updateNoteTopics,
       getUsers,
+      getAdminCommunityNotes,
+      getAdminTopics,
+      getAdminStats,
     ],
   )
 
