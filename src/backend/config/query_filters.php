@@ -27,7 +27,7 @@ return [
             'id' => 'id',
             'name' => 'name',
         ],
-        'sorting' => 'name',
+        'sorting' => 'id',
         'order' => 'asc',
         'perPage' => 15
     ]
