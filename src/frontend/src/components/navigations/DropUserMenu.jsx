@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import DropMenuOption from './DropMenuOption'
 import useAuth from '../../hooks/useAuth'
 import User from '../../assets/heroicons/User'
-import ChevronDown from '../../assets/heroicons/ChevronDown'
+import Chevron from '../../assets/heroicons/Chevron'
 import DropdownWindow from './DropdownWindow'
 import DotPulseLoader from '../loaders/DotPulseLoader'
 
@@ -44,7 +44,7 @@ const DropUserMenu = ({ username }) => {
         >
           <User customClasses="w-5 h-5" />
           {username}
-          <ChevronDown customClasses="size-5" />
+          <Chevron className="size-5 rotate-180" />
         </button>
       </div>
 

@@ -5,7 +5,7 @@ import DropMenuOption from './DropMenuOption'
 import useApi from '../../hooks/useApi'
 import DropdownWindow from './DropdownWindow'
 import ComputerDesktop from '../../assets/heroicons/ComputerDesktop'
-import ChevronDown from '../../assets/heroicons/ChevronDown'
+import Chevron from '../../assets/heroicons/Chevron'
 
 export default function DropThemeMenu() {
   const { currentTheme, setTheme } = useApi()
@@ -46,7 +46,7 @@ export default function DropThemeMenu() {
         {currentTheme === 'system' && (
           <ComputerDesktop customClasses="size-5" />
         )}
-        <ChevronDown customClasses="size-5" />
+        <Chevron className="size-5 rotate-180" />
       </button>
 
       {isOpen && (
