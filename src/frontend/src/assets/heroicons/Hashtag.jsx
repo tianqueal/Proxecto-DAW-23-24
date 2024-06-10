@@ -1,12 +1,10 @@
-import { PropTypes } from 'prop-types'
-
-export default function Hashtag({ className }) {
+export default function Hashtag(props) {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
       viewBox="0 0 24 24"
       fill="currentColor"
-      className={className}
+      {...props}
     >
       <path
         fillRule="evenodd"
@@ -15,8 +13,4 @@ export default function Hashtag({ className }) {
       />
     </svg>
   )
-}
-
-Hashtag.propTypes = {
-  className: PropTypes.string,
 }
