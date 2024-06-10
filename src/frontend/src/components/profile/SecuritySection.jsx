@@ -65,8 +65,8 @@ export default function SecuritySection({
         isVerified={!!emailVerifiedAt}
         addClasses={
           emailVerifiedAt
-            ? 'bg-white text-green-700 focus:bg-green-100 dark:bg-gray-800 dark:text-green-500 dark:focus:bg-green-900 focus:ring-green-200'
-            : 'text-white bg-green-500 hover:bg-green-500 focus:ring-green-200 dark:bg-green-800 dark:hover:bg-green-700'
+            ? 'bg-white text-green-700 hover:bg-green-50 dark:hover:bg-green-900 focus:bg-green-100 dark:bg-gray-800 dark:text-green-500 dark:focus:bg-green-900 focus:ring-green-200'
+            : 'text-white bg-green-500 hover:bg-green-600 focus:ring-green-200 dark:bg-green-800 dark:hover:bg-green-900'
         }
       />
       <SecurityAction
@@ -76,7 +76,7 @@ export default function SecuritySection({
         onClick={handleLogoutOtherDevices}
         actionLoading={actionLoading}
         actionKey="logoutOtherDevices"
-        addClasses="text-white bg-indigo-700 focus:ring-indigo-200 dark:bg-indigo-800 dark:hover:bg-indigo-700"
+        addClasses="text-white bg-indigo-700 hover:bg-indigo-800 dark:hover:bg-indigo-900 focus:ring-indigo-200 dark:bg-indigo-800 dark:hover:bg-indigo-700"
       />
       <SecurityAction
         title="Eliminar cuenta de forma permanente"
@@ -85,7 +85,7 @@ export default function SecuritySection({
         onClick={handleDeleteAccount}
         actionLoading={actionLoading}
         actionKey="deleteAccount"
-        addClasses="text-white bg-red-600 focus:ring-red-200 dark:bg-red-800 dark:hover:bg-red-700"
+        addClasses="text-white bg-red-600 hover:bg-red-700 dark:hover:bg-red-900 focus:ring-red-200 dark:bg-red-800 dark:hover:bg-red-700"
       />
     </div>
   )
