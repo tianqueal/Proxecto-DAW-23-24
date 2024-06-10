@@ -1,15 +1,15 @@
 import { useState } from 'react'
 import { PropTypes } from 'prop-types'
 import Button from '../../components/form/Button'
-import CubeLoader from '../../components/loaders/CubeLoader'
 import useUsers from '../../hooks/admin/useUsers'
 import Table from '../../components/tables/Table'
 import useAuth from '../../hooks/useAuth'
 import RoleTag from '../../components/auth/RoleTag'
+import TableSkeleton from '../../components/skeletons/TableSkeleton'
 
 function Header({ onCreate }) {
   return (
-    <header className="my-8 flex items-center justify-between">
+    <header className="mb-4 flex flex-col items-center justify-between gap-3 md:flex-row">
       <h1 className="text-3xl font-bold">Usuarios</h1>
       <Button
         type="button"
@@ -43,6 +43,24 @@ export default function Users() {
     {
       key: 'email',
       label: 'Email',
+    },
+    {
+      key: 'createdAt',
+      label: 'Fecha de creación',
+      render: (createdAt) => (
+        <span>{new Date(createdAt).toLocaleString()}</span>
+      ),
+    },
+    {
+      key: 'emailVerifiedAt',
+      label: 'Fecha de verificación',
+      render: (emailVerifiedAt) => (
+        <span>
+          {emailVerifiedAt
+            ? new Date(emailVerifiedAt).toLocaleString()
+            : 'No verificado'}
+        </span>
+      ),
     },
     {
       key: 'roles',
@@ -84,7 +102,7 @@ export default function Users() {
   return (
     <>
       <Header onCreate={handleCreateUser} />
-      {isLoading && <CubeLoader className="bg-gray-800 dark:bg-white" />}
+      {(isLoading || isError) && <TableSkeleton className="w-full" />}
       {isError && <p className="text-xl font-medium">Ha ocurrido un error</p>}
       {!isLoading && !isError && !isValidating && users?.length === 0 && (
         <p className="text-xl font-medium">¡Sin usuarios!</p>

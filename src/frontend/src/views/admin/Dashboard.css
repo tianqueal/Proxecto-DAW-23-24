@@ -1,0 +1,27 @@
+/* styles.css */
+.masonry {
+  column-count: 1;
+  column-gap: 1rem;
+}
+
+@media (min-width: 500px) {
+  .masonry {
+    column-count: 2;
+  }
+}
+
+@media (min-width: 1024px) {
+  .masonry {
+    column-count: 3;
+  }
+}
+
+@media (min-width: 1280px) {
+  .masonry {
+    column-count: 4;
+  }
+}
+
+.masonry-item {
+  @apply mb-4 break-inside-avoid rounded-md bg-white p-4 shadow-sm dark:bg-gray-700 dark:text-white;
+}

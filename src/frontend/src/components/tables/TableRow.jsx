@@ -3,9 +3,9 @@ import { PropTypes } from 'prop-types'
 function TableRow({ item, columns, actions }) {
   return (
     <tr className="hover:bg-gray-50 dark:hover:bg-gray-600">
-      {columns.map((column) => (
+      {columns.map((column, index) => (
         <td
-          key={column.key}
+          key={index}
           className="whitespace-nowrap px-6 py-4 text-sm font-medium text-gray-800 dark:text-gray-200"
         >
           {typeof column.render === 'function'

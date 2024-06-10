@@ -12,9 +12,9 @@ export default function Table({ data, columns, actions, links, onPageChange }) {
               <table className="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
                 <thead className="bg-gray-50 dark:bg-gray-700">
                   <tr>
-                    {columns.map((column) => (
+                    {columns.map((column, index) => (
                       <th
-                        key={column.key}
+                        key={index}
                         scope="col"
                         className="px-6 py-3 text-left text-xs font-medium uppercase text-gray-500 dark:text-gray-400"
                       >

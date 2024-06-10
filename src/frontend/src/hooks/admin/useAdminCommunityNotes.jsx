@@ -2,35 +2,35 @@ import useSWR from 'swr'
 import useApi from '../useApi'
 import { RefreshInterval } from '../../helpers/constants'
 
-export default function useUsers(page) {
-  const { getUsers } = useApi()
+export default function useAdminCommunityNotes(page) {
+  const { getAdminCommunityNotes } = useApi()
 
-  const fetchUsers = async (page) => {
-    const response = await getUsers({ page })
+  const fetchNotes = async (page) => {
+    const response = await getAdminCommunityNotes({ page })
     return {
-      users: response.data,
+      notes: response.data,
       totalPages: response.meta.last_page,
       links: response.meta.links,
     }
   }
 
   const { data, error, isLoading, isValidating, mutate } = useSWR(
-    ['users', page],
-    () => fetchUsers(page),
+    ['notes', page],
+    () => fetchNotes(page),
     {
       revalidateOnFocus: false,
       revalidateOnMount: true,
       revalidateOnReconnect: true,
-      refreshInterval: RefreshInterval.ADMIN_USERS,
+      refreshInterval: RefreshInterval.ADMIN_NOTES,
     },
   )
 
-  const users = data ? data.users : []
+  const notes = data ? data.notes : []
   const totalPages = data ? data.totalPages : 1
   const links = data ? data.links : []
 
   return {
-    users,
+    notes,
     isError: error,
     isLoading,
     isValidating,

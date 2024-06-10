@@ -16,6 +16,13 @@ export const LayoutTypes = {
   FULLSCREEN: 'mx-auto w-full flex-1',
 }
 
+export const RefreshInterval = {
+  ADMIN_STATS: 5000,
+  ADMIN_NOTES: 2 * 60 * 1000,
+  ADMIN_USERS: 2 * 60 * 1000,
+  ADMIN_TOPICS: 2 * 60 * 1000,
+}
+
 export const DiscordClientURL = () => {
   const clientId = import.meta.env.VITE_DISCORD_CLIENT_ID
 
