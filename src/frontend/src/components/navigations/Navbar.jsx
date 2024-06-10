@@ -95,7 +95,7 @@ export default function Navbar() {
                   {user?.isAdmin === true && (
                     <NavbarLink
                       to="/admin/dashboard"
-                      option="Administrador"
+                      option="Administración"
                       onClick={handleMenuClose}
                     />
                   )}
