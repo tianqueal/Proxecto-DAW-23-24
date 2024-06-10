@@ -9,7 +9,7 @@ return [
         ],
         'sorting' => 'username',
         'order' => 'asc',
-        'perPage' => 15,
+        'perPage' => 10,
     ],
     'note' => (object) [
         'filters' => [
