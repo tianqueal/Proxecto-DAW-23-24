@@ -5,12 +5,12 @@ import { AnimatePresence, motion } from 'framer-motion'
 import useEditorjs from '../hooks/useEditorjs'
 import CreateNote from '../components/notes/CreateNote'
 import ViewNote from '../components/notes/ViewNote'
-import ChevronLeft from '../assets/heroicons/ChevronLeft'
 import BookOpen from '../assets/heroicons/BookOpen'
 import ArrowPath from '../assets/heroicons/ArrowPath'
 import ExclamationTriangle from '../assets/heroicons/ExclamationTriangle'
 import Check from '../assets/heroicons/Check'
 import PencilSquare from '../assets/heroicons/PencilSquare'
+import Chevron from '../assets/heroicons/Chevron'
 
 const motionProps = {
   initial: { opacity: 0 },
@@ -42,7 +42,7 @@ export default function NoteEditor() {
           className="flex items-center gap-2 text-gray-700 transition-colors duration-300 hover:text-indigo-500 focus:text-indigo-500 focus:outline-none dark:text-gray-300 dark:hover:text-indigo-300 dark:focus:text-indigo-300"
           aria-label="Volver a las notas"
         >
-          <ChevronLeft className="size-6" aria-hidden="true" />
+          <Chevron className="size-6 -rotate-90" aria-hidden="true" />
           <h2 className="text-xl font-semibold">Volver atrás</h2>
         </Link>
 
@@ -72,7 +72,7 @@ export default function NoteEditor() {
             {!isSaving && !isError && !editorInitData?.readOnly && !noteId && (
               <motion.figure {...motionProps}>
                 <PencilSquare
-                  customClasses="size-8 text-yellow-500 dark:text-yellow-300"
+                  className="size-8 text-yellow-500 dark:text-yellow-300"
                   aria-label="Escribe una nueva nota"
                 />
               </motion.figure>

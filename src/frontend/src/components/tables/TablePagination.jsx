@@ -1,6 +1,5 @@
 import { PropTypes } from 'prop-types'
-import ChevronLeft from '../../assets/heroicons/ChevronLeft'
-import ChevronRight from '../../assets/heroicons/ChevronRight'
+import Chevron from '../../assets/heroicons/Chevron'
 
 function TablePagination({ links, onPageChange }) {
   const handlePageClick = (url) => {
@@ -24,9 +23,9 @@ function TablePagination({ links, onPageChange }) {
           } disabled:pointer-events-none disabled:opacity-50`}
         >
           {link.label.includes('Previous') ? (
-            <ChevronLeft className="h-5 w-5" aria-hidden="true" />
+            <Chevron className="size-5 -rotate-90" aria-hidden="true" />
           ) : link.label.includes('Next') ? (
-            <ChevronRight className="h-5 w-5" aria-hidden="true" />
+            <Chevron className="size-5 rotate-90" aria-hidden="true" />
           ) : (
             link.label
           )}
