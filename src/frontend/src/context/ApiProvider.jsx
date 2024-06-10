@@ -346,6 +346,27 @@ export const ApiProvider = ({ children }) => {
     [],
   )
 
+  const getUsers = useMemo(
+    () =>
+      async ({ page = 1 }) => {
+        try {
+          const params = new URLSearchParams({ page })
+          const { data } = await axiosInstance.get(
+            `/admin/users?${params.toString()}`,
+            {
+              headers: {
+                Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
+              },
+            },
+          )
+          return data
+        } catch (error) {
+          console.error(error)
+        }
+      },
+    [],
+  )
+
   const contextValue = useMemo(
     () => ({
       getCommunityNotes,
@@ -377,6 +398,7 @@ export const ApiProvider = ({ children }) => {
       unpublishNote,
       getNoteTopics,
       updateNoteTopics,
+      getUsers,
     }),
     [
       getCommunityNotes,
@@ -402,6 +424,7 @@ export const ApiProvider = ({ children }) => {
       unpublishNote,
       getNoteTopics,
       updateNoteTopics,
+      getUsers,
     ],
   )
 
