@@ -3,6 +3,8 @@ import { motion } from 'framer-motion'
 import Button from '../form/Button'
 import InputField from '../form/InputField'
 import BouncyLoader from '../loaders/BouncyLoader'
+import { useState } from 'react'
+import PasswordStrengthIndicator from './PasswordStrengthIndicator'
 
 const containerVariants = {
   hidden: { opacity: 0, y: -20 },
@@ -25,6 +27,7 @@ export default function FormRegister({
   errors,
   onChange,
 }) {
+  const [password, setPassword] = useState('')
   return (
     <section className="mt-5 flex items-center justify-center">
       <motion.div
@@ -37,11 +40,14 @@ export default function FormRegister({
           Registro
         </h2>
         <form
-          className="mt-8 gap-4 space-y-6"
+          className="mt-8 space-y-6"
           onSubmit={onSubmit}
           onChange={onChange}
         >
-          <div className="grid grid-cols-1 md:grid-cols-2 md:gap-8">
+          <div
+            className="grid grid-cols-1 gap-4 md:grid-cols-2 md:gap-8"
+            role="form"
+          >
             <motion.div variants={inputFieldVariants}>
               <InputField
                 id="username"
@@ -67,7 +73,9 @@ export default function FormRegister({
                 type="password"
                 name="password"
                 errorText={errors?.password?.[0]}
+                onChange={(e) => setPassword(e.target.value)}
               />
+              {password && <PasswordStrengthIndicator password={password} />}
             </motion.div>
             <motion.div variants={inputFieldVariants}>
               <InputField
@@ -82,7 +90,7 @@ export default function FormRegister({
           <motion.div className="w-full md:w-48" variants={buttonVariants}>
             <Button
               type="submit"
-              className="w-full h-9 flex justify-center items-center text-white bg-indigo-600 hover:bg-indigo-700 focus:ring-indigo-500 border-transparent"
+              className="flex h-9 w-full items-center justify-center border-transparent bg-indigo-600 text-white hover:bg-indigo-700 focus:ring-indigo-500"
             >
               {isLoading && <BouncyLoader white={true} />}
               {!isLoading && 'Registrarse'}
