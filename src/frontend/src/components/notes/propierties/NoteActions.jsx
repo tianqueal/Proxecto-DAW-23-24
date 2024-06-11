@@ -1,11 +1,11 @@
 import PropTypes from 'prop-types'
 import { motion } from 'framer-motion'
 import Ping from '../../loaders/Ping'
-import Hashtag from '../../../assets/heroicons/Hashtag'
-import SignalSlash from '../../../assets/heroicons/SignalSlash'
-import Signal from '../../../assets/heroicons/Signal'
-import Trash from '../../../assets/heroicons/Trash'
-import Chevron from '../../../assets/heroicons/Chevron'
+import Hashtag from '../../../assets/heroicons/solid/Hashtag'
+import SignalSlash from '../../../assets/heroicons/solid/SignalSlash'
+import Signal from '../../../assets/heroicons/solid/Signal'
+import Trash from '../../../assets/heroicons/solid/Trash'
+import Chevron from '../../../assets/heroicons/solid/Chevron'
 
 const ChevronIcon = () => {
   return (

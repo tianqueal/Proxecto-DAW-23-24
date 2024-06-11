@@ -1,4 +1,4 @@
-export default function CheckBadgeOutline(props) {
+export default function CheckBadge(props) {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"

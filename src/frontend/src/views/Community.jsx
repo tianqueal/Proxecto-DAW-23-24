@@ -2,7 +2,7 @@ import { useCallback, useEffect, useState } from 'react'
 import NoteList from '../components/notes/NoteList'
 import TopicSearch from '../components/notes/TopicSearch'
 import debounce from 'just-debounce-it'
-import MagnifyingGlass from '../assets/heroicons/MagnifyingGlass'
+import MagnifyingGlass from '../assets/heroicons/solid/MagnifyingGlass'
 import InputField from '../components/form/InputField'
 import useApi from '../hooks/useApi'
 import NoteListSkeleton from '../components/skeletons/NoteListSkeleton'
@@ -64,7 +64,7 @@ export default function Community() {
               Buscar por contenido
             </span>
           }
-          <MagnifyingGlass customClasses={'w-5 h-5'} />
+          <MagnifyingGlass className="size-5" />
           <InputField
             id="content"
             type="text"

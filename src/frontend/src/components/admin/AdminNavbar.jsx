@@ -4,10 +4,10 @@ import { motion } from 'framer-motion'
 import PropTypes from 'prop-types'
 import DropdownWindow from '../navigations/DropdownWindow'
 import DropdownIcon from '../navigations/DropdownIcon'
-import ChartBar from '../../assets/heroicons/ChartBar'
-import Users from '../../assets/heroicons/Users'
-import Pencil from '../../assets/heroicons/Pencil'
-import Hashtag from '../../assets/heroicons/Hashtag'
+import ChartBar from '../../assets/heroicons/solid/ChartBar'
+import Users from '../../assets/heroicons/solid/Users'
+import Pencil from '../../assets/heroicons/solid/Pencil'
+import Hashtag from '../../assets/heroicons/solid/Hashtag'
 
 const NavbarItem = ({ to, children }) => {
   const { pathname } = useLocation()
@@ -135,7 +135,10 @@ export default function AdminNavbar() {
           className={`${isOpen ? 'block' : 'hidden'} w-full rounded-md bg-white px-4 shadow-md dark:bg-gray-800 md:hidden`}
         >
           <DropdownWindow customClasses="w-full">
-            <NavbarGroup onClick={() => setIsOpen(!isOpen)} className='flex flex-col gap-4' />
+            <NavbarGroup
+              onClick={() => setIsOpen(!isOpen)}
+              className="flex flex-col gap-4"
+            />
           </DropdownWindow>
         </section>
       </nav>

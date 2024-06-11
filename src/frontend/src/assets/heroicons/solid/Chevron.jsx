@@ -1,12 +1,9 @@
-import { PropTypes } from 'prop-types'
-
-export default function Chevron({ className, ...props }) {
+export default function Chevron(props) {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
       viewBox="0 0 24 24"
       fill="currentColor"
-      className={className}
       {...props}
     >
       <path
@@ -16,8 +13,4 @@ export default function Chevron({ className, ...props }) {
       />
     </svg>
   )
-}
-
-Chevron.propTypes = {
-  className: PropTypes.string,
 }

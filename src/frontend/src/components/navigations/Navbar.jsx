@@ -7,8 +7,8 @@ import DotPulseLoader from '../loaders/DotPulseLoader'
 import UserActionSelector from './UserActionSelector'
 import ThemeSelector from './ThemeSelector'
 import useApi from '../../hooks/useApi'
-import Sun from '../../assets/heroicons/Sun'
-import Moon from '../../assets/heroicons/Moon'
+import Sun from '../../assets/heroicons/solid/Sun'
+import Moon from '../../assets/heroicons/solid/Moon'
 import MenuToggle from './MenuToggle'
 import './Navbar.css'
 
@@ -143,14 +143,14 @@ export default function Navbar() {
                     onClick={() => setTheme('dark')}
                     aria-label="Cambiar a modo oscuro"
                   >
-                    <Sun customClasses="size-10" />
+                    <Sun className="size-10" />
                   </motion.span>
                 ) : (
                   <motion.span
                     onClick={() => setTheme('light')}
                     aria-label="Cambiar a modo claro"
                   >
-                    <Moon customClasses="size-10" />
+                    <Moon className="size-10" />
                   </motion.span>
                 )}
               </NavbarLink>

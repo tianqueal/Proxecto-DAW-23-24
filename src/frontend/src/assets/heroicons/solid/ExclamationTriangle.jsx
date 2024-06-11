@@ -1,12 +1,10 @@
-import { PropTypes } from 'prop-types'
-
-export default function ExclamationTriangle({ customClasses }) {
+export default function ExclamationTriangle(props) {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
       viewBox="0 0 24 24"
       fill="currentColor"
-      className={customClasses}
+      {...props}
     >
       <path
         fillRule="evenodd"
@@ -15,8 +13,4 @@ export default function ExclamationTriangle({ customClasses }) {
       />
     </svg>
   )
-}
-
-ExclamationTriangle.propTypes = {
-  customClasses: PropTypes.string,
 }

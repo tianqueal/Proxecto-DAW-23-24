@@ -2,8 +2,8 @@ import { useEffect, useRef, useState } from 'react'
 import PropTypes from 'prop-types'
 import DropMenuOption from './DropMenuOption'
 import useAuth from '../../hooks/useAuth'
-import User from '../../assets/heroicons/User'
-import Chevron from '../../assets/heroicons/Chevron'
+import User from '../../assets/heroicons/solid/User'
+import Chevron from '../../assets/heroicons/solid/Chevron'
 import DropdownWindow from './DropdownWindow'
 import DotPulseLoader from '../loaders/DotPulseLoader'
 
@@ -42,7 +42,7 @@ const DropUserMenu = ({ username }) => {
           aria-haspopup="true"
           aria-expanded="true"
         >
-          <User customClasses="w-5 h-5" />
+          <User className="size-5" />
           {username}
           <Chevron className="size-5 rotate-180" />
         </button>

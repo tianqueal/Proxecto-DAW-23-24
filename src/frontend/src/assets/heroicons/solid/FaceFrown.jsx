@@ -1,6 +1,4 @@
-import { PropTypes } from 'prop-types'
-
-export default function FaceFrown({ customClasses }) {
+export default function FaceFrown(props) {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -8,7 +6,7 @@ export default function FaceFrown({ customClasses }) {
       viewBox="0 0 24 24"
       strokeWidth={1.5}
       stroke="currentColor"
-      className={customClasses}
+      {...props}
     >
       <path
         strokeLinecap="round"
@@ -17,8 +15,4 @@ export default function FaceFrown({ customClasses }) {
       />
     </svg>
   )
-}
-
-FaceFrown.propTypes = {
-  customClasses: PropTypes.string,
 }

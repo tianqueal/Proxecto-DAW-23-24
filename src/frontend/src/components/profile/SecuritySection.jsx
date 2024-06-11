@@ -1,6 +1,6 @@
 import { PropTypes } from 'prop-types'
 import Button from '../form/Button'
-import Check from '../../assets/heroicons/Check'
+import Check from '../../assets/heroicons/solid/Check'
 import BouncyLoader from '../loaders/BouncyLoader'
 
 function SecurityAction({
@@ -22,7 +22,7 @@ function SecurityAction({
         type="button"
         className={`flex h-10 w-full items-center justify-center gap-3 border dark:focus:ring-gray-500 ${addClasses}`}
       >
-        {isVerified && <Check customClasses="size-5" />}
+        {isVerified && <Check className="size-5" />}
         {!actionLoading?.[actionKey]?.isLoading && buttonText}
         {actionLoading?.[actionKey]?.isLoading && <BouncyLoader white={true} />}
       </Button>

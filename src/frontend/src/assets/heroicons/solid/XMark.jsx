@@ -1,6 +1,4 @@
-import { PropTypes } from 'prop-types'
-
-export default function XMark({ customClasses }) {
+export default function XMark(props) {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -8,7 +6,7 @@ export default function XMark({ customClasses }) {
       viewBox="0 0 24 24"
       strokeWidth={1.5}
       stroke="currentColor"
-      className={customClasses}
+      {...props}
     >
       <path
         strokeLinecap="round"
@@ -17,8 +15,4 @@ export default function XMark({ customClasses }) {
       />
     </svg>
   )
-}
-
-XMark.propTypes = {
-  customClasses: PropTypes.string,
 }

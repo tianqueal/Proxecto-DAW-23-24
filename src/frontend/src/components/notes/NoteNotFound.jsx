@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion'
-import FaceFrown from '../../assets/heroicons/FaceFrown'
+import FaceFrown from '../../assets/heroicons/solid/FaceFrown'
 
 export default function NoteNotFound() {
   return (
@@ -12,7 +12,7 @@ export default function NoteNotFound() {
       aria-label="No notes found"
     >
       <FaceFrown
-        customClasses="size-16 text-gray-500 dark:text-gray-400"
+        className="size-16 text-gray-500 dark:text-gray-400"
         aria-hidden="true"
       />
       <h2 className="mb-2 text-xl font-semibold text-gray-700 dark:text-gray-200">

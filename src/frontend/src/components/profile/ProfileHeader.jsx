@@ -1,5 +1,5 @@
 import { PropTypes } from 'prop-types'
-import CheckBadge from '../../assets/heroicons/CheckBadge'
+import CheckBadge from '../../assets/heroicons/solid/CheckBadge'
 
 export default function ProfileHeader({ user }) {
   return (

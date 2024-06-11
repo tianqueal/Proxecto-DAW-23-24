@@ -1,8 +1,7 @@
-// DropUserMenu.jsx
 import PropTypes from 'prop-types'
 import DropMenuOption from './DropMenuOption'
 import useAuth from '../../hooks/useAuth'
-import User from '../../assets/heroicons/User'
+import User from '../../assets/heroicons/solid/User'
 import DotPulseLoader from '../loaders/DotPulseLoader'
 import DropdownMenu from './DropdrowMenu'
 import useApi from '../../hooks/useApi'
@@ -25,7 +24,7 @@ const UserActionSelector = ({ username, isOpen, setIsOpen }) => {
 
   return (
     <DropdownMenu
-      openerIcon={<User customClasses="size-5" />}
+      openerIcon={<User className="size-5" />}
       openerText={username}
       isOpen={isOpen}
       setIsOpen={setIsOpen}

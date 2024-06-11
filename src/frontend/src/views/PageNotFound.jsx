@@ -1,6 +1,6 @@
 import { useNavigate } from 'react-router-dom'
 import { motion } from 'framer-motion'
-import ArrowPath from '../assets/heroicons/ArrowPath'
+import ArrowPath from '../assets/heroicons/solid/ArrowPath'
 import Button from '../components/form/Button'
 
 export default function PageNotFound() {

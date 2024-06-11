@@ -1,4 +1,4 @@
-import AtSymbol from '../../assets/heroicons/AtSymbol'
+import AtSymbol from '../../assets/heroicons/solid/AtSymbol'
 
 export default function Footer() {
   return (

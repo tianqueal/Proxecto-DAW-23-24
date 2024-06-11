@@ -1,6 +1,6 @@
 import { PropTypes } from 'prop-types'
 import { motion } from 'framer-motion'
-import Chevron from '../../assets/heroicons/Chevron'
+import Chevron from '../../assets/heroicons/solid/Chevron'
 
 export default function DropdownIcon({ isOpen }) {
   return isOpen ? (

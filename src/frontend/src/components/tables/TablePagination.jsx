@@ -1,5 +1,5 @@
 import { PropTypes } from 'prop-types'
-import Chevron from '../../assets/heroicons/Chevron'
+import Chevron from '../../assets/heroicons/solid/Chevron'
 
 function TablePagination({ links, onPageChange }) {
   const handlePageClick = (url) => {

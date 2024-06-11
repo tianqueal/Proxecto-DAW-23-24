@@ -1,5 +1,5 @@
-import Moon from '../../assets/heroicons/Moon'
-import Sun from '../../assets/heroicons/Sun'
+import Moon from '../../assets/heroicons/solid/Moon'
+import Sun from '../../assets/heroicons/solid/Sun'
 import DropMenuOption from './DropMenuOption'
 import useApi from '../../hooks/useApi'
 import DropdownMenu from './DropdrowMenu'
@@ -17,9 +17,9 @@ export default function ThemeSelector({ isOpen, setIsOpen }) {
     <DropdownMenu
       openerIcon={
         currentTheme === 'light' ? (
-          <Sun customClasses="size-5" />
+          <Sun className="size-5" />
         ) : (
-          <Moon customClasses="size-5" />
+          <Moon className="size-5" />
         )
       }
       isOpen={isOpen}

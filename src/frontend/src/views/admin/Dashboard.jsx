@@ -1,18 +1,18 @@
 import { PropTypes } from 'prop-types'
+import useAdminStats from '../../hooks/admin/useAdminStats'
 import BarChartSkeleton from '../../components/skeletons/BarChartSkeleton'
 import StatCard from '../../components/stats/StatCard'
 import TopTopics from '../../components/stats/TopTopics'
-import useAdminStats from '../../hooks/admin/useAdminStats'
+import ArrowRightEndOnRectangle from '../../assets/heroicons/solid/ArrowRightEndOnRectangle'
+import UserPlus from '../../assets/heroicons/solid/UserPlus'
+import Hashtag from '../../assets/heroicons/solid/Hashtag'
+import Users from '../../assets/heroicons/solid/Users'
+import Signal from '../../assets/heroicons/solid/Signal'
+import Pencil from '../../assets/heroicons/solid/Pencil'
+import PencilSquare from '../../assets/heroicons/solid/PencilSquare'
+import CheckBadge from '../../assets/heroicons/outline/CheckBadge'
+import UserCircle from '../../assets/heroicons/outline/UserCircle'
 import './Dashboard.css'
-import UserPlus from '../../assets/heroicons/UserPlus'
-import ArrowRightEndOnRectangle from '../../assets/heroicons/ArrowRightEndOnRectangle'
-import Hashtag from '../../assets/heroicons/Hashtag'
-import Users from '../../assets/heroicons/Users'
-import CheckBadgeOutline from '../../assets/heroicons/CheckBadgeOutline'
-import Signal from '../../assets/heroicons/Signal'
-import UserCircleOutline from '../../assets/heroicons/UserCircleOutline'
-import Pencil from '../../assets/heroicons/Pencil'
-import PencilSquare from '../../assets/heroicons/PencilSquare'
 
 function Header() {
   return (
@@ -76,11 +76,7 @@ export default function Dashboard() {
           icon={Signal}
         />
         <MasonryItem title="Temas" value={stats.topics} icon={Hashtag} />
-        <MasonryItem
-          title="Roles"
-          value={stats.roles}
-          icon={UserCircleOutline}
-        />
+        <MasonryItem title="Roles" value={stats.roles} icon={UserCircle} />
         <MasonryItem
           title="Promedio de notas por usuario"
           value={stats.averageNotesPerUser.toFixed(2)}
@@ -101,7 +97,7 @@ export default function Dashboard() {
         <MasonryItem
           title="Usuarios verificados"
           value={stats.verifiedUsers}
-          icon={CheckBadgeOutline}
+          icon={CheckBadge}
         />
         <MasonryItem
           title="Notas creadas en el último mes"

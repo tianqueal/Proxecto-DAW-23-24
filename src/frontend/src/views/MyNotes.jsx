@@ -6,7 +6,7 @@ import useApi from '../hooks/useApi'
 import useAuth from '../hooks/useAuth'
 import useNotes from '../hooks/useNotes'
 import { NoteFetchTypes } from '../helpers/constants'
-import MagnifyingGlass from '../assets/heroicons/MagnifyingGlass'
+import MagnifyingGlass from '../assets/heroicons/solid/MagnifyingGlass'
 import InputField from '../components/form/InputField'
 import TopicSearch from '../components/notes/TopicSearch'
 import NoteListSkeleton from '../components/skeletons/NoteListSkeleton'
@@ -213,7 +213,7 @@ export default function MyNotes() {
               Buscar por contenido
             </span>
           }
-          <MagnifyingGlass customClasses={'w-5 h-5'} />
+          <MagnifyingGlass className="size-5" />
           <InputField
             id="content"
             type="text"

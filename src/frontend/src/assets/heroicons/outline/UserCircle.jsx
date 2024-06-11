@@ -1,4 +1,4 @@
-export default function UserCircleOutline(props) {
+export default function UserCircle(props) {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"

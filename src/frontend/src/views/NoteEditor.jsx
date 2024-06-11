@@ -5,12 +5,12 @@ import { AnimatePresence, motion } from 'framer-motion'
 import useEditorjs from '../hooks/useEditorjs'
 import CreateNote from '../components/notes/CreateNote'
 import ViewNote from '../components/notes/ViewNote'
-import BookOpen from '../assets/heroicons/BookOpen'
-import ArrowPath from '../assets/heroicons/ArrowPath'
-import ExclamationTriangle from '../assets/heroicons/ExclamationTriangle'
-import Check from '../assets/heroicons/Check'
-import PencilSquare from '../assets/heroicons/PencilSquare'
-import Chevron from '../assets/heroicons/Chevron'
+import BookOpen from '../assets/heroicons/solid/BookOpen'
+import ArrowPath from '../assets/heroicons/solid/ArrowPath'
+import ExclamationTriangle from '../assets/heroicons/solid/ExclamationTriangle'
+import Check from '../assets/heroicons/solid/Check'
+import PencilSquare from '../assets/heroicons/solid/PencilSquare'
+import Chevron from '../assets/heroicons/solid/Chevron'
 
 const motionProps = {
   initial: { opacity: 0 },
@@ -64,7 +64,7 @@ export default function NoteEditor() {
                 transition={{ duration: 0.5, repeat: 0 }}
               >
                 <ExclamationTriangle
-                  customClasses="size-8 text-red-500 dark:text-red-400"
+                  className="size-8 text-red-500 dark:text-red-400"
                   aria-label="Error"
                 />
               </motion.figure>
@@ -84,7 +84,7 @@ export default function NoteEditor() {
               noteId && (
                 <motion.figure {...motionProps}>
                   <Check
-                    customClasses="size-8 text-green-500 dark:text-green-400"
+                    className="size-8 text-green-500 dark:text-green-400"
                     aria-label="Guardado con éxito"
                   />
                 </motion.figure>
@@ -92,7 +92,7 @@ export default function NoteEditor() {
             {!isSaving && !isError && editorInitData?.readOnly && (
               <motion.figure {...motionProps}>
                 <BookOpen
-                  customClasses="size-8 text-blue-500 dark:text-blue-400"
+                  className="size-8 text-blue-500 dark:text-blue-400"
                   aria-label="Nota en modo lectura"
                 />
               </motion.figure>
