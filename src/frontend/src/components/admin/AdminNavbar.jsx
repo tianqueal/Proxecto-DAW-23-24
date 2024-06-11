@@ -23,7 +23,7 @@ const NavbarItem = ({ to, children }) => {
       },
     },
     inactive: {
-      x: -2,
+      x: -1,
       opacity: 0.7,
     },
   }
@@ -113,7 +113,7 @@ export default function AdminNavbar() {
   }, [isOpen, setIsOpen])
 
   return (
-    <header className="mb-8 mt-4" ref={ref}>
+    <header className="mb-4 mt-2" ref={ref}>
       <nav className="relative mx-auto rounded-md bg-white px-4 text-gray-800 shadow-md dark:bg-gray-800 dark:text-white sm:px-6 md:max-w-max lg:px-8">
         <div className="flex h-16 items-center justify-center">
           <section className="flex items-center">
