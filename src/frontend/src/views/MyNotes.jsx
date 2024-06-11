@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { AnimatePresence, motion } from 'framer-motion'
+import { AnimatePresence } from 'framer-motion'
 import debounce from 'just-debounce-it'
 import useApi from '../hooks/useApi'
 import useAuth from '../hooks/useAuth'
@@ -17,6 +17,7 @@ import NoteNotFound from '../components/notes/NoteNotFound'
 import Button from '../components/form/Button'
 import BouncyLoader from '../components/loaders/BouncyLoader'
 import TopicSearchGeneric from '../components/notes/TopicSearchGeneric'
+import SimpleModal from '../components/navigations/SimpleModal'
 
 export default function MyNotes() {
   const {
@@ -245,50 +246,27 @@ export default function MyNotes() {
       )}
       <AnimatePresence>
         {selectedNoteId && (
-          <motion.div
-            className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 dark:bg-opacity-30"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            role="dialog"
+          <SimpleModal
+            title="Temas de la nota"
+            handleOnClose={() => setSelectedNoteId(null)}
           >
-            <motion.div
-              className="mx-auto h-60 w-11/12 rounded-lg bg-white p-4 shadow-md dark:bg-neutral-900 md:w-2/4"
-              initial={{ scale: 0.8, opacity: 0 }}
-              animate={{ scale: 1, opacity: 1 }}
-              exit={{ scale: 0.8, opacity: 0 }}
-            >
-              <motion.section>
-                <header className="flex items-center justify-between">
-                  <motion.h2 className="mb-2 text-xl font-bold text-emerald-600 dark:text-emerald-500">
-                    Temas de la nota
-                  </motion.h2>
-                  <Button
-                    type="button"
-                    onClick={() => setSelectedNoteId(null)}
-                    text="Cerrar"
-                    className="bg-red-500 px-2 py-1 text-center text-white"
+            <section className="mt-5 flex items-start justify-center">
+              {isActionNoteLoading && !errorActionNote && <BouncyLoader />}
+              {!isActionNoteLoading && noteTopics && (
+                <section className="flex w-full items-start justify-between">
+                  <TopicSearchGeneric
+                    onSelectTopic={handleSyncNoteTopics}
+                    onRemoveTopic={handleSyncNoteTopics}
+                    onSearchChange={handleSearchTopicChange}
+                    selectedTopics={noteTopics}
+                    searchTopicName={searchTopicName}
+                    showDropdown={showNoteTopicDropdown}
+                    setShowDropdown={handleSetShowDropdown}
                   />
-                </header>
-                <section className="mt-5 flex items-start justify-center">
-                  {isActionNoteLoading && !errorActionNote && <BouncyLoader />}
-                  {!isActionNoteLoading && noteTopics && (
-                    <section className="flex w-full items-start justify-between">
-                      <TopicSearchGeneric
-                        onSelectTopic={handleSyncNoteTopics}
-                        onRemoveTopic={handleSyncNoteTopics}
-                        onSearchChange={handleSearchTopicChange}
-                        selectedTopics={noteTopics}
-                        searchTopicName={searchTopicName}
-                        showDropdown={showNoteTopicDropdown}
-                        setShowDropdown={handleSetShowDropdown}
-                      />
-                    </section>
-                  )}
                 </section>
-              </motion.section>
-            </motion.div>
-          </motion.div>
+              )}
+            </section>
+          </SimpleModal>
         )}
       </AnimatePresence>
     </>
