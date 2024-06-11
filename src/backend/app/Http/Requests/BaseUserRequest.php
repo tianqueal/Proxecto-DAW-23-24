@@ -22,6 +22,7 @@ trait BaseUserRequest
                 'confirmed',
                 Password::min(8)->mixedCase()->numbers()->symbols()
             ],
+            'email_verified_at' => ['sometimes', 'date', 'nullable'],
             'roles' => ['sometimes', 'array', 'distinct'],
             'roles.*' => ['numeric', 'exists:roles,id'],
         ];
@@ -41,6 +42,7 @@ trait BaseUserRequest
                 'confirmed',
                 Password::min(8)->mixedCase()->numbers()->symbols()
             ],
+            'email_verified_at' => ['sometimes', 'date', 'nullable'],
             'roles' => ['sometimes', 'array', 'distinct'],
             'roles.*' => ['numeric', 'exists:roles,id'],
         ];

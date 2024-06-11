@@ -47,6 +47,7 @@ class AdminUserController extends Controller
         $validatedData = $request->safe()->only([
             'username',
             'email',
+            'email_verified_at',
             'password'
         ]);
         $validatedRoles = $request->safe()->only('roles');
@@ -83,6 +84,7 @@ class AdminUserController extends Controller
         $user->update($request->safe()->only([
             'username',
             'email',
+            'email_verified_at',
             'password'
         ]));
         return UserResource::make($user);
