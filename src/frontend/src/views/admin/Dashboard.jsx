@@ -42,7 +42,7 @@ export default function Dashboard() {
   const { stats, isError, isLoading, isValidating } = useAdminStats()
 
   if (isLoading || isError) {
-    return <BarChartSkeleton className="w-auto" />
+    return <BarChartSkeleton className="w-full" />
   }
 
   if (isError) {
