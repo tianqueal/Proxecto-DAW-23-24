@@ -1,11 +1,17 @@
 import { useState } from 'react'
-import { PropTypes } from 'prop-types'
+import PropTypes from 'prop-types'
 import Button from '../../components/form/Button'
 import useUsers from '../../hooks/admin/useUsers'
 import Table from '../../components/tables/Table'
 import useAuth from '../../hooks/useAuth'
 import RoleTag from '../../components/auth/RoleTag'
 import TableSkeleton from '../../components/skeletons/TableSkeleton'
+import { AnimatePresence } from 'framer-motion'
+import SimpleModal from '../../components/navigations/SimpleModal'
+import useApi from '../../hooks/useApi'
+import FormRegister from '../../components/auth/FormRegister'
+import SuccessToastify from '../../components/alerts/SuccessToastify'
+import ErrorToastify from '../../components/alerts/ErrorToastify'
 
 function Header({ onCreate }) {
   return (
@@ -27,15 +33,116 @@ Header.propTypes = {
 
 export default function Users() {
   const { user } = useAuth()
+  const { createAdminUser, updateAdminUserData, deleteAdminUser } = useApi()
   const [page, setPage] = useState(1)
-  const { users, isError, isLoading, isValidating, totalPages, links } =
+  const [selectedUser, setSelectedUser] = useState(null)
+  const [isActionLoading, setIsActionLoading] = useState(false)
+  const [errorAction, setErrorAction] = useState({})
+  const { users, isError, isLoading, isValidating, totalPages, links, mutate } =
     useUsers(page)
 
+  const handlePageChange = (newPage) => {
+    setPage(newPage)
+  }
+
+  const handleOnChange = () => {
+    if (Object.keys(errorAction).length) setErrorAction({})
+  }
+
+  const handleEditUser = (id) => {
+    const user = users.find((user) => user.id === id)
+    setSelectedUser(user)
+  }
+
+  const handleDeleteUser = async (id) => {
+    if (id === user.id) {
+      return ErrorToastify({
+        message: 'No puedes eliminar tu propio usuario',
+        autoClose: true,
+      })
+    }
+    if (!window.confirm('¿Estás seguro de eliminar este usuario?')) return
+    await deleteAdminUser({
+      id,
+      setIsLoading: setIsActionLoading,
+      setErrors: setErrorAction,
+      onSuccess: async () => {
+        await mutate()
+        SuccessToastify({
+          message: 'Usuario eliminado correctamente',
+        })
+      },
+    })
+  }
+
   const handleCreateUser = () => {
-    console.log('Crear usuario')
+    setSelectedUser({})
+  }
+
+  const onSuccessfulAction = async () => {
+    await mutate()
+    SuccessToastify({
+      message: `Usuario ${selectedUser?.id ? 'actualizado' : 'creado correctamente'}`,
+    })
+    setIsActionLoading(false)
+    setSelectedUser(null)
+  }
+
+  const handleOnSubmit = async (e) => {
+    e.preventDefault()
+    setIsActionLoading(true)
+    const fields = [
+      'username',
+      'email',
+      'password',
+      'password_confirmation',
+      'email_verified_at',
+    ]
+
+    // Filter out empty fields and fields that haven't changed
+    const formData = fields.reduce((acc, field) => {
+      if (field === 'email_verified_at') {
+        acc[field] = e.target.elements[field]?.checked
+          ? new Date().toISOString()
+          : null
+      } else {
+        const value = e.target.elements[field]?.value
+        const isSelectedUserField = field === 'username' || field === 'email'
+        const shouldAssignValue = isSelectedUserField
+          ? value !== selectedUser?.[field]
+          : !!value
+
+        if (shouldAssignValue) {
+          acc[field] = value
+        }
+      }
+
+      return acc
+    }, {})
+
+    if (selectedUser?.id) {
+      await updateAdminUserData({
+        id: selectedUser.id,
+        formData,
+        setIsLoading: setIsActionLoading,
+        setErrors: setErrorAction,
+        onSuccess: onSuccessfulAction,
+      })
+    } else {
+      await createAdminUser({
+        formData: formData,
+        setIsLoading: setIsActionLoading,
+        setErrors: setErrorAction,
+        onSuccess: onSuccessfulAction,
+      })
+    }
   }
 
   const columns = [
+    {
+      key: 'id',
+      label: 'Identificador',
+    },
     {
       key: 'username',
       label: 'Nombre de usuario',
@@ -78,7 +185,7 @@ export default function Users() {
   const actions = [
     {
       label: 'Edit',
-      onClick: (id) => console.log('Edit', id),
+      onClick: handleEditUser,
       textColor: 'text-yellow-600',
       hoverTextColor: 'hover:text-yellow-800',
       darkTextColor: 'dark:text-yellow-400',
@@ -86,7 +193,7 @@ export default function Users() {
     },
     {
       label: 'Delete',
-      onClick: (id) => console.log('Delete', id),
+      onClick: handleDeleteUser,
       textColor: 'text-red-600',
       hoverTextColor: 'hover:text-red-800',
       darkTextColor: 'dark:text-red-400',
@@ -94,10 +201,6 @@ export default function Users() {
       disabled: (id) => id === user.id,
     },
   ]
-
-  const handlePageChange = (newPage) => {
-    setPage(newPage)
-  }
 
   return (
     <>
@@ -117,6 +220,42 @@ export default function Users() {
           onPageChange={handlePageChange}
         />
       )}
+      <AnimatePresence>
+        {selectedUser && (
+          <SimpleModal
+            title={`${selectedUser?.id ? `Editar` : `Crear`} usuario`}
+            handleOnClose={() => setSelectedUser(null)}
+          >
+            <section className="flex items-start justify-center">
+              <FormRegister
+                onSubmit={handleOnSubmit}
+                isLoading={isActionLoading}
+                errors={errorAction}
+                initialValues={{
+                  id: selectedUser?.id,
+                  username: selectedUser?.username,
+                  email: selectedUser?.email,
+                  roles: Object.values(selectedUser?.roles || {}).map(
+                    (role) => role?.id,
+                  ),
+                  email_verified_at: !!selectedUser?.emailVerifiedAt,
+                }}
+                onChange={handleOnChange}
+                additionalInputs={[
+                  {
+                    id: 'email_verified_at',
+                    label: 'Usuario verificado',
+                    type: 'checkbox',
+                    name: 'email_verified_at',
+                    value: !!selectedUser?.emailVerifiedAt,
+                    disabled: user.id === selectedUser?.id,
+                  },
+                ]}
+              />
+            </section>
+          </SimpleModal>
+        )}
+      </AnimatePresence>
     </>
   )
 }
