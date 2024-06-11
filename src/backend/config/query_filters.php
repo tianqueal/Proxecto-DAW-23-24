@@ -7,7 +7,7 @@ return [
             'email' => 'email',
             'username' => 'username'
         ],
-        'sorting' => 'username',
+        'sorting' => 'id',
         'order' => 'asc',
         'perPage' => 10,
     ],
