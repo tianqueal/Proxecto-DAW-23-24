@@ -26,6 +26,8 @@ export default function FormRegister({
   isLoading,
   errors,
   onChange,
+  initialValues = {},
+  additionalInputs = {},
 }) {
   const [password, setPassword] = useState('')
   return (
@@ -54,6 +56,7 @@ export default function FormRegister({
                 label="Nombre de usuario"
                 type="text"
                 name="username"
+                value={initialValues?.username}
                 errorText={errors?.username?.[0]}
               />
             </motion.div>
@@ -63,6 +66,7 @@ export default function FormRegister({
                 label="Correo electrónico"
                 type="email"
                 name="email"
+                value={initialValues?.email}
                 errorText={errors?.email?.[0]}
               />
             </motion.div>
@@ -86,6 +90,22 @@ export default function FormRegister({
                 errorText={errors?.password_confirmation?.[0]}
               />
             </motion.div>
+            {additionalInputs && (
+              <motion.div variants={inputFieldVariants}>
+                {additionalInputs?.map((input) => (
+                  <InputField
+                    key={input.id}
+                    id={input.id}
+                    label={input.label}
+                    type={input.type}
+                    name={input.name}
+                    value={initialValues?.[input.name]}
+                    disabled={input?.disabled}
+                    errorText={errors?.[input.name]?.[0]}
+                  />
+                ))}
+              </motion.div>
+            )}
           </div>
           <motion.div className="w-full md:w-48" variants={buttonVariants}>
             <Button
@@ -107,4 +127,6 @@ FormRegister.propTypes = {
   isLoading: PropTypes.bool.isRequired,
   errors: PropTypes.object,
   onChange: PropTypes.func,
+  initialValues: PropTypes.object,
+  additionalInputs: PropTypes.array,
 }
