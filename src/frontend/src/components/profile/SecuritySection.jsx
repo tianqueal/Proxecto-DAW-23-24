@@ -20,7 +20,7 @@ function SecurityAction({
       <Button
         onClick={onClick}
         type="button"
-        className={`flex h-10 w-full items-center justify-center gap-3 border dark:focus:ring-gray-500 ${addClasses}`}
+        className={`flex h-10 w-full items-center justify-center gap-3 border dark:focus:ring-gray-500 md:w-72 ${addClasses}`}
       >
         {isVerified && <Check className="size-5" />}
         {!actionLoading?.[actionKey]?.isLoading && buttonText}
