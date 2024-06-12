@@ -1,3 +1,5 @@
+export const AppName = 'MasterNote'
+
 export const NoteFetchTypes = {
   COMMUNITY_NOTES: 'communityNotes',
   MY_NOTES: 'myNotes',
@@ -12,7 +14,7 @@ export const Roles = {
 
 export const LayoutTypes = {
   DEFAULT:
-    '2xl:max-w-7xl" mx-auto min-h-screen w-full flex-1 p-4 sm:max-w-xl md:w-screen md:max-w-2xl lg:max-w-4xl xl:max-w-6xl',
+    'mx-auto min-h-screen w-full flex-1 p-4 sm:max-w-xl md:w-screen md:max-w-2xl lg:max-w-4xl xl:max-w-7xl',
   FULLSCREEN: 'mx-auto w-full flex-1',
 }
 
@@ -21,6 +23,12 @@ export const RefreshInterval = {
   ADMIN_NOTES: 2 * 60 * 1000,
   ADMIN_USERS: 2 * 60 * 1000,
   ADMIN_TOPICS: 2 * 60 * 1000,
+}
+
+export const Language = {
+  EN: 'en',
+  ES: 'es',
+  CURRENT: navigator.language.split('-')[0],
 }
 
 export const DiscordClientURL = () => {
