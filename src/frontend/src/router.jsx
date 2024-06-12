@@ -45,16 +45,22 @@ const router = createBrowserRouter([
     children: [
       {
         index: true,
-        element: (
-          <ProtectedRoute
+        element:
+          ({
+            /* <ProtectedRoute
             element={
               <Suspense fallback={<Loader />}>
                 <Home />
               </Suspense>
             }
             allowedRoles={[Roles.GUEST]}
-          />
-        ),
+          /> */
+          },
+          (
+            <Suspense fallback={<Loader />}>
+              <Home />
+            </Suspense>
+          )),
       },
     ],
   },
