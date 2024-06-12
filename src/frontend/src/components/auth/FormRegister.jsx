@@ -27,11 +27,11 @@ export default function FormRegister({
   errors,
   onChange,
   initialValues = {},
-  additionalInputs = {},
+  additionalInputs = [],
 }) {
   const [password, setPassword] = useState('')
   return (
-    <section className="mt-5 flex items-center justify-center">
+    <section className="mt-3 flex items-center justify-center">
       <motion.div
         className="w-full max-w-xl space-y-6 rounded-lg p-8"
         initial="hidden"
@@ -39,7 +39,7 @@ export default function FormRegister({
         variants={containerVariants}
       >
         <h2 className="text-3xl font-bold text-gray-900 transition-all dark:text-gray-200">
-          Registro
+          {initialValues?.id ? 'Datos de registro' : 'Registro'}
         </h2>
         <form
           className="mt-8 space-y-6"
@@ -113,7 +113,7 @@ export default function FormRegister({
               className="flex h-9 w-full items-center justify-center border-transparent bg-indigo-600 text-white hover:bg-indigo-700 focus:ring-indigo-500"
             >
               {isLoading && <BouncyLoader white={true} />}
-              {!isLoading && 'Registrarse'}
+              {!isLoading && (initialValues?.id ? 'Actualizar' : 'Registrarse')}
             </Button>
           </motion.div>
         </form>
