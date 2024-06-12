@@ -21,7 +21,7 @@ export default function Community() {
     setFilters,
     isError,
     isLoading,
-    isValidating,
+    /* isValidating, */
   } = useNotes({
     type: NoteFetchTypes.COMMUNITY_NOTES,
   })
@@ -79,15 +79,13 @@ export default function Community() {
           <TopicSearch onChange={handleTopicSearchChange} />
         </div>
       </div>
-      {!isLoading && !isError && !isValidating && notes?.length === 0 && (
+      {!isLoading && !isError && notes?.length === 0 && (
         <NoteNotFound />
       )}
       {!isLoading && notes && notes.length > 0 && (
         <NoteList notes={notes} lastNoteElementRef={lastNoteElementRef} />
       )}
-      {(isLoading || isError || isValidating) && !notes?.length && (
-        <NoteListSkeleton />
-      )}
+      {(isLoading || isError) && !notes?.length && <NoteListSkeleton />}
     </>
   )
 }
