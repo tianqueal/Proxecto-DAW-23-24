@@ -13,12 +13,13 @@ import PencilSquare from '../../assets/heroicons/solid/PencilSquare'
 import CheckBadge from '../../assets/heroicons/outline/CheckBadge'
 import UserCircle from '../../assets/heroicons/outline/UserCircle'
 import './Dashboard.css'
+import { AppName } from '../../helpers/constants'
 
 function Header() {
   return (
     <header className="mb-4 flex flex-col items-center justify-between gap-3 md:flex-row">
       <h1 className="text-3xl font-bold text-gray-900 dark:text-gray-100">
-        Estadísticas de MasterNote
+        Estadísticas de {AppName}
       </h1>
     </header>
   )
