@@ -16,31 +16,43 @@ const useAuth = (/* { middleware, url, requiredRole } */) => {
     error,
     mutate: mutateUser,
     isValidating,
-  } = useSWR('/user', async () => {
-    try {
-      const response = await axiosInstance('/user', {
-        headers: {
-          Authorization: `Bearer ${accessToken}`,
-        },
-      })
-      return response.data.data
-    } catch (error) {
-      mutateUser(undefined, false)
-      throw Error(error?.response?.data?.errors)
-    }
-  })
+  } = useSWR(
+    '/user',
+    async () => {
+      try {
+        const response = await axiosInstance('/user', {
+          headers: {
+            Authorization: `Bearer ${accessToken}`,
+          },
+        })
+        return response.data.data
+      } catch (error) {
+        mutateUser(undefined, false)
+        throw Error(error?.response?.data?.errors)
+      }
+    },
+    {
+      revalidateOnFocus: true,
+    },
+  )
   /* const navigate = useNavigate() */
 
   const login = async ({ formData, setIsLoading, setErrors, onSuccess }) => {
     try {
+      setErrors({})
+      setIsLoading(true)
+
+      // Remove the old token and reset user state
       localStorage.removeItem('accessToken')
       await mutateUser(null, false)
 
-      setErrors({})
-      setIsLoading(true)
+      // Perform login
       const { data } = await axiosInstance.post('/login', formData)
       localStorage.setItem('accessToken', data.data.access_token)
+
+      // Update user data
       await mutateUser(data.data.user, false)
+
       onSuccess({
         message: data?.data?.message,
         navigateTo: data.data.user?.roles?.some(
@@ -66,9 +78,9 @@ const useAuth = (/* { middleware, url, requiredRole } */) => {
           setErrors(error?.response?.data?.errors)
           break
       }
+    } finally {
+      setIsLoading(false)
     }
-    await mutateUser()
-    setIsLoading(false)
   }
 
   const register = async ({ formData, setIsLoading, setErrors }) => {
