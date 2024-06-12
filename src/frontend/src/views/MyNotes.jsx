@@ -18,6 +18,7 @@ import Button from '../components/form/Button'
 import BouncyLoader from '../components/loaders/BouncyLoader'
 import TopicSearchGeneric from '../components/notes/TopicSearchGeneric'
 import SimpleModal from '../components/navigations/SimpleModal'
+import FirstNoteContainer from '../components/notes/FirstNoteContainer'
 
 export default function MyNotes() {
   const {
@@ -49,7 +50,7 @@ export default function MyNotes() {
     setFilters,
     isError,
     isLoading,
-    isValidating,
+    /* isValidating, */
     mutateNotes,
   } = useNotes({
     type: NoteFetchTypes.MY_NOTES,
@@ -195,6 +196,12 @@ export default function MyNotes() {
     setNoteTopicDropdown(show)
   }
 
+  const MyNotesEmptyResult = useCallback(() => {
+    const userAccountCreatedToday =
+      new Date(user.createdAt).toDateString() === new Date().toDateString()
+    return userAccountCreatedToday ? <FirstNoteContainer /> : <NoteNotFound />
+  }, [user])
+
   return (
     <>
       <header className="mt-8 flex items-center justify-between">
@@ -207,13 +214,15 @@ export default function MyNotes() {
         />
       </header>
 
-      <div className="my-8 flex flex-col items-center md:flex-row md:items-start md:justify-between">
+      <section
+        className="my-8 flex flex-col items-center md:flex-row md:items-start md:justify-between"
+        role="form"
+      >
         <label className="flex max-w-56 items-center gap-3" htmlFor="content">
-          {
-            <span className="hidden" aria-hidden="true">
-              Buscar por contenido
-            </span>
-          }
+          <span className="hidden" aria-hidden="true">
+            Buscar por contenido
+          </span>
+
           <MagnifyingGlass className="size-5" />
           <InputField
             id="content"
@@ -225,13 +234,14 @@ export default function MyNotes() {
           />
         </label>
 
-        <div className="flex flex-col items-center md:items-end">
+        <section
+          className="flex flex-col items-center md:items-end"
+          role="group"
+        >
           <TopicSearch onChange={handleTopicSearchChange} />
-        </div>
-      </div>
-      {!isLoading && !isError && !isValidating && notes?.length === 0 && (
-        <NoteNotFound />
-      )}
+        </section>
+      </section>
+      {!isLoading && !isError && notes?.length === 0 && <MyNotesEmptyResult />}
       {!isLoading && notes && notes.length > 0 && (
         <NoteList
           notes={notes}
@@ -241,9 +251,7 @@ export default function MyNotes() {
           errorActionNote={errorActionNote}
         />
       )}
-      {(isLoading || isError || isValidating) && notes?.length !== 0 && (
-        <NoteListSkeleton />
-      )}
+      {(isLoading || isError) && notes?.length !== 0 && <NoteListSkeleton />}
       <AnimatePresence>
         {selectedNoteId && (
           <SimpleModal
