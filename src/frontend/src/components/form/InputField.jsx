@@ -27,7 +27,7 @@ function InputElement({
   return (
     <>
       {type === 'checkbox' ? (
-        <div className="mb-4 flex items-center">
+        <div className="mb-4 flex items-center" role="group">
           <motion.input
             id={id}
             type="checkbox"
@@ -40,21 +40,25 @@ function InputElement({
             variants={shakeAnimation}
             animate={errorText ? 'shake' : ''}
           />
-          <label
-            htmlFor={id}
-            className="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300"
-          >
-            {label}
-          </label>
+          {label && (
+            <label
+              htmlFor={id}
+              className="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300"
+            >
+              {label}
+            </label>
+          )}
         </div>
       ) : (
-        <div className="mb-4">
-          <label
-            htmlFor={id}
-            className="block text-sm font-medium text-gray-700 transition-all dark:text-gray-200"
-          >
-            {label}
-          </label>
+        <>
+          {label && (
+            <label
+              htmlFor={id}
+              className="block text-sm font-medium text-gray-700 transition-all dark:text-gray-200"
+            >
+              {label}
+            </label>
+          )}
           <motion.input
             id={id}
             type={type}
@@ -73,7 +77,7 @@ function InputElement({
             variants={shakeAnimation}
             animate={errorText ? 'shake' : ''}
           />
-        </div>
+        </>
       )}
       {errorText && (
         <p className="mt-2 text-sm text-red-600 dark:text-red-400">
