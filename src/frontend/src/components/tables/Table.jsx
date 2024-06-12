@@ -2,7 +2,14 @@ import { PropTypes } from 'prop-types'
 import TableRow from './TableRow'
 import TablePagination from './TablePagination'
 
-export default function Table({ data, columns, actions, links, onPageChange }) {
+export default function Table({
+  data,
+  columns,
+  actions,
+  isActionLoading = {},
+  links,
+  onPageChange,
+}) {
   return (
     <section className="flex flex-col">
       <div className="-mx-1.5 overflow-x-auto">
@@ -36,6 +43,7 @@ export default function Table({ data, columns, actions, links, onPageChange }) {
                       item={item}
                       columns={columns}
                       actions={actions}
+                      isActionLoading={isActionLoading}
                     />
                   ))}
                 </tbody>
@@ -69,6 +77,7 @@ Table.propTypes = {
       darkHoverTextColor: PropTypes.string,
     }),
   ).isRequired,
+  isActionLoading: PropTypes.object,
   links: PropTypes.arrayOf(
     PropTypes.shape({
       url: PropTypes.string,
