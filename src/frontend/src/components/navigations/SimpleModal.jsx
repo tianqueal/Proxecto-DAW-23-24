@@ -12,14 +12,14 @@ export default function SimpleModal({ title, children, handleOnClose }) {
       role="dialog"
     >
       <motion.div
-        className="mx-auto w-11/12 rounded-lg bg-white p-4 shadow-md dark:bg-neutral-900 md:w-2/4"
+        className="mx-auto h-4/6 w-11/12 overflow-y-auto rounded-lg bg-white p-4 shadow-md dark:bg-neutral-900 md:h-auto md:w-2/4"
         initial={{ scale: 0.8, opacity: 0 }}
         animate={{ scale: 1, opacity: 1 }}
         exit={{ scale: 0.8, opacity: 0 }}
       >
         <motion.section>
           <header className="flex items-center justify-between">
-            <motion.h2 className="mb-2 text-xl font-bold text-emerald-600 dark:text-emerald-500">
+            <motion.h2 className="text-xl font-bold text-emerald-600 dark:text-emerald-500">
               {title}
             </motion.h2>
             <Button
