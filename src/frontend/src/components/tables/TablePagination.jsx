@@ -18,8 +18,8 @@ function TablePagination({ links, onPageChange }) {
           type="button"
           onClick={() => handlePageClick(link.url)}
           disabled={!link.url}
-          className={`flex min-w-[40px] items-center justify-center rounded-full py-2.5 text-sm text-gray-800 hover:bg-gray-100 dark:text-gray-200 dark:hover:bg-gray-700 ${
-            link.active ? 'bg-blue-600 text-white' : ''
+          className={`flex min-w-[40px] items-center justify-center rounded-full py-2.5 text-sm text-gray-800 transition-all hover:bg-gray-100 dark:text-gray-200 dark:hover:bg-gray-700 ${
+            link.active ? 'bg-blue-600 text-white hover:text-gray-700' : ''
           } disabled:pointer-events-none disabled:opacity-50`}
         >
           {link.label.includes('Previous') ? (
