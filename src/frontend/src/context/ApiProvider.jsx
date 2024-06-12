@@ -476,17 +476,84 @@ export const ApiProvider = ({ children }) => {
       async ({ id, setIsLoading, onError, onSuccess }) => {
         try {
           setIsLoading(true)
-          await axiosInstance.delete(`/admin/users/${id}`, {
+          const { data } = await axiosInstance.delete(`/admin/users/${id}`, {
             headers: {
               Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
             },
           })
-          if (onSuccess) onSuccess()
+          if (onSuccess) onSuccess({ message: data?.data?.message })
         } catch (error) {
           console.error(error)
           if (onError) onError()
         } finally {
           setIsLoading(false)
+        }
+      },
+    [],
+  )
+
+  const changeAdminNoteStatus = useMemo(
+    () =>
+      async ({ id, status, setIsLoading, onError, onSuccess }) => {
+        try {
+          await axiosInstance.put(
+            `/admin/notes/${id}`,
+            { id, is_public: status },
+            {
+              headers: {
+                Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
+              },
+            },
+          )
+          if (onSuccess) onSuccess({ message: 'Estado de la nota actualizado' })
+        } catch (error) {
+          console.error(error)
+          setIsLoading({})
+          if (onError) onError()
+        }
+      },
+    [],
+  )
+
+  const deleteAdminNote = useMemo(
+    () =>
+      async ({ id, setIsLoading, onError, onSuccess }) => {
+        try {
+          const { data } = await axiosInstance.delete(`/admin/notes/${id}`, {
+            headers: {
+              Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
+            },
+          })
+          if (onSuccess)
+            onSuccess({
+              message: data?.data?.message ?? 'Nota eliminada correctamente',
+            })
+        } catch (error) {
+          console.error(error)
+          setIsLoading({})
+          if (onError) onError()
+        }
+      },
+    [],
+  )
+
+  const deleteAdminTopic = useMemo(
+    () =>
+      async ({ id, setIsLoading, onError, onSuccess }) => {
+        try {
+          const { data } = await axiosInstance.delete(`/admin/topics/${id}`, {
+            headers: {
+              Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
+            },
+          })
+          if (onSuccess)
+            onSuccess({
+              message: data?.data?.message ?? 'Tema eliminado correctamente',
+            })
+        } catch (error) {
+          console.error(error)
+          setIsLoading({})
+          if (onError) onError()
         }
       },
     [],
@@ -530,6 +597,9 @@ export const ApiProvider = ({ children }) => {
       createAdminUser,
       updateAdminUserData,
       deleteAdminUser,
+      changeAdminNoteStatus,
+      deleteAdminNote,
+      deleteAdminTopic,
     }),
     [
       getCommunityNotes,
@@ -562,6 +632,9 @@ export const ApiProvider = ({ children }) => {
       createAdminUser,
       updateAdminUserData,
       deleteAdminUser,
+      changeAdminNoteStatus,
+      deleteAdminNote,
+      deleteAdminTopic,
     ],
   )
 
