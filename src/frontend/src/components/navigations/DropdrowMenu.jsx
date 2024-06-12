@@ -32,7 +32,11 @@ const DropdownMenu = ({
   }
 
   return (
-    <div className="relative inline-block text-left" ref={ref}>
+    <section
+      className="relative inline-block whitespace-nowrap text-left"
+      ref={ref}
+      role="menubar"
+    >
       <button
         type="button"
         onClick={handleToggleClick}
@@ -50,7 +54,7 @@ const DropdownMenu = ({
           {children}
         </DropdownWindow>
       )}
-    </div>
+    </section>
   )
 }
 
