@@ -1,11 +1,16 @@
+import { PropTypes } from 'prop-types'
 import ContentLoader from 'react-content-loader'
+import useApi from '../../hooks/useApi'
 
 export default function TableSkeleton(props) {
+  const { currentTheme } = useApi()
+  const backgroundColor = currentTheme === 'light' ? '#eaeced' : '#374151'
+  const foregroundColor = currentTheme === 'light' ? '#ffffff' : '#4b5563'
   return (
     <ContentLoader
       viewBox="0 0 1000 550"
-      backgroundColor="#eaeced"
-      foregroundColor="#ffffff"
+      backgroundColor={backgroundColor}
+      foregroundColor={foregroundColor}
       {...props}
     >
       <rect x="51" y="45" rx="3" ry="3" width="906" height="17" />
@@ -61,4 +66,8 @@ export default function TableSkeleton(props) {
       <rect x="933" y="54" rx="3" ry="3" width="24" height="33" />
     </ContentLoader>
   )
+}
+
+TableSkeleton.propTypes = {
+  className: PropTypes.string,
 }
