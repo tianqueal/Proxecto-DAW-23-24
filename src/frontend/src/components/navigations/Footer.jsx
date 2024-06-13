@@ -13,7 +13,7 @@ export default function Footer() {
           <section className="mb-6 md:mb-0" aria-labelledby="about-heading">
             <article>
               <h2 id="about-heading" className="text-xl font-bold">
-                MasterNote
+                {AppName}
               </h2>
               <p className="mt-2 max-w-xs text-sm text-gray-400">
                 Proyecto web para la organización de notas y tareas personales.
