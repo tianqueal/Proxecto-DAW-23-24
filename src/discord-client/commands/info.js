@@ -1,5 +1,5 @@
 const config = require("../config")
-import { fetch } from "undici"
+const { fetch } = require("undici")
 
 module.exports.info = async (interaction) => {
   try {

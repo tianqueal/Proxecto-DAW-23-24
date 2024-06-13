@@ -1,4 +1,4 @@
-import { fetch } from "undici"
+const { fetch } = require("undici")
 
 module.exports.electricityPrice = async (interaction) => {
   try {

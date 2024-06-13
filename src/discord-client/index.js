@@ -5,7 +5,7 @@ const config = require("./config")
 const { startBot } = require("./startBot")
 const app = express()
 const port = config.PORT || 80
-import { setGlobalDispatcher, Agent, Pool } from "undici"
+const { setGlobalDispatcher, Agent, Pool } = require("undici")
 
 setGlobalDispatcher(
   new Agent({ factory: (origin) => new Pool(origin, { connections: 128 }) })
