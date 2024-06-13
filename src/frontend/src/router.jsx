@@ -1,3 +1,11 @@
+/**
+ * @author Christian Alvarado
+ * @version v1.0.0
+ * @license MIT
+ * @file This file contains the router configuration for the frontend.
+ * @see https://github.com/tianqueal/Proxecto-DAW-23-24/wiki/
+ */
+
 /* eslint-disable react-refresh/only-export-components */
 import { createBrowserRouter, Navigate } from 'react-router-dom'
 import { lazy, Suspense } from 'react'
@@ -14,6 +22,8 @@ const Login = lazy(() => import('./views/Login'))
 const Discord = lazy(() => import('./views/Discord'))
 const PageNotFound = lazy(() => import('./views/PageNotFound'))
 const Profile = lazy(() => import('./views/Profile'))
+const MyNotes = lazy(() => import('./views/MyNotes'))
+const Cookies = lazy(() => import('./views/Cookies'))
 import NoteEditor from './views/NoteEditor'
 import ProtectedRoute from './ProtectedRoute'
 import Dashboard from './views/admin/Dashboard'
@@ -21,7 +31,6 @@ import Users from './views/admin/Users'
 import Notes from './views/admin/Notes'
 import Topics from './views/admin/Topics'
 import AdministrationLayout from './layouts/AdministrationLayout'
-const MyNotes = lazy(() => import('./views/MyNotes'))
 // const Test = lazy(() => import('./views/Test'))
 /* const NoteEditor = lazy(() => import('./views/NoteEditor')) */
 
@@ -157,6 +166,14 @@ const router = createBrowserRouter([
             }
             allowedRoles={[Roles.USER_AUTHENTICATED]}
           />
+        ),
+      },
+      {
+        path: 'cookies',
+        element: (
+          <Suspense fallback={<Loader />}>
+            <Cookies />
+          </Suspense>
         ),
       },
       {
