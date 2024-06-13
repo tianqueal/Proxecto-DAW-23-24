@@ -1,9 +1,15 @@
+import { motion } from 'framer-motion'
 import Chevron from '../../assets/heroicons/solid/Chevron'
 import Check from '../../assets/heroicons/solid/Check'
 
 export default function PreviewEditorContent() {
   return (
-    <article className="mt-8 flex flex-col items-center justify-between gap-8 md:flex-row">
+    <motion.article
+      className="mt-8 flex flex-col items-center justify-between gap-8 md:flex-row"
+      initial={{ opacity: 0, y: -10 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 1, delay: 5.1 }}
+    >
       <section className="mx-auto w-full">
         <figure className="relative mx-auto h-[calc(100vh/1.8)] w-[calc(100vw/1.2)] rounded-[2rem] border border-gray-800 bg-gray-800 dark:border-slate-500 dark:bg-black dark:shadow-sm md:w-[80vw] lg:w-[60vw] 2xl:w-[40vw]">
           <div className="absolute inset-4 overflow-y-auto rounded-[1rem] bg-neutral-50 dark:bg-neutral-900">
@@ -14,7 +20,7 @@ export default function PreviewEditorContent() {
           </div>
         </figure>
       </section>
-    </article>
+    </motion.article>
   )
 }
 
