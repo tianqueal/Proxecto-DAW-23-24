@@ -19,16 +19,16 @@ const Header = () => (
   </header>
 )
 
-const Feature = ({ title, description, animationDirection }) => (
+const Feature = ({ title, description }) => (
   <article
     role="article"
     className="rounded-lg bg-white p-6 shadow dark:bg-gray-800"
   >
     <motion.h3
       className="mb-2 text-xl font-semibold text-gray-800 dark:text-white"
-      initial={{ x: animationDirection === 'left' ? -100 : 100, opacity: 0 }}
-      animate={{ x: 0, opacity: 1 }}
-      transition={{ duration: 0.7 }}
+      initial={{ opacity: 0, y: -10 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.5 }}
     >
       {title}
     </motion.h3>
@@ -47,7 +47,6 @@ const Embed = () => (
 Feature.propTypes = {
   title: PropTypes.string.isRequired,
   description: PropTypes.string.isRequired,
-  animationDirection: PropTypes.oneOf(['left', 'right']).isRequired,
 }
 
 const InviteSection = () => (
@@ -88,32 +87,26 @@ export default function Discord() {
         <Feature
           title="Visualiza las notas con otros usuarios"
           description="Comparte las notas de la comunidad con otros usuarios a través de servidores de Discord."
-          animationDirection="left"
         />
         <Feature
           title="Lista las notas de la comunidad"
           description="Consulta las últimas notas de la comunidad de Discord en tiempo real con navegación intuitiva."
-          animationDirection="right"
         />
         <Feature
           title="Encuentra aquello que buscas"
           description="Filtra las notas de la comunidad por contenido, temas e incluso por usuarios."
-          animationDirection="left"
         />
         <Feature
           title="Integración nativa con Discord"
           description="Disfruta de una integración nativa con las últimas tecnologías de la API de Discord."
-          animationDirection="right"
         />
         <Feature
           title="Compatible con Slash Commands"
           description="Usa los comandos de barra que te permiten interactuar con el bot de una manera más rápida y sencilla."
-          animationDirection="left"
         />
         <Feature
           title="Vista rápida de las notas"
           description="Visualiza el contenido de una nota en Discord o en la web con un solo clic."
-          animationDirection="right"
         />
       </section>
       <InviteSection />
