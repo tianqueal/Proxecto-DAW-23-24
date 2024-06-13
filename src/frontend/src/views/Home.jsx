@@ -6,6 +6,7 @@ import CustomLink from '../components/home-components/CustomLink'
 import DiscordSection from '../components/home-components/DiscordSection'
 import './Home.css'
 import PreviewEditor from '../components/home-components/PreviewEditor'
+import CookieConsent from '../components/home-components/CookieConsent'
 
 export default function Home() {
   return (
@@ -41,9 +42,9 @@ export default function Home() {
         </motion.h2>
         <motion.section
           className="mt-8 flex flex-col justify-center gap-4 px-2 md:flex-row"
-          initial={{ opacity: 0, y: -20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1, delay: 1 }}
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 1, delay: 6 }}
           role="navigation"
         >
           <CustomLink
@@ -69,17 +70,17 @@ export default function Home() {
         </p>
         <div className="flex flex-col">
           <Slider>
-            {notes.map((note) => (
+            {notes.slice(0, 20).map((note) => (
               <NoteCardSlider key={note.id} note={note} />
             ))}
           </Slider>
           <Slider rtl={true}>
-            {notes.map((note) => (
+            {notes.slice(20, 40).map((note) => (
               <NoteCardSlider key={note.id} note={note} />
             ))}
           </Slider>
           <Slider>
-            {notes.map((note) => (
+            {notes.slice(40, 55).map((note) => (
               <NoteCardSlider key={note.id} note={note} />
             ))}
           </Slider>
@@ -88,6 +89,7 @@ export default function Home() {
       <section className="bg-gray-900 py-8 text-center text-white">
         <DiscordSection />
       </section>
+      <CookieConsent />
     </main>
   )
 }
