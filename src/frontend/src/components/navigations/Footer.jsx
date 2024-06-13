@@ -2,6 +2,7 @@ import { AppName, Language as LanguageConstant } from '../../helpers/constants'
 import Language from '../../assets/heroicons/solid/Language'
 import AtSymbol from '../../assets/heroicons/solid/AtSymbol'
 import { Link } from 'react-router-dom'
+import MasternoteLogo from '../../assets/MasternoteLogo'
 
 export default function Footer() {
   const currentYear = new Date().getFullYear()
@@ -12,9 +13,17 @@ export default function Footer() {
         <section className="flex flex-col md:flex-row md:justify-between">
           <section className="mb-6 md:mb-0" aria-labelledby="about-heading">
             <article>
-              <h2 id="about-heading" className="text-xl font-bold">
-                {AppName}
-              </h2>
+              <section className="flex items-center gap-2">
+                <figure
+                  className="size-8 rounded-lg bg-white p-1.5"
+                  aria-label="Logo de Masternote"
+                >
+                  <MasternoteLogo className="h-full w-full" />
+                </figure>
+                <h2 id="about-heading" className="text-xl font-bold">
+                  {AppName}
+                </h2>
+              </section>
               <p className="mt-2 max-w-xs text-sm text-gray-400">
                 Proyecto web para la organización de notas y tareas personales.
               </p>
@@ -77,6 +86,15 @@ export default function Footer() {
                   aria-label="Mis Notas"
                 >
                   Mis Notas
+                </Link>
+              </li>
+              <li>
+                <Link
+                  to="/cookies"
+                  className="hover:underline"
+                  aria-label="Política de Cookies"
+                >
+                  Política de Cookies
                 </Link>
               </li>
             </ul>
