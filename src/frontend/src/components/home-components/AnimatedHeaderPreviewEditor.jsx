@@ -2,11 +2,11 @@ import { motion } from 'framer-motion'
 
 export default function AnimatedHeaderPreviewEditor() {
   const textParts = [
-    { text: 'Prueba uno de los', delay: 2.3 },
-    { text: 'mejores editores de texto', delay: 2.9 },
-    { text: '"en cualquier dispositivo,', delay: 3.6, highlight: true },
-    { text: 'en cualquier lugar', delay: 4.3, highlight: true },
-    { text: 'y en cualquier momento"', delay: 5.2, highlight: true },
+    { text: 'Prueba uno de los', delay: 1.9 },
+    { text: 'mejores editores de texto', delay: 2.5 },
+    { text: '"en cualquier dispositivo,', delay: 2.9, highlight: true },
+    { text: 'en cualquier lugar', delay: 3.6, highlight: true },
+    { text: 'y en cualquier momento"', delay: 4.2, highlight: true },
   ]
 
   return (
