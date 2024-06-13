@@ -53,6 +53,7 @@ export default function NoteEditor() {
                 {...motionProps}
                 animate={{ ...motionProps.animate, rotate: 360 }}
                 transition={{ duration: 2, repeat: Infinity }}
+                aria-label="Guardando"
               >
                 <ArrowPath className="size-8 text-gray-700 dark:text-gray-300" />
               </motion.figure>
