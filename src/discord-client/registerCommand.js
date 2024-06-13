@@ -13,7 +13,7 @@ const commands = [
   {
     name: "ping",
     description: "Pong!",
-    type: ApplicationCommandType.ChatInput,
+    type: ApplicationCommandType?.ChatInput ?? 1,
     interaction: async (interaction) => await interaction.reply("Pong!"),
   },
   //{
@@ -25,45 +25,45 @@ const commands = [
   {
     name: "info",
     description: "Show info about the API",
-    type: ApplicationCommandType.ChatInput,
+    type: ApplicationCommandType?.ChatInput ?? 1,
     interaction: info,
   },
   {
     name: "community",
     description: "List community notes",
-    type: ApplicationCommandType.ChatInput,
+    type: ApplicationCommandType?.ChatInput ?? 1,
     options: [
       {
         name: "list",
         description: "List notes based on criteria",
-        type: ApplicationCommandOptionType.Subcommand,
+        type: ApplicationCommandOptionType?.Subcommand ?? 1,
         options: [
           {
             name: "content",
             description: "Content of the note",
-            type: ApplicationCommandOptionType.String,
+            type: ApplicationCommandOptionType?.String ?? 3,
           },
           {
             name: "topics-ids",
             description: "ID of the topics. Format 1,2,3",
-            type: ApplicationCommandOptionType.String,
+            type: ApplicationCommandOptionType?.String ?? 3,
           },
           {
             name: "username",
             description: "Username of the user",
-            type: ApplicationCommandOptionType.String,
+            type: ApplicationCommandOptionType?.String ?? 3,
           },
         ],
       },
       {
         name: "note",
         description: "Show a note by ID",
-        type: ApplicationCommandOptionType.Subcommand,
+        type: ApplicationCommandOptionType?.Subcommand ?? 1,
         options: [
           {
             name: "id",
             description: "ID of the note",
-            type: ApplicationCommandOptionType.Integer,
+            type: ApplicationCommandOptionType?.Integer ?? 4,
             required: true,
           },
         ],
@@ -74,12 +74,12 @@ const commands = [
   {
     name: "topics",
     description: "List topics",
-    type: ApplicationCommandType.ChatInput,
+    type: ApplicationCommandType?.ChatInput ?? 1,
     options: [
       {
         name: "name",
         description: "Name of the topic",
-        type: ApplicationCommandOptionType.String,
+        type: ApplicationCommandOptionType?.String ?? 3,
       },
     ],
     interaction: listTopics,
