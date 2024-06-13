@@ -2,6 +2,7 @@ const { ButtonBuilder, ButtonStyle, ActionRowBuilder } = require("discord.js")
 const config = require("../config")
 const { noteField } = require("../embeds/noteField")
 const { text } = require("express")
+const { fetch } = require("undici")
 
 module.exports.showCommunityNote = async (interaction) => {
   try {

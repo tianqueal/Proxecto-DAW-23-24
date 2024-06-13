@@ -2,6 +2,7 @@ const config = require("../config")
 const { pagination } = require("../functions/pagination")
 const { noteListEmbed } = require("../embeds/noteListEmbed")
 const { showCommunityNote } = require("./showCommunityNote")
+import { fetch } from "undici"
 
 async function fetchNotesList({ params, locale }) {
   const queryString = params.toString()

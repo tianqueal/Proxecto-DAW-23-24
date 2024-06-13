@@ -1,3 +1,5 @@
+import { fetch } from "undici"
+
 module.exports.electricityPrice = async (interaction) => {
   try {
     await interaction.deferReply()

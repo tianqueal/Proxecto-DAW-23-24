@@ -1,6 +1,7 @@
 const config = require("../config")
 const { pagination } = require("../functions/pagination")
 const { topicListEmbed } = require("../embeds/topicListEmbed")
+import { fetch } from "undici"
 
 module.exports.listTopics = async (interaction) => {
   try {

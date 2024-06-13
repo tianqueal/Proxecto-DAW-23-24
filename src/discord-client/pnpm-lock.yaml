@@ -17,6 +17,9 @@ importers:
       express:
         specifier: ^4.19.2
         version: 4.19.2
+      undici:
+        specifier: ^6.18.2
+        version: 6.18.2
 
 packages:
 
@@ -342,6 +345,10 @@ packages:
   undici@5.27.2:
     resolution: {integrity: sha512-iS857PdOEy/y3wlM3yRp+6SNQQ6xU0mmZcwRSriqk+et/cwWAtwmIGf6WkoDN2EK/AMdCO/dfXzIwi+rFMrjjQ==}
     engines: {node: '>=14.0'}
+
+  undici@6.18.2:
+    resolution: {integrity: sha512-o/MQLTwRm9IVhOqhZ0NQ9oXax1ygPjw6Vs+Vq/4QRjbOAC3B1GCHy7TYxxbExKlb7bzDRzt9vBWU6BDz0RFfYg==}
+    engines: {node: '>=18.17'}
 
   unpipe@1.0.0:
     resolution: {integrity: sha512-pjy2bYhSsufwWlKwPc+l3cN7+wuJlK6uz0YdJEOlQDbl6jo/YlPi4mb8agUkVC8BF7V8NuzeyPNqRksA3hztKQ==}
@@ -750,6 +757,8 @@ snapshots:
   undici@5.27.2:
     dependencies:
       '@fastify/busboy': 2.1.1
+
+  undici@6.18.2: {}
 
   unpipe@1.0.0: {}
 
