@@ -1,10 +1,11 @@
 import { motion } from 'framer-motion'
 import notes from '../data/notesCarousel.json'
-import Slider from '../components/home_components/Slider'
-import NoteCardSlider from '../components/home_components/NoteCardSlider'
-import CustomLink from '../components/home_components/CustomLink'
-import DiscordSection from '../components/home_components/DiscordSection'
+import Slider from '../components/home-components/Slider'
+import NoteCardSlider from '../components/home-components/NoteCardSlider'
+import CustomLink from '../components/home-components/CustomLink'
+import DiscordSection from '../components/home-components/DiscordSection'
 import './Home.css'
+import PreviewEditor from '../components/home-components/PreviewEditor'
 
 export default function Home() {
   return (
@@ -38,11 +39,12 @@ export default function Home() {
         >
           Descubre una nueva forma de alcanzar tus metas
         </motion.h2>
-        <motion.div
-          className="mt-8 flex justify-center gap-4"
+        <motion.section
+          className="mt-8 flex flex-col justify-center gap-4 px-2 md:flex-row"
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1, delay: 1 }}
+          role="navigation"
         >
           <CustomLink
             to="/register"
@@ -54,8 +56,9 @@ export default function Home() {
             className="bg-gray-200 text-gray-900 hover:bg-gray-300 dark:bg-gray-700 dark:text-gray-100 dark:hover:bg-gray-600"
             text="Ver la comunidad"
           />
-        </motion.div>
+        </motion.section>
       </header>
+      <PreviewEditor />
       {/* md:rounded-tr-xl md:rounded-tl-xl */}
       <section className="mt-20 bg-black py-8 text-white">
         <h2 className="mb-3 text-center text-2xl font-bold leading-8">
