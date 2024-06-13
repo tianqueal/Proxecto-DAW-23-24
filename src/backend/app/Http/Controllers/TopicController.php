@@ -3,8 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Filters\TopicFilter;
-use App\Http\Requests\StoreTopicRequest;
-use App\Http\Requests\UpdateTopicRequest;
+// use App\Http\Requests\StoreTopicRequest;
+// use App\Http\Requests\UpdateTopicRequest;
 use App\Http\Resources\TopicResource;
 use App\Models\Topic;
 use Illuminate\Http\Request;
@@ -17,13 +17,20 @@ class TopicController extends Controller
      */
     public function index(Request $request)
     {
+        $validated = $request->validate([
+            'perPage' => 'integer|min:1|max:50'
+        ]);
+
+        $perPage = $validated['perPage'] ?? Config::get('query_filters.topic.perPage');
+
         $topicFilters = Config::get('query_filters.topic');
+
         $filter = new TopicFilter($topicFilters->filters);
         $query = Topic::query();
 
         $query = $filter->apply($request, $query);
 
-        $topics = $query->paginate();
+        $topics = $query->paginate($perPage);
 
         return TopicResource::collection($topics);
     }

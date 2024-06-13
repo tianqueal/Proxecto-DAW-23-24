@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types'
-import AtSymbol from '../../../assets/heroicons/AtSymbol'
-import Clock from '../../../assets/heroicons/Clock'
-import Pencil from '../../../assets/heroicons/Pencil'
+import AtSymbol from '../../../assets/heroicons/solid/AtSymbol'
+import Clock from '../../../assets/heroicons/solid/Clock'
+import Pencil from '../../../assets/heroicons/solid/Pencil'
 import { dateAndTimeFormat } from '../../../helpers/formatDate'
 
 const NoteDetails = ({

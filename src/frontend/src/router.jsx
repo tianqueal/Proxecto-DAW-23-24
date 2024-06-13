@@ -1,7 +1,7 @@
 /* eslint-disable react-refresh/only-export-components */
 import { createBrowserRouter, Navigate } from 'react-router-dom'
 import { lazy, Suspense } from 'react'
-import { Roles } from './helpers/constants'
+import { LayoutTypes, Roles } from './helpers/constants'
 
 import CubeLoader from './components/loaders/CubeLoader'
 import Layout from './layouts/Layout'
@@ -16,6 +16,11 @@ const PageNotFound = lazy(() => import('./views/PageNotFound'))
 const Profile = lazy(() => import('./views/Profile'))
 import NoteEditor from './views/NoteEditor'
 import ProtectedRoute from './ProtectedRoute'
+import Dashboard from './views/admin/Dashboard'
+import Users from './views/admin/Users'
+import Notes from './views/admin/Notes'
+import Topics from './views/admin/Topics'
+import AdministrationLayout from './layouts/AdministrationLayout'
 const MyNotes = lazy(() => import('./views/MyNotes'))
 // const Test = lazy(() => import('./views/Test'))
 /* const NoteEditor = lazy(() => import('./views/NoteEditor')) */
@@ -31,40 +36,42 @@ import NoteEditor from './views/NoteEditor'
 import MyNotes from './views/MyNotes'
 import Test from './views/Test' */
 
+const Loader = () => <CubeLoader className="bg-gray-800 dark:bg-white" />
+
 const router = createBrowserRouter([
   {
     path: '/',
-    element: <Layout className="mx-auto w-full flex-1" />,
+    element: <Layout className={LayoutTypes.FULLSCREEN} />,
     children: [
       {
         index: true,
-        element: (
-          <ProtectedRoute
+        element:
+          ({
+            /* <ProtectedRoute
             element={
-              <Suspense
-                fallback={<CubeLoader className="bg-gray-800 dark:bg-white" />}
-              >
+              <Suspense fallback={<Loader />}>
                 <Home />
               </Suspense>
             }
             allowedRoles={[Roles.GUEST]}
-          />
-        ),
+          /> */
+          },
+          (
+            <Suspense fallback={<Loader />}>
+              <Home />
+            </Suspense>
+          )),
       },
     ],
   },
   {
     path: '/',
-    element: (
-      <Layout className='2xl:max-w-7xl" mx-auto min-h-screen w-full flex-1 p-4 sm:max-w-xl md:w-screen md:max-w-2xl lg:max-w-4xl xl:max-w-6xl' />
-    ),
+    element: <Layout className={LayoutTypes.DEFAULT} />,
     children: [
       {
         path: 'community',
         element: (
-          <Suspense
-            fallback={<CubeLoader className="bg-gray-800 dark:bg-white" />}
-          >
+          <Suspense fallback={<Loader />}>
             <Community />
           </Suspense>
         ),
@@ -72,9 +79,7 @@ const router = createBrowserRouter([
       {
         path: 'discord',
         element: (
-          <Suspense
-            fallback={<CubeLoader className="bg-gray-800 dark:bg-white" />}
-          >
+          <Suspense fallback={<Loader />}>
             <Discord />
           </Suspense>
         ),
@@ -84,9 +89,7 @@ const router = createBrowserRouter([
         element: (
           <ProtectedRoute
             element={
-              <Suspense
-                fallback={<CubeLoader className="bg-gray-800 dark:bg-white" />}
-              >
+              <Suspense fallback={<Loader />}>
                 <Register />
               </Suspense>
             }
@@ -99,9 +102,7 @@ const router = createBrowserRouter([
         element: (
           <ProtectedRoute
             element={
-              <Suspense
-                fallback={<CubeLoader className="bg-gray-800 dark:bg-white" />}
-              >
+              <Suspense fallback={<Loader />}>
                 <Login />
               </Suspense>
             }
@@ -114,9 +115,7 @@ const router = createBrowserRouter([
         element: (
           <ProtectedRoute
             element={
-              <Suspense
-                fallback={<CubeLoader className="bg-gray-800 dark:bg-white" />}
-              >
+              <Suspense fallback={<Loader />}>
                 <MyNotes />
               </Suspense>
             }
@@ -152,9 +151,7 @@ const router = createBrowserRouter([
         element: (
           <ProtectedRoute
             element={
-              <Suspense
-                fallback={<CubeLoader className="bg-gray-800 dark:bg-white" />}
-              >
+              <Suspense fallback={<Loader />}>
                 <Profile />
               </Suspense>
             }
@@ -165,40 +162,58 @@ const router = createBrowserRouter([
       {
         path: '*',
         element: (
-          <Suspense
-            fallback={<CubeLoader className="bg-gray-800 dark:bg-white" />}
-          >
+          <Suspense fallback={<Loader />}>
             <PageNotFound />
           </Suspense>
         ),
       },
-    ],
-  },
-  {
-    path: 'admin',
-    element: (
-      <ProtectedRoute
-        element={
-          <Suspense
-            fallback={<CubeLoader className="bg-gray-800 dark:bg-white" />}
-          >
-            <Layout className="mx-auto w-full flex-1" />
-          </Suspense>
-        }
-        allowedRoles={[Roles.ADMIN]}
-      />
-    ),
-    children: [
       {
-        path: 'dashboard',
-        index: true,
+        path: 'admin',
         element: (
-          <Suspense
-            fallback={<CubeLoader className="bg-gray-800 dark:bg-white" />}
-          >
-            <h2 className="mt-8 text-2xl font-semibold">Dashboard Admin</h2>
-          </Suspense>
+          <ProtectedRoute
+            element={
+              <Suspense fallback={<Loader />}>
+                <AdministrationLayout />
+              </Suspense>
+            }
+            allowedRoles={[Roles.ADMIN]}
+          />
         ),
+        children: [
+          {
+            path: 'dashboard',
+            index: true,
+            element: (
+              <Suspense fallback={<Loader />}>
+                <Dashboard />
+              </Suspense>
+            ),
+          },
+          {
+            path: 'users',
+            element: (
+              <Suspense fallback={<Loader />}>
+                <Users />
+              </Suspense>
+            ),
+          },
+          {
+            path: 'notes',
+            element: (
+              <Suspense fallback={<Loader />}>
+                <Notes />
+              </Suspense>
+            ),
+          },
+          {
+            path: 'topics',
+            element: (
+              <Suspense fallback={<Loader />}>
+                <Topics />
+              </Suspense>
+            ),
+          },
+        ],
       },
     ],
   },

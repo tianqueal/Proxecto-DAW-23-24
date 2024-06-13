@@ -76,6 +76,7 @@ export const EditorJsProvider = ({ children }) => {
         readOnly: editorInitData.readOnly,
         onChange: debouncedSaveData,
         placeholder: '¡Escribe algo increíble!',
+        defaultBlock: null
       })
     } else {
       instance.current.isReady.then(() => {

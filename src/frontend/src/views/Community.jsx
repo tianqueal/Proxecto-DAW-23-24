@@ -2,7 +2,7 @@ import { useCallback, useEffect, useState } from 'react'
 import NoteList from '../components/notes/NoteList'
 import TopicSearch from '../components/notes/TopicSearch'
 import debounce from 'just-debounce-it'
-import MagnifyingGlass from '../assets/heroicons/MagnifyingGlass'
+import MagnifyingGlass from '../assets/heroicons/solid/MagnifyingGlass'
 import InputField from '../components/form/InputField'
 import useApi from '../hooks/useApi'
 import NoteListSkeleton from '../components/skeletons/NoteListSkeleton'
@@ -21,7 +21,7 @@ export default function Community() {
     setFilters,
     isError,
     isLoading,
-    isValidating,
+    /* isValidating, */
   } = useNotes({
     type: NoteFetchTypes.COMMUNITY_NOTES,
   })
@@ -64,7 +64,7 @@ export default function Community() {
               Buscar por contenido
             </span>
           }
-          <MagnifyingGlass customClasses={'w-5 h-5'} />
+          <MagnifyingGlass className="size-5" />
           <InputField
             id="content"
             type="text"
@@ -79,15 +79,13 @@ export default function Community() {
           <TopicSearch onChange={handleTopicSearchChange} />
         </div>
       </div>
-      {!isLoading && !isError && !isValidating && notes?.length === 0 && (
+      {!isLoading && !isError && notes?.length === 0 && (
         <NoteNotFound />
       )}
       {!isLoading && notes && notes.length > 0 && (
         <NoteList notes={notes} lastNoteElementRef={lastNoteElementRef} />
       )}
-      {(isLoading || isError || isValidating) && !notes?.length && (
-        <NoteListSkeleton />
-      )}
+      {(isLoading || isError) && !notes?.length && <NoteListSkeleton />}
     </>
   )
 }

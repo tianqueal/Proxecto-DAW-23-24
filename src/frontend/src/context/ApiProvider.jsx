@@ -346,6 +346,219 @@ export const ApiProvider = ({ children }) => {
     [],
   )
 
+  const getUsers = useMemo(
+    () =>
+      async ({ page = 1 }) => {
+        try {
+          const params = new URLSearchParams({ page, perPage: 10 })
+          const { data } = await axiosInstance.get(
+            `/admin/users?${params.toString()}`,
+            {
+              headers: {
+                Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
+              },
+            },
+          )
+          return data
+        } catch (error) {
+          console.error(error)
+        }
+      },
+    [],
+  )
+
+  const getAdminCommunityNotes = useMemo(
+    () =>
+      async ({ page = 1 }) => {
+        try {
+          const params = new URLSearchParams({ page, perPage: 10 })
+          const { data } = await axiosInstance.get(
+            `/admin/notes?${params.toString()}`,
+            {
+              headers: {
+                Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
+              },
+            },
+          )
+          return data
+        } catch (error) {
+          console.error(error)
+        }
+      },
+    [],
+  )
+
+  const getAdminTopics = useMemo(
+    () =>
+      async ({ page = 1 }) => {
+        try {
+          const params = new URLSearchParams({ page, perPage: 10 })
+          const { data } = await axiosInstance.get(
+            `/admin/topics?${params.toString()}`,
+            {
+              headers: {
+                Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
+              },
+            },
+          )
+          return data
+        } catch (error) {
+          console.error(error)
+        }
+      },
+    [],
+  )
+
+  const getAdminStats = useMemo(
+    () => async () => {
+      try {
+        const { data } = await axiosInstance.get('/admin/stats', {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
+          },
+        })
+        return data
+      } catch (error) {
+        console.error(error)
+      }
+    },
+    [],
+  )
+
+  const createAdminUser = useMemo(
+    () =>
+      async ({ formData, setIsLoading, setErrors, onSuccess }) => {
+        try {
+          /* setIsLoading(true) */
+          await axiosInstance.post('/admin/users', formData, {
+            headers: {
+              Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
+            },
+          })
+          setErrors({})
+          if (onSuccess) onSuccess()
+        } catch (error) {
+          console.error(error)
+          setIsLoading(false)
+          setErrors(error?.response?.data?.errors)
+        } /* finally {
+          setIsLoading(false)
+        } */
+      },
+    [],
+  )
+
+  const updateAdminUserData = useMemo(
+    () =>
+      async ({ id, formData, setIsLoading, setErrors, onSuccess }) => {
+        try {
+          /* setIsLoading(true) */
+          await axiosInstance.patch(`/admin/users/${id}`, formData, {
+            headers: {
+              Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
+            },
+          })
+          setErrors({})
+          if (onSuccess) onSuccess()
+        } catch (error) {
+          console.error(error)
+          setIsLoading(false)
+          setErrors(error?.response?.data?.errors)
+        } /*  finally {
+          setIsLoading(false)
+        } */
+      },
+    [],
+  )
+
+  const deleteAdminUser = useMemo(
+    () =>
+      async ({ id, setIsLoading, onError, onSuccess }) => {
+        try {
+          setIsLoading(true)
+          const { data } = await axiosInstance.delete(`/admin/users/${id}`, {
+            headers: {
+              Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
+            },
+          })
+          if (onSuccess) onSuccess({ message: data?.data?.message })
+        } catch (error) {
+          console.error(error)
+          if (onError) onError()
+        } finally {
+          setIsLoading(false)
+        }
+      },
+    [],
+  )
+
+  const changeAdminNoteStatus = useMemo(
+    () =>
+      async ({ id, status, setIsLoading, onError, onSuccess }) => {
+        try {
+          await axiosInstance.put(
+            `/admin/notes/${id}`,
+            { id, is_public: status },
+            {
+              headers: {
+                Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
+              },
+            },
+          )
+          if (onSuccess) onSuccess({ message: 'Estado de la nota actualizado' })
+        } catch (error) {
+          console.error(error)
+          setIsLoading({})
+          if (onError) onError()
+        }
+      },
+    [],
+  )
+
+  const deleteAdminNote = useMemo(
+    () =>
+      async ({ id, setIsLoading, onError, onSuccess }) => {
+        try {
+          const { data } = await axiosInstance.delete(`/admin/notes/${id}`, {
+            headers: {
+              Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
+            },
+          })
+          if (onSuccess)
+            onSuccess({
+              message: data?.data?.message ?? 'Nota eliminada correctamente',
+            })
+        } catch (error) {
+          console.error(error)
+          setIsLoading({})
+          if (onError) onError()
+        }
+      },
+    [],
+  )
+
+  const deleteAdminTopic = useMemo(
+    () =>
+      async ({ id, setIsLoading, onError, onSuccess }) => {
+        try {
+          const { data } = await axiosInstance.delete(`/admin/topics/${id}`, {
+            headers: {
+              Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
+            },
+          })
+          if (onSuccess)
+            onSuccess({
+              message: data?.data?.message ?? 'Tema eliminado correctamente',
+            })
+        } catch (error) {
+          console.error(error)
+          setIsLoading({})
+          if (onError) onError()
+        }
+      },
+    [],
+  )
+
   const contextValue = useMemo(
     () => ({
       getCommunityNotes,
@@ -377,6 +590,16 @@ export const ApiProvider = ({ children }) => {
       unpublishNote,
       getNoteTopics,
       updateNoteTopics,
+      getUsers,
+      getAdminCommunityNotes,
+      getAdminTopics,
+      getAdminStats,
+      createAdminUser,
+      updateAdminUserData,
+      deleteAdminUser,
+      changeAdminNoteStatus,
+      deleteAdminNote,
+      deleteAdminTopic,
     }),
     [
       getCommunityNotes,
@@ -402,6 +625,16 @@ export const ApiProvider = ({ children }) => {
       unpublishNote,
       getNoteTopics,
       updateNoteTopics,
+      getUsers,
+      getAdminCommunityNotes,
+      getAdminTopics,
+      getAdminStats,
+      createAdminUser,
+      updateAdminUserData,
+      deleteAdminUser,
+      changeAdminNoteStatus,
+      deleteAdminNote,
+      deleteAdminTopic,
     ],
   )
 

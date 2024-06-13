@@ -21,6 +21,12 @@ class AdminUserController extends Controller
      */
     public function index(Request $request)
     {
+        $validated = $request->validate([
+            'perPage' => 'integer|min:1|max:50',
+        ]);
+
+        $perPage = $validated['perPage'] ?? Config::get('query_filters.user.perPage');
+
         $userFilters = Config::get('query_filters.user');
         $filter = new UserFilter($userFilters->filters);
 
@@ -28,7 +34,7 @@ class AdminUserController extends Controller
 
         $users = $filter->apply($request, $query);
 
-        $users = $users->paginate($userFilters->perPage);
+        $users = $users->paginate($perPage);
 
         return UserResource::collection($users);
     }
@@ -41,6 +47,7 @@ class AdminUserController extends Controller
         $validatedData = $request->safe()->only([
             'username',
             'email',
+            'email_verified_at',
             'password'
         ]);
         $validatedRoles = $request->safe()->only('roles');
@@ -77,6 +84,7 @@ class AdminUserController extends Controller
         $user->update($request->safe()->only([
             'username',
             'email',
+            'email_verified_at',
             'password'
         ]));
         return UserResource::make($user);

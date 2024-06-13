@@ -1,12 +1,13 @@
 import axios from 'axios'
+import { Language } from '../helpers/constants'
 
 const axiosInstance = axios.create({
   baseURL: import.meta.env.VITE_API_URL,
   headers: {
-    'Accept': 'application/json',
+    Accept: 'application/json',
     'X-Requested-With': 'XMLHttpRequest',
-    'Accept-Language': 'es',
-  }
+    'Accept-Language': Language.CURRENT ?? Language.EN,
+  },
 })
 
 export default axiosInstance

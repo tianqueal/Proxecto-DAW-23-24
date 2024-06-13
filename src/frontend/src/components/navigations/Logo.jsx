@@ -1,11 +1,13 @@
+import { AppName } from '../../helpers/constants'
+
 export default function Logo() {
   return (
     <h2
       role="banner"
-      aria-label="MasterNote Logo"
+      aria-label={`${AppName} logo`}
       className="text-2xl font-semibold"
     >
-      MasterNote
+      {AppName}
     </h2>
   )
 }

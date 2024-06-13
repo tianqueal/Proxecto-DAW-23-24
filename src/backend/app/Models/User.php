@@ -32,6 +32,7 @@ class User extends Authenticatable implements AuthMustVerifyEmail
         'username',
         'email',
         'password',
+        'email_verified_at',
     ];
 
     /**
@@ -142,6 +143,10 @@ class User extends Authenticatable implements AuthMustVerifyEmail
      */
     public function sendEmailVerificationNotification()
     {
-        $this->notify(new CustomVerifyEmail());
+        try {
+            $this->notify(new CustomVerifyEmail());
+        } catch (\Exception $e) {
+            report($e);
+        }
     }
 }

@@ -17,7 +17,8 @@ class TopicResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'name' => Lang::get("topics.names.{$this->name}")
+            'name' => Lang::get("topics.names.{$this->name}"),
+            'originalName' => $this->name,
         ];
     }
 }

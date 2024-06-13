@@ -1,25 +1,25 @@
 steps:
-  - name: 'gcr.io/cloud-builders/docker'
-    secretEnv: [
-      "MASTERNOTE_DB_HOST",
-      "MASTERNOTE_DB_DATABASE",
-      "MASTERNOTE_DB_USERNAME",
-      "MASTERNOTE_DB_PASSWORD",
-      "MASTERNOTE_MAIL_MAILER",
-      "MASTERNOTE_MAIL_HOST",
-      "MASTERNOTE_MAIL_PORT",
-      "MASTERNOTE_MAIL_USERNAME",
-      "MASTERNOTE_MAIL_PASSWORD",
-      "MASTERNOTE_MAIL_FROM_ADDRESS",
-      "MASTERNOTE_MAIL_FROM_NAME",
-      "MASTERNOTE_CLIENT_URL",
-      "MASTERNOTE_API_URL",
-      "MASTERNOTE_DISCORD_CLIENT_ID",
-    ]
+  - name: "gcr.io/cloud-builders/docker"
+    secretEnv:
+      [
+        "MASTERNOTE_DB_HOST",
+        "MASTERNOTE_DB_DATABASE",
+        "MASTERNOTE_DB_USERNAME",
+        "MASTERNOTE_DB_PASSWORD",
+        "MASTERNOTE_MAIL_MAILER",
+        "MASTERNOTE_MAIL_HOST",
+        "MASTERNOTE_MAIL_PORT",
+        "MASTERNOTE_MAIL_USERNAME",
+        "MASTERNOTE_MAIL_PASSWORD",
+        "MASTERNOTE_MAIL_FROM_ADDRESS",
+        "MASTERNOTE_MAIL_FROM_NAME",
+        "MASTERNOTE_CLIENT_URL",
+        "MASTERNOTE_API_URL",
+      ]
     entrypoint: bash
-    args: 
-     - -c
-     - |
+    args:
+      - -c
+      - |
         docker build \
           --build-arg MASTERNOTE_DB_HOST="$$MASTERNOTE_DB_HOST" \
           --build-arg MASTERNOTE_DB_DATABASE="$$MASTERNOTE_DB_DATABASE" \
@@ -34,33 +34,114 @@ steps:
           --build-arg MASTERNOTE_MAIL_FROM_NAME="$$MASTERNOTE_MAIL_FROM_NAME" \
           --build-arg MASTERNOTE_CLIENT_URL="$$MASTERNOTE_CLIENT_URL" \
           --build-arg MASTERNOTE_API_URL="$$MASTERNOTE_API_URL" \
-          --build-arg MASTERNOTE_DISCORD_CLIENT_ID="$$MASTERNOTE_DISCORD_CLIENT_ID" \
-          -t ${_AR_HOSTNAME}/${PROJECT_ID}/cloud-run-source-deploy/${REPO_NAME}/${_SERVICE_NAME}:${COMMIT_SHA} \
+          -t ${_AR_HOSTNAME}/${PROJECT_ID}/cloud-run-source-deploy/${REPO_NAME}/${_SERVICE_NAME}-api:${COMMIT_SHA} \
           --no-cache \
-          -f Dockerfile .
+          -f Dockerfile-api .
 
-  - name: 'gcr.io/cloud-builders/docker'
+  - name: "gcr.io/cloud-builders/docker"
+    secretEnv:
+      [
+        "MASTERNOTE_API_URL",
+        "MASTERNOTE_DISCORD_CLIENT_ID",
+      ]
+    entrypoint: bash
+    args:
+      - -c
+      - |
+        docker build \
+          --build-arg MASTERNOTE_API_URL="$$MASTERNOTE_API_URL" \
+          --build-arg MASTERNOTE_DISCORD_CLIENT_ID="$$MASTERNOTE_DISCORD_CLIENT_ID" \
+          -t ${_AR_HOSTNAME}/${PROJECT_ID}/cloud-run-source-deploy/${REPO_NAME}/${_SERVICE_NAME}-frontend:${COMMIT_SHA} \
+          --no-cache \
+          -f Dockerfile-frontend .
+
+  - name: "gcr.io/cloud-builders/docker"
+    secretEnv:
+      [
+        "MASTERNOTE_DISCORD_CLIENT_TOKEN",
+        "MASTERNOTE_API_URL",
+        "MASTERNOTE_CLIENT_URL",
+        "MASTERNOTE_APP_NAME",
+        "MASTERNOTE_DISCORD_CLIENT_ID",
+      ]
+    entrypoint: bash
+    args:
+      - -c
+      - |
+        docker build \
+          --build-arg MASTERNOTE_DISCORD_CLIENT_TOKEN="$$MASTERNOTE_DISCORD_CLIENT_TOKEN" \
+          --build-arg MASTERNOTE_API_URL="$$MASTERNOTE_API_URL" \
+          --build-arg MASTERNOTE_CLIENT_URL="$$MASTERNOTE_CLIENT_URL" \
+          --build-arg MASTERNOTE_APP_NAME="$$MASTERNOTE_APP_NAME" \
+          --build-arg MASTERNOTE_DISCORD_CLIENT_ID="$$MASTERNOTE_DISCORD_CLIENT_ID" \
+          -t ${_AR_HOSTNAME}/${PROJECT_ID}/cloud-run-source-deploy/${REPO_NAME}/${_SERVICE_NAME}-discord-client:${COMMIT_SHA} \
+          --no-cache \
+          -f Dockerfile-discord-client .
+
+  - name: "gcr.io/cloud-builders/docker"
     args:
       - push
-      - '${_AR_HOSTNAME}/${PROJECT_ID}/cloud-run-source-deploy/${REPO_NAME}/${_SERVICE_NAME}:${COMMIT_SHA}'
-    id: Push
+      - "${_AR_HOSTNAME}/${PROJECT_ID}/cloud-run-source-deploy/${REPO_NAME}/${_SERVICE_NAME}-api:${COMMIT_SHA}"
+    id: PushApi
 
-  - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk:slim'
+    - name: "gcr.io/cloud-builders/docker"
+    args:
+      - push
+      - "${_AR_HOSTNAME}/${PROJECT_ID}/cloud-run-source-deploy/${REPO_NAME}/${_SERVICE_NAME}-frontend:${COMMIT_SHA}"
+    id: PushFrontend
+
+  - name: "gcr.io/cloud-builders/docker"
+    args:
+      - push
+      - "${_AR_HOSTNAME}/${PROJECT_ID}/cloud-run-source-deploy/${REPO_NAME}/${_SERVICE_NAME}-discord-client:${COMMIT_SHA}"
+    id: PushDiscordClient
+
+  - name: "gcr.io/google.com/cloudsdktool/cloud-sdk:slim"
     entrypoint: gcloud
     args:
       - run
       - services
       - update
-      - '${_SERVICE_NAME}'
-      - '--platform=managed'
-      - '--image=${_AR_HOSTNAME}/${PROJECT_ID}/cloud-run-source-deploy/${REPO_NAME}/${_SERVICE_NAME}:${COMMIT_SHA}'
-      - '--labels=managed-by=gcp-cloud-build-deploy-cloud-run,commit-sha=${COMMIT_SHA},gcb-build-id=${BUILD_ID},gcb-trigger-id=${_TRIGGER_ID}'
-      - '--region=${_DEPLOY_REGION}'
-      - '--quiet'
-    id: Deploy
+      - "${_SERVICE_NAME}-api"
+      - "--platform=managed"
+      - "--image=${_AR_HOSTNAME}/${PROJECT_ID}/cloud-run-source-deploy/${REPO_NAME}/${_SERVICE_NAME}-api:${COMMIT_SHA}"
+      - "--labels=managed-by=gcp-cloud-build-deploy-cloud-run,commit-sha=${COMMIT_SHA},gcb-build-id=${BUILD_ID},gcb-trigger-id=${_TRIGGER_ID}"
+      - "--region=${_DEPLOY_REGION}"
+      - "--quiet"
+    id: DeployApi
+
+  - name: "gcr.io/google.com/cloudsdktool/cloud-sdk:slim"
+    entrypoint: gcloud
+    args:
+      - run
+      - services
+      - update
+      - "${_SERVICE_NAME}-frontend"
+      - "--platform=managed"
+      - "--image=${_AR_HOSTNAME}/${PROJECT_ID}/cloud-run-source-deploy/${REPO_NAME}/${_SERVICE_NAME}-frontend:${COMMIT_SHA}"
+      - "--labels=managed-by=gcp-cloud-build-deploy-cloud-run,commit-sha=${COMMIT_SHA},gcb-build-id=${BUILD_ID},gcb-trigger-id=${_TRIGGER_ID}"
+      - "--region=${_DEPLOY_REGION}"
+      - "--quiet"
+    id: DeployFrontend
+
+  - name: "gcr.io/google.com/cloudsdktool/cloud-sdk:slim"
+    entrypoint: gcloud
+    args:
+      - run
+      - services
+      - update
+      - "${_SERVICE_NAME}-discord-client"
+      - "--platform=managed"
+      - "--image=${_AR_HOSTNAME}/${PROJECT_ID}/cloud-run-source-deploy/${REPO_NAME}/${_SERVICE_NAME}-discord-client:${COMMIT_SHA}"
+      - "--labels=managed-by=gcp-cloud-build-deploy-cloud-run,commit-sha=${COMMIT_SHA},gcb-build-id=${BUILD_ID},gcb-trigger-id=${_TRIGGER_ID}"
+      - "--region=${_DEPLOY_REGION}"
+      - "--quiet"
+    id: DeployDiscordClient
 
 images:
-  - '${_AR_HOSTNAME}/${PROJECT_ID}/cloud-run-source-deploy/${REPO_NAME}/${_SERVICE_NAME}:${COMMIT_SHA}'
+  - "${_AR_HOSTNAME}/${PROJECT_ID}/cloud-run-source-deploy/${REPO_NAME}/${_SERVICE_NAME}-api:${COMMIT_SHA}"
+  - "${_AR_HOSTNAME}/${PROJECT_ID}/cloud-run-source-deploy/${REPO_NAME}/${_SERVICE_NAME}-frontend:${COMMIT_SHA}"
+  - "${_AR_HOSTNAME}/${PROJECT_ID}/cloud-run-source-deploy/${REPO_NAME}/${_SERVICE_NAME}-discord-client:${COMMIT_SHA}"
 
 options:
   substitutionOption: ALLOW_LOOSE
@@ -94,5 +175,7 @@ availableSecrets:
       env: "MASTERNOTE_CLIENT_URL"
     - versionName: projects/913542756676/secrets/MASTERNOTE_API_URL/versions/latest
       env: "MASTERNOTE_API_URL"
+    - versionName: projects/913542756676/secrets/MASTERNOTE_DISCORD_CLIENT_TOKEN/versions/latest
+      env: "MASTERNOTE_DISCORD_CLIENT_TOKEN"
     - versionName: projects/913542756676/secrets/MASTERNOTE_DISCORD_CLIENT_ID/versions/latest
       env: "MASTERNOTE_DISCORD_CLIENT_ID"

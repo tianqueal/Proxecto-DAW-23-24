@@ -26,7 +26,6 @@ export default function ViewNote({ noteId }) {
       ErrorToastify({ message: 'Error al cargar la nota', autoClose: 5000 })
     }
   }, [isLoading, isError, isAuthenticated, navigate])
-
   return (
     <>
       {(isLoading || isError || !currentNote) && (
@@ -34,7 +33,7 @@ export default function ViewNote({ noteId }) {
       )}
       {!isLoading && !isError && currentNote && (
         <DisplayEditor
-          data={JSON.parse(currentNote.content)}
+          data={currentNote?.content ? JSON.parse(currentNote.content) : null}
           isOwner={isOwner}
         />
       )}

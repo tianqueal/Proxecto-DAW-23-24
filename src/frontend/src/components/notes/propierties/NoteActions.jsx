@@ -1,16 +1,16 @@
 import PropTypes from 'prop-types'
 import { motion } from 'framer-motion'
-import ChevronLeft from '../../../assets/heroicons/ChevronLeft'
 import Ping from '../../loaders/Ping'
-import Hashtag from '../../../assets/heroicons/Hashtag'
-import SignalSlash from '../../../assets/heroicons/SignalSlash'
-import Signal from '../../../assets/heroicons/Signal'
-import Trash from '../../../assets/heroicons/Trash'
+import Hashtag from '../../../assets/heroicons/solid/Hashtag'
+import SignalSlash from '../../../assets/heroicons/solid/SignalSlash'
+import Signal from '../../../assets/heroicons/solid/Signal'
+import Trash from '../../../assets/heroicons/solid/Trash'
+import Chevron from '../../../assets/heroicons/solid/Chevron'
 
 const ChevronIcon = () => {
   return (
     <motion.figure className="hidden md:absolute md:right-0 md:top-1/2 md:block md:-translate-y-1/2">
-      <ChevronLeft className="size-7 transform text-gray-500 transition-all dark:text-white md:size-6 md:text-opacity-50 md:opacity-100 md:group-hover:opacity-0" />
+      <Chevron className="size-7 -rotate-90 transform text-gray-500 transition-all dark:text-white md:size-6 md:text-opacity-50 md:opacity-100 md:group-hover:opacity-0" />
     </motion.figure>
   )
 }

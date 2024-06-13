@@ -1,11 +1,10 @@
 import { useEffect, useRef, useState } from 'react'
-import Moon from '../../assets/heroicons/Moon'
-import Sun from '../../assets/heroicons/Sun'
+import Moon from '../../assets/heroicons/solid/Moon'
+import Sun from '../../assets/heroicons/solid/Sun'
 import DropMenuOption from './DropMenuOption'
 import useApi from '../../hooks/useApi'
 import DropdownWindow from './DropdownWindow'
-import ComputerDesktop from '../../assets/heroicons/ComputerDesktop'
-import ChevronDown from '../../assets/heroicons/ChevronDown'
+import Chevron from '../../assets/heroicons/solid/Chevron'
 
 export default function DropThemeMenu() {
   const { currentTheme, setTheme } = useApi()
@@ -41,12 +40,9 @@ export default function DropThemeMenu() {
         aria-haspopup="true"
         aria-expanded="true"
       >
-        {currentTheme === 'light' && <Sun customClasses="size-5" />}
-        {currentTheme === 'dark' && <Moon customClasses="size-5" />}
-        {currentTheme === 'system' && (
-          <ComputerDesktop customClasses="size-5" />
-        )}
-        <ChevronDown customClasses="size-5" />
+        {currentTheme === 'light' && <Sun className="size-5" />}
+        {currentTheme === 'dark' && <Moon className="size-5" />}
+        <Chevron className="size-5 rotate-180" />
       </button>
 
       {isOpen && (

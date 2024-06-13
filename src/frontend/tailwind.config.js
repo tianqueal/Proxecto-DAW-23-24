@@ -14,8 +14,8 @@ export default {
         },
       },
       animation: {
-        'slide-left': 'slide-left 300s linear infinite',
-        'slide-right': 'slide-right 300s linear infinite',
+        'slide-left': 'slide-left 550s linear infinite',
+        'slide-right': 'slide-right 550s linear infinite',
       },
     },
   },

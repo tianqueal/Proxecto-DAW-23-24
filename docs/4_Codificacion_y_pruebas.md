@@ -34,6 +34,7 @@ Para el diseño y la experiencia del usuario (UX), he optado por TailwindCSS y F
 Los desafíos principales del proyecto han sido la integración y unificación efectiva de todas estas tecnologías, aplicando conocimientos adquiridos tanto en formación como en práctica. Todas las tecnologías elegidas fueron evaluadas y probadas exhaustivamente antes del desarrollo del proyecto. Se realizaron aproximadamente 10 pruebas de diferentes funcionalidades, algunas de las cuales incluyen:
 
 - Inicio de sesión, registro, verificación de correo electrónico, cerrado de sesión actual y en todos los dispositivos y persistencia de sesiones usando Laravel 11 (Monolithic application) y el kit de inicio Laravel Breeze.
+- Funcionalidad CRUD usando React Redux Toolkit, TypeScript y Tremor React Components, con el propósito de probar alternativas a API Context propio de React.
 - Funcionalidad CRUD usando Express.js, React, Sequelize, TailwindCSS y Editor.js con una base de datos MariaDB sin registro ni control de usuarios con el propósito de probar la librería en un entorno familiarizado.
 - Funcionalidad CRUD usando Laravel 11 (Monolithic application) y Editor.js con subida de ficheros (editorjs/image) usando una base de datos MariaDB sin registro ni control de usuarios. El propósito de esta prueba fue comprobar el funcionamiento de Editorjs con diferentes tipos de bloques y en un entorno fuera de JavaScript.
 - Pruebas de consultas y respuestas usando Postman y Laravel 10 como API REST a una base de datos MariaDB de prueba.
@@ -55,7 +56,7 @@ Durante el desarrollo se han hecho pruebas unitarias mediante la herramienta Pos
 Para la automatización de pruebas, se ha usado el integrado por Laravel: PHPUnit. Aquí solo se han programado las pruebas por funcionalidad y no por unidad a las principales rutas de la aplicación.
 En primera instancia, las pruebas borraban todo el contenido de las tablas de la base de datos. Por lo que investigando, se ha optado por cambiar el trait encargado de hacer los Refresh por uno que ejecuta las operaciones en memoria mediante transacciones y luego son revertidas al finalizar las pruebas.
 
-En total hay 11 ficheros de pruebas programadas de funcionalidad en el back-end. Cada uno con diferentes métodos que verifican peticiones y respuestas comunes que se tendrían que hacer a la API. Cada test es resuelto si el código de respuesta es el esperado según sea la acción y ruta llamada. En la Wiki se describen los comandos a usar en caso de pruebas. Un ejemplo de uso:
+En total hay 11 ficheros de pruebas programadas de funcionalidad en el back-end. Cada uno con diferentes métodos que verifican peticiones y respuestas comunes que se tendrían que hacer a la API. Cada test es resuelto si el código de respuesta es el esperado según sea la acción y ruta llamada. En la [Wiki](https://github.com/tianqueal/Proxecto-DAW-23-24/wiki/ES_DOCS#pruebas) se describen los comandos a usar en caso de pruebas. Un ejemplo de uso:
 
 ```bash
 

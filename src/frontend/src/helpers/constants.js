@@ -1,3 +1,5 @@
+export const AppName = 'MasterNote'
+
 export const NoteFetchTypes = {
   COMMUNITY_NOTES: 'communityNotes',
   MY_NOTES: 'myNotes',
@@ -10,6 +12,25 @@ export const Roles = {
   USER_AUTHENTICATED: 'UserAuthenticated',
 }
 
+export const LayoutTypes = {
+  DEFAULT:
+    'mx-auto min-h-screen w-full flex-1 p-4 sm:max-w-xl md:w-screen md:max-w-2xl lg:max-w-4xl xl:max-w-7xl',
+  FULLSCREEN: 'mx-auto w-full flex-1',
+}
+
+export const RefreshInterval = {
+  ADMIN_STATS: 5000,
+  ADMIN_NOTES: 2 * 60 * 1000,
+  ADMIN_USERS: 2 * 60 * 1000,
+  ADMIN_TOPICS: 2 * 60 * 1000,
+}
+
+export const Language = {
+  EN: 'en',
+  ES: 'es',
+  CURRENT: navigator.language.split('-')[0],
+}
+
 export const DiscordClientURL = () => {
   const clientId = import.meta.env.VITE_DISCORD_CLIENT_ID
 
@@ -17,5 +38,5 @@ export const DiscordClientURL = () => {
     client_id: clientId,
   })
 
-  return `https://discord.com/api/oauth2/authorize?${params.toString()}`
+  return `https://discord.com/oauth2/authorize?${params.toString()}`
 }

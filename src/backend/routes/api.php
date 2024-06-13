@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AdminNoteController;
 use App\Http\Controllers\AdminRoleController;
+use App\Http\Controllers\AdminStatsController;
 use App\Http\Controllers\AdminTopicController;
 use App\Http\Controllers\AdminUserController;
 use App\Http\Controllers\AuthController;
@@ -167,6 +168,8 @@ Route::group(['prefix' => 'v1', 'namespace' => 'App\Http\Controllers'], function
                 'update' => 'admin.topics.update',
                 'destroy' => 'admin.topics.destroy',
             ]);
+
+            Route::apiResource('stats', AdminStatsController::class)->only(['index']);
 
             // Routes for roles. Future implementation in the frontend
             Route::apiResource('roles', AdminRoleController::class)->names([

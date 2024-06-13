@@ -1,8 +1,8 @@
 import { PropTypes } from 'prop-types'
-import XMark from '../../assets/heroicons/XMark'
+import XMark from '../../assets/heroicons/solid/XMark'
 import InputField from '../form/InputField'
 import DropdownWindow from '../navigations/DropdownWindow'
-import Hashtag from '../../assets/heroicons/Hashtag'
+import Hashtag from '../../assets/heroicons/solid/Hashtag'
 import { useEffect, useRef } from 'react'
 import BouncyLoader from '../loaders/BouncyLoader'
 import useTopics from '../../hooks/useTopics'
@@ -66,7 +66,7 @@ const TopicSearchGeneric = ({
             placeholder="Buscar temas"
             onChange={onSearchChange}
             className="dark:bg-gray-800 dark:text-gray-200"
-            autoComplete='off'
+            autoComplete="off"
           />
           {isLoading && (
             <DropdownWindow customClasses="flex justify-center p-2 dark:bg-gray-800">
@@ -121,10 +121,7 @@ const TopicSearchGeneric = ({
               className="mr-1 rounded-full p-1 transition-all hover:bg-gray-300 dark:hover:bg-gray-700"
               aria-label={`Remove topic ${topic.name}`}
             >
-              <XMark
-                customClasses="size-5 dark:text-gray-200"
-                aria-hidden="true"
-              />
+              <XMark className="size-5 dark:text-gray-200" aria-hidden="true" />
             </button>
             {topic.name}
           </div>
