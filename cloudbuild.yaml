@@ -179,3 +179,5 @@ availableSecrets:
       env: "MASTERNOTE_DISCORD_CLIENT_TOKEN"
     - versionName: projects/913542756676/secrets/MASTERNOTE_DISCORD_CLIENT_ID/versions/latest
       env: "MASTERNOTE_DISCORD_CLIENT_ID"
+    - versionName: projects/913542756676/secrets/MASTERNOTE_APP_NAME/versions/latest
+      env: "MASTERNOTE_APP_NAME"
