@@ -28,7 +28,7 @@ const Feature = ({ title, description, animationDirection }) => (
       className="mb-2 text-xl font-semibold text-gray-800 dark:text-white"
       initial={{ x: animationDirection === 'left' ? -100 : 100, opacity: 0 }}
       animate={{ x: 0, opacity: 1 }}
-      transition={{ duration: 1 }}
+      transition={{ duration: 0.7 }}
     >
       {title}
     </motion.h3>
@@ -53,7 +53,7 @@ Feature.propTypes = {
 const InviteSection = () => (
   <section role="complementary" className="mt-12 text-center">
     <h2 className="text-2xl font-semibold text-gray-800 dark:text-white">
-      Invita a nuestro bot a tu servidor de Discord
+      Invita a {AppName} a tu servidor de Discord
     </h2>
     <motion.div
       initial={{ scale: 0.8, opacity: 0 }}
