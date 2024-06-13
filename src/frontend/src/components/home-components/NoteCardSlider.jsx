@@ -7,7 +7,7 @@ export default function NoteCardSlider({ note }) {
   const noteContent = JSON.parse(note.content).blocks
   return (
     <motion.article
-      className="relative flex h-full w-full cursor-pointer justify-between gap-2 rounded-lg border p-4 shadow-lg transition-all hover:bg-gray-700"
+      className="relative flex h-80 w-96 cursor-pointer justify-between gap-2 rounded-lg border p-4 shadow-lg transition-all hover:bg-gray-700 md:h-72"
       whileHover={{ scale: 1.02 }}
     >
       <section className="flex flex-col items-start gap-2">
