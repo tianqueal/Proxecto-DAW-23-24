@@ -6,7 +6,7 @@ const {
   Partials,
   ActivityType,
 } = require("discord.js")
-const { registerCommand, commandsMap } = require("./registerCommand")
+const { registerCommand, commandsMap } = require("./registerCommand.js")
 
 module.exports.startBot = async () => {
   const client = new Client({
