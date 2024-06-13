@@ -23,6 +23,9 @@ const headerClasses = {
 
 const NoteContent = ({ content }) => {
   const renderContent = (block) => {
+    if (block.data?.text.length >= 80)
+      block.data.text = `${block.data.text.substring(0, 80)}...`
+
     switch (block.type) {
       case 'header':
         return (
@@ -53,7 +56,7 @@ const NoteContent = ({ content }) => {
   return (
     <section
       aria-label="Contenido de la nota"
-      className="flex flex-1 flex-col gap-2"
+      className="flex flex-1 flex-col gap-2 text-wrap"
     >
       {content.map((block, index) => (
         <section key={index}>{renderContent(block)}</section>
