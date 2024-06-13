@@ -3,7 +3,7 @@ import DotPulseLoader from '../loaders/DotPulseLoader'
 import useApi from '../../hooks/useApi'
 
 function TableRow({ item, columns, actions, isActionLoading = {} }) {
-  const { currentTheme } = useApi()
+  const { currentTheme } = useApi() ?? {}
 
   return (
     <tr className="hover:bg-gray-50 dark:hover:bg-gray-600">

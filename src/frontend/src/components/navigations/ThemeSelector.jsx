@@ -6,7 +6,7 @@ import DropdownMenu from './DropdrowMenu'
 import { PropTypes } from 'prop-types'
 
 export default function ThemeSelector({ isOpen, setIsOpen }) {
-  const { currentTheme, setTheme } = useApi()
+  const { currentTheme, setTheme } = useApi() ?? {}
 
   const handleOptionClick = (theme) => {
     setTheme(theme)

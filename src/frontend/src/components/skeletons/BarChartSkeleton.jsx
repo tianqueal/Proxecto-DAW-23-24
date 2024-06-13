@@ -2,7 +2,7 @@ import ContentLoader from 'react-content-loader'
 import useApi from '../../hooks/useApi'
 
 export default function BarChartSkeleton(props) {
-  const { currentTheme } = useApi()
+  const { currentTheme } = useApi() ?? {}
   const backgroundColor = currentTheme === 'light' ? '#eaeced' : '#374151'
   const foregroundColor = currentTheme === 'light' ? '#ffffff' : '#4b5563'
   return (

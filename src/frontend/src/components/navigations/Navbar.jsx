@@ -14,7 +14,7 @@ import Moon from '../../assets/heroicons/solid/Moon'
 import './Navbar.css'
 
 export default function Navbar() {
-  const { currentTheme, setTheme } = useApi()
+  const { currentTheme, setTheme } = useApi() ?? {}
   const { user, logout } = useAuth({})
   const [isMenuOpen, setIsMenuOpen] = useState(false)
   const [isLogoutLoading, setIsLogoutLoading] = useState(false)

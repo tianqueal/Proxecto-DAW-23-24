@@ -7,7 +7,7 @@ import DropdownWindow from './DropdownWindow'
 import Chevron from '../../assets/heroicons/solid/Chevron'
 
 export default function DropThemeMenu() {
-  const { currentTheme, setTheme } = useApi()
+  const { currentTheme, setTheme } = useApi() ?? {}
   const [isOpen, setIsOpen] = useState(false)
   const ref = useRef(null)
 

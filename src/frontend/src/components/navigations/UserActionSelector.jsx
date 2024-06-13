@@ -10,7 +10,7 @@ import { useNavigate } from 'react-router-dom'
 
 const UserActionSelector = ({ username, isOpen, setIsOpen, uniqueId }) => {
   const { user, logout } = useAuth({})
-  const { currentTheme } = useApi()
+  const { currentTheme } = useApi() ?? {}
   const [isLogoutLoading, setIsLogoutLoading] = useState(false)
   const navigate = useNavigate()
 
