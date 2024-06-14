@@ -15,6 +15,7 @@ const TopicSearchGeneric = ({
   searchTopicName,
   showDropdown,
   setShowDropdown,
+  identifier,
 }) => {
   const { lastTopicElementRef, isError, isLoading, topics } = useTopics()
   const ref = useRef(null)
@@ -54,14 +55,14 @@ const TopicSearchGeneric = ({
         className="flex max-w-56 items-center justify-end gap-3"
         ref={ref}
       >
-        <label htmlFor="topic_name">
+        <label htmlFor={identifier}>
           <Hashtag className="size-5 dark:text-gray-200" aria-hidden="true" />
         </label>
         <div className="relative">
           <InputField
-            id="topic_name"
+            id={identifier}
             type="text"
-            name="topic_name"
+            name={identifier}
             inputRef={topicName}
             placeholder="Buscar temas"
             onChange={onSearchChange}
@@ -110,7 +111,7 @@ const TopicSearchGeneric = ({
             )}
         </div>
       </section>
-      <div className="mt-2 flex flex-wrap justify-center gap-2 text-sm font-medium dark:text-gray-200 md:justify-end">
+      <div className="flex flex-wrap justify-center gap-2 text-sm font-medium dark:text-gray-200 md:justify-end">
         {selectedTopics.map((topic) => (
           <div
             key={topic.id}
@@ -139,6 +140,7 @@ TopicSearchGeneric.propTypes = {
   searchTopicName: PropTypes.string,
   showDropdown: PropTypes.bool,
   setShowDropdown: PropTypes.func,
+  identifier: PropTypes.string,
 }
 
 export default TopicSearchGeneric
