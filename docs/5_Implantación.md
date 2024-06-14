@@ -21,8 +21,8 @@ en la esquina superior derecha. Esa sección se irá actualizando en caso de nov
 funcionamiento.
 2. **Código fuente**. La manera más recomendada de seguir con el proyecto es a través de software de control de versiones como Git. De todas formas es posible también descargar el código
 en un fichero zip o la última Release estable a través de la portada del repositorio.
-3. **Contenedor**. CI/CD está implementado en este proyecto gracias a Google Cloud y los contenedores en la nube. Esta es una forma de replicar el proyecto y asegurar su correcto
-funcionamiento en diversos entornos. Pueden usarse herramientas avanzadas como [Docker](https://www.docker.com) para desplegar una imagen del programa en sistemas compatibles. Por lo tanto, es incorporar el fichero ``Dockerfile`` para crear una imagen local y ser lanzada en cualquier contenedor deseado. Se debe tener en cuenta que la aplicación necesita de unas configuraciones
+1. **Contenedor**. CI/CD está implementado en este proyecto gracias a Google Cloud y GitHub Actions. Esta es una forma de replicar el proyecto y asegurar su correcto
+funcionamiento en diversos entornos. Pueden usarse herramientas avanzadas como [Docker](https://www.docker.com) para desplegar una imagen del programa en sistemas compatibles. Por lo tanto, es incorporar los ficheros ``Dockerfile`` para crear una imagen local y ser lanzada en cualquier contenedor deseado. Se debe tener en cuenta que la aplicación necesita de unas configuraciones
 previas para su correcto funcionamiento:
    - Pasar las variables, asignarlas directamente o escribir un fichero `.env` para la configuración de Laravel.
    - Pasar las variables (o completar el fichero `.env.local`) con la ruta del servidor (Backend) y el identificador del cliente Discord al Frontend en el momento de la compilación o usar un fichero .env manual
@@ -306,6 +306,16 @@ cd src/discord-client
 npm i
 ```
 
+**Pruebas (Opcional)**
+
+El siguiente comando ejecuta las pruebas automatizadas desarrolladas en el cliente Discord.
+
+```bash
+
+npx jest
+
+```
+
 **Puesta en marcha**
 
 ```bash
@@ -447,6 +457,7 @@ La API ha sido creada con Laravel, un framework flexible que permite crear grand
 | `POST`  | `api/v1/admin/roles`                  | Admin           | Crear un nuevo rol. |
 | `PUT`   | `api/v1/admin/roles/{id}`             | Admin           | Actualizar un rol específico. |
 | `DELETE`| `api/v1/admin/roles/{id}`             | Admin           | Eliminar un rol específico. |
+| `GET`   | `api/v1/admin/stats`                  | Admin           | Obtener las principales estadísticas de la aplicación |
 
 En los endpoints que no sean públicos es obligatorio el paso de una credencial de autorización brindada por la API al momento de registrase o iniciar sesión, y cada nueva operación sobre las rutas protegidas deberá ser enviado como parámetro en el *Header* de la solicitud.
 
