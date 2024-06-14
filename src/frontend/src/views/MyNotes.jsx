@@ -215,7 +215,7 @@ export default function MyNotes() {
       </header>
 
       <section
-        className="my-8 flex flex-col items-center md:flex-row md:items-start md:justify-between"
+        className="my-8 flex flex-col items-center gap-2 md:flex-row md:items-start md:justify-between"
         role="form"
       >
         <label className="flex max-w-56 items-center gap-3" htmlFor="content">
@@ -257,11 +257,12 @@ export default function MyNotes() {
           <SimpleModal
             title="Temas de la nota"
             handleOnClose={() => setSelectedNoteId(null)}
+            className="h-auto w-11/12 md:h-1/5 md:w-2/4"
           >
             <section className="mt-5 flex items-start justify-center">
               {isActionNoteLoading && !errorActionNote && <BouncyLoader />}
               {!isActionNoteLoading && noteTopics && (
-                <section className="flex w-full items-start justify-between">
+                <section className="flex w-full flex-col items-center justify-between gap-3 md:flex-row md:items-start">
                   <TopicSearchGeneric
                     onSelectTopic={handleSyncNoteTopics}
                     onRemoveTopic={handleSyncNoteTopics}
@@ -270,6 +271,7 @@ export default function MyNotes() {
                     searchTopicName={searchTopicName}
                     showDropdown={showNoteTopicDropdown}
                     setShowDropdown={handleSetShowDropdown}
+                    identifier="note_topics"
                   />
                 </section>
               )}
