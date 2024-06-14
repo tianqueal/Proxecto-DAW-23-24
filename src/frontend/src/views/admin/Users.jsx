@@ -250,6 +250,7 @@ export default function Users() {
             <SimpleModal
               title={`${selectedUser?.id ? `Editar` : `Crear`} usuario`}
               handleOnClose={handleOnClose}
+              className="max-h-[70vh] overflow-y-auto"
             >
               <section className="flex flex-col items-start justify-center">
                 {selectedUser?.id && (
