@@ -57,7 +57,7 @@ export default function Community() {
     <>
       <h1 className="mt-8 text-3xl font-bold">Notas de la comunidad</h1>
 
-      <div className="my-8 flex flex-col items-center md:flex-row md:items-start md:justify-between">
+      <div className="my-8 flex flex-col items-center gap-2 md:flex-row md:items-start md:justify-between">
         <label className="flex max-w-56 items-center gap-3" htmlFor="content">
           {
             <span className="hidden" aria-hidden="true">
@@ -79,9 +79,7 @@ export default function Community() {
           <TopicSearch onChange={handleTopicSearchChange} />
         </div>
       </div>
-      {!isLoading && !isError && notes?.length === 0 && (
-        <NoteNotFound />
-      )}
+      {!isLoading && !isError && notes?.length === 0 && <NoteNotFound />}
       {!isLoading && notes && notes.length > 0 && (
         <NoteList notes={notes} lastNoteElementRef={lastNoteElementRef} />
       )}
