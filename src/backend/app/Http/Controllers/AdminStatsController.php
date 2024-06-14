@@ -51,8 +51,7 @@ class AdminStatsController extends Controller
         $verifiedUsersCount = User::whereNotNull('email_verified_at')->count();
 
         // Connected users
-        $onlineUsersCount = Sanctum::personalAccessTokenModel()
-            ::distinct('tokenable_id')
+        $onlineUsersCount = Sanctum::personalAccessTokenModel()::distinct('tokenable_id')
             ->count('tokenable_id');
 
         return response()->json([
