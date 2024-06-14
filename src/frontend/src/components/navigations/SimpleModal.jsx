@@ -2,7 +2,7 @@ import { PropTypes } from 'prop-types'
 import { motion } from 'framer-motion'
 import Button from '../form/Button'
 
-export default function SimpleModal({ title, children, handleOnClose }) {
+export default function SimpleModal({ title, children, handleOnClose, className }) {
   return (
     <motion.div
       className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 dark:bg-opacity-30"
@@ -12,10 +12,11 @@ export default function SimpleModal({ title, children, handleOnClose }) {
       role="dialog"
     >
       <motion.div
-        className="mx-auto h-4/6 w-11/12 overflow-y-auto rounded-lg bg-white p-4 shadow-md dark:bg-neutral-900 md:h-auto md:w-2/4"
+        className={`bg-white dark:bg-gray-800 p-5 rounded-lg shadow-lg ${className}`}
         initial={{ scale: 0.8, opacity: 0 }}
         animate={{ scale: 1, opacity: 1 }}
         exit={{ scale: 0.8, opacity: 0 }}
+        role='group'
       >
         <motion.section>
           <header className="flex items-center justify-between">
@@ -42,4 +43,5 @@ SimpleModal.propTypes = {
   title: PropTypes.string,
   children: PropTypes.node,
   handleOnClose: PropTypes.func,
+  className: PropTypes.string,
 }
