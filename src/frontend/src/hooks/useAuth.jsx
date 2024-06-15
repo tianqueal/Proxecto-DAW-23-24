@@ -182,10 +182,8 @@ const useAuth = (/* { middleware, url, requiredRole } */) => {
       mutateUser(undefined)
       navigate('/')
       setError(null)
-      console.log(data)
       onSuccess({ message: data?.data?.message })
     } catch (error) {
-      console.log(error)
       setError('Ha ocurrido un error al eliminar la cuenta')
     } finally {
       setIsLoading({

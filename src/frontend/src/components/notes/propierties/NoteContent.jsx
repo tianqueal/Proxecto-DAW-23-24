@@ -52,7 +52,7 @@ const NoteContent = ({ noteId, content }) => {
         return null
     }
   }
-  console.log(content)
+
   return (
     <section
       aria-label="Contenido de la nota"

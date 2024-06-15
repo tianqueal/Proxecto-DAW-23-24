@@ -40,7 +40,7 @@ export const ApiProvider = ({ children }) => {
           )
           return data
         } catch (error) {
-          console.error(error)
+          return
         }
       },
     [],
@@ -55,8 +55,7 @@ export const ApiProvider = ({ children }) => {
           )
           return data
         } catch (error) {
-          console.error(error)
-          return error
+          return
         }
       },
     [],
@@ -85,7 +84,7 @@ export const ApiProvider = ({ children }) => {
           )
           return data
         } catch (error) {
-          console.error(error)
+          return
         }
       },
     [],
@@ -102,8 +101,7 @@ export const ApiProvider = ({ children }) => {
           })
           return data
         } catch (error) {
-          console.error(error)
-          return error
+          return
         }
       },
     [],
@@ -139,7 +137,6 @@ export const ApiProvider = ({ children }) => {
           setError(null)
           if (onSuccess) onSuccess(noteId)
         } catch (error) {
-          console.error(error)
           setError(error)
         }
       },
@@ -159,7 +156,6 @@ export const ApiProvider = ({ children }) => {
           setError(null)
           if (onSuccess) onSuccess({ message: data?.data?.message })
         } catch (error) {
-          console.error(error)
           setError(error)
           return error
         } finally {
@@ -189,7 +185,7 @@ export const ApiProvider = ({ children }) => {
           const json = await data.json()
           return json
         } catch (error) {
-          console.error(error)
+          return
         }
       },
     [],
@@ -210,7 +206,7 @@ export const ApiProvider = ({ children }) => {
           )
           return data
         } catch (error) {
-          console.error(error)
+          return
         }
       },
     [searchTopicName],
@@ -244,7 +240,6 @@ export const ApiProvider = ({ children }) => {
           setError(null)
           if (onSuccess) onSuccess({ message: data?.data?.message })
         } catch (error) {
-          console.error(error)
           setError(error)
         } finally {
           setIsLoading(null)
@@ -270,7 +265,6 @@ export const ApiProvider = ({ children }) => {
           setError(null)
           if (onSuccess) onSuccess({ message: data?.data?.message })
         } catch (error) {
-          console.error(error)
           setError(error)
         } finally {
           setIsLoading(null)
@@ -291,7 +285,7 @@ export const ApiProvider = ({ children }) => {
           const noteData = await getMyNote({ id: note.id })
           setCurrentNote(noteData)
         } catch (error) {
-          console.error(error)
+          return
         }
         setIsNoteLoading(false)
       },
@@ -312,7 +306,6 @@ export const ApiProvider = ({ children }) => {
           setError(null)
           return data
         } catch (error) {
-          console.error(error)
           setError(error)
           return error
         }
@@ -336,8 +329,6 @@ export const ApiProvider = ({ children }) => {
           )
           setError(null)
         } catch (error) {
-          console.error(error)
-          console.error('Error al actualizar los temas')
           setError('Error al actualizar los temas')
         } finally {
           setIsLoading(null)
@@ -361,7 +352,7 @@ export const ApiProvider = ({ children }) => {
           )
           return data
         } catch (error) {
-          console.error(error)
+          return
         }
       },
     [],
@@ -382,7 +373,7 @@ export const ApiProvider = ({ children }) => {
           )
           return data
         } catch (error) {
-          console.error(error)
+          return
         }
       },
     [],
@@ -403,7 +394,7 @@ export const ApiProvider = ({ children }) => {
           )
           return data
         } catch (error) {
-          console.error(error)
+          return
         }
       },
     [],
@@ -419,7 +410,7 @@ export const ApiProvider = ({ children }) => {
         })
         return data
       } catch (error) {
-        console.error(error)
+        return
       }
     },
     [],
@@ -438,7 +429,6 @@ export const ApiProvider = ({ children }) => {
           setErrors({})
           if (onSuccess) onSuccess()
         } catch (error) {
-          console.error(error)
           setIsLoading(false)
           setErrors(error?.response?.data?.errors)
         } /* finally {
@@ -461,7 +451,6 @@ export const ApiProvider = ({ children }) => {
           setErrors({})
           if (onSuccess) onSuccess()
         } catch (error) {
-          console.error(error)
           setIsLoading(false)
           setErrors(error?.response?.data?.errors)
         } /*  finally {
@@ -483,7 +472,6 @@ export const ApiProvider = ({ children }) => {
           })
           if (onSuccess) onSuccess({ message: data?.data?.message })
         } catch (error) {
-          console.error(error)
           if (onError) onError()
         } finally {
           setIsLoading(false)
@@ -507,7 +495,6 @@ export const ApiProvider = ({ children }) => {
           )
           if (onSuccess) onSuccess({ message: 'Estado de la nota actualizado' })
         } catch (error) {
-          console.error(error)
           setIsLoading({})
           if (onError) onError()
         }
@@ -529,7 +516,6 @@ export const ApiProvider = ({ children }) => {
               message: data?.data?.message ?? 'Nota eliminada correctamente',
             })
         } catch (error) {
-          console.error(error)
           setIsLoading({})
           if (onError) onError()
         }
@@ -551,7 +537,6 @@ export const ApiProvider = ({ children }) => {
               message: data?.data?.message ?? 'Tema eliminado correctamente',
             })
         } catch (error) {
-          console.error(error)
           setIsLoading({})
           if (onError) onError()
         }
