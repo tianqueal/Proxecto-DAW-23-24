@@ -12,7 +12,7 @@ export default function SimpleModal({ title, children, handleOnClose, className 
       role="dialog"
     >
       <motion.div
-        className={`bg-white dark:bg-gray-800 p-5 rounded-lg shadow-lg ${className}`}
+        className={`bg-white dark:bg-neutral-950 p-5 rounded-lg shadow-lg ${className}`}
         initial={{ scale: 0.8, opacity: 0 }}
         animate={{ scale: 1, opacity: 1 }}
         exit={{ scale: 0.8, opacity: 0 }}
@@ -27,7 +27,7 @@ export default function SimpleModal({ title, children, handleOnClose, className 
               type="button"
               onClick={handleOnClose}
               text="Cerrar"
-              className="bg-red-500 px-2 py-1 text-center text-white"
+              className="bg-red-600 px-2 py-1 text-center text-white"
             />
           </header>
           {/* <section className="mt-5 flex items-start justify-center">
