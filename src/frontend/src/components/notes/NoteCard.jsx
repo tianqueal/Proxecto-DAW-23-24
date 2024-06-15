@@ -37,7 +37,7 @@ const NoteCard = forwardRef(
         aria-label="Navegar a la nota seleccionada"
       >
         <section className="flex flex-col items-start gap-2">
-          <NoteContent content={noteContent} />
+          <NoteContent noteId={note.id} content={noteContent} />
           <section className="mt-4 flex w-full flex-col items-center justify-evenly gap-4 md:grid md:grid-cols-2 md:items-end">
             <NoteDetails
               user={note.user}
