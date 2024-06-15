@@ -90,8 +90,57 @@ php artisan test --exclude-group=database
 - Listar los temas disponibles
 - Mostrar un tema disponible
 - Cambiar el estado de una nota
-- Verificar que solo un usuario administrador puede acceder a las rutas ``/admin`` y gestionar los recursos
+- Verificar que solo un usuario administrador puede acceder a las rutas `/admin` y gestionar los recursos
 
 ### Front-end
 
-[Por completar. Estimación: 7-10 días]
+Verificar una aplicación con React puede llegar a ser un proceso realmente complejo.
+
+Para ello existen librerías dedicadas que facilitan la automatización de pruebas sobre un DOM emulado.
+
+Se ha tenido en cuenta la posibilidad de implementar esas pruebas automatizadas además de las pruebas manuales ejercidas sobre el software.
+
+Estas pruebas automatizadas en esta versión se enfocan en verificar el correcto renderizado de las vistas a través de diferenes búsquedas sobre el documento. Estas pruebas pueden extenderse y establecer una complejidad con precisión.
+
+Vitest es la principal librería usada, es compatible con el empaquetador Vite y proporciona compatibilidad con las librerías de testing propias de React.
+
+Para ejecutar las pruebas automatizadas sobre el Frontend, se debe ejecutar el siguiente comando:
+
+```bash
+npm run test
+```
+
+Esto permite ejecutar las pruebas en cola, devolviendo un resumen de los tests hecho y el resultado de los mismos.
+
+La idea a futuro es mejorar estos tests permitiendo una mejor precisión sobre las características del software.
+
+### Cliente Discord
+
+A pesar de no haber tenido experiencia previa en la programación de tests automatizados durante el desarrollo de bots, la intención de implementar pruebas automatizadas en este bot, ha sido un primer paso hacia la mejora de la calidad y fiabilidad del software. Se ha utilizado la librería `jest` para crear un entorno de pruebas que simula interacciones con el bot, permitiendo así verificar su comportamiento de manera automatizada.
+
+```js
+test("Ping Command Test", async () => {
+    const interaction = {
+      reply: jest.fn(),
+    }
+
+    await commandsMap.get("ping")(interaction)
+
+    expect(interaction.reply).toHaveBeenCalledWith("Pong!")
+  })
+```
+
+El código proporcionado muestra un test para el comando "ping" en el bot de Discord.
+
+El test comienza con la creación de un mock del Client de discord.js usando jest.mock(). Esto permite simular la creación de un cliente de Discord sin necesidad de establecer una conexión real con el servicio de Discord. Luego, en el bloque beforeAll, se inicializa este cliente simulado. 
+
+Se simula la ejecución del comando "ping" por parte del bot. Para ello, se crea un objeto interaction que simula una interacción de comando en Discord, con una función reply espiada (mockeada) para verificar si se llama correctamente. Al ejecutar el comando "ping" con este objeto de interacción, se espera que la función reply sea llamada con el argumento "Pong!", lo cual se verifica con expect(interaction.reply).toHaveBeenCalledWith("Pong!").
+
+```bash
+# El siguiente comando ejecuta los tests automatizados
+npx jest
+```
+
+Aunque la experiencia previa en la programación de tests automatizados con Discord.js no era extensa, la implementación de estas pruebas representa un paso importante hacia el desarrollo de software más confiable.
+
+Las prubeas manuales sobre el cliente fueron satisfactorias, lo que permite el despliegue a producción en la próxima versión estable.
