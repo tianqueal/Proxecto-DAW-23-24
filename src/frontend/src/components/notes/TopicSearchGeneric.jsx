@@ -56,6 +56,9 @@ const TopicSearchGeneric = ({
         ref={ref}
       >
         <label htmlFor={identifier}>
+          <span className="sr-only">
+            Buscador de temas para la referencia {identifier}
+          </span>
           <Hashtag className="size-5 dark:text-gray-200" aria-hidden="true" />
         </label>
         <div className="relative">

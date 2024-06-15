@@ -271,7 +271,7 @@ export default function MyNotes() {
                     searchTopicName={searchTopicName}
                     showDropdown={showNoteTopicDropdown}
                     setShowDropdown={handleSetShowDropdown}
-                    identifier="note_topics"
+                    identifier="my_note_topics"
                   />
                 </section>
               )}
