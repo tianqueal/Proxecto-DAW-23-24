@@ -24,6 +24,7 @@
     "@editorjs/marker": "^1.4.0",
     "@editorjs/paragraph": "^2.11.4",
     "@editorjs/simple-image": "^1.6.0",
+    "@editorjs/table": "^2.3.0",
     "@testing-library/jest-dom": "^6.4.6",
     "@testing-library/react": "^16.0.0",
     "axios": "^1.6.8",

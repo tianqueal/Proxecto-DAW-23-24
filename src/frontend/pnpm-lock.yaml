@@ -32,6 +32,9 @@ importers:
       '@editorjs/simple-image':
         specifier: ^1.6.0
         version: 1.6.0
+      '@editorjs/table':
+        specifier: ^2.3.0
+        version: 2.3.0
       '@testing-library/jest-dom':
         specifier: ^6.4.6
         version: 6.4.6(vitest@1.6.0(jsdom@24.1.0))
@@ -182,6 +185,9 @@ packages:
 
   '@editorjs/simple-image@1.6.0':
     resolution: {integrity: sha512-WvdGfQPlozwZd3PXQrJnRXk6gEYbv1U2vRupYJ6lTd3/UsLInXYUX5jSFcnGB5ZMH3bd0JDZfcb4d4Sv1/1big==}
+
+  '@editorjs/table@2.3.0':
+    resolution: {integrity: sha512-/dKE6A5FkukX/FpvIyQGsewwXglZk8YbXpEp9vkB6Ec4ETLeGJMxObCcYqbXqVod+IU/a1tFH+j3lsD8ASD41g==}
 
   '@esbuild/aix-ppc64@0.20.2':
     resolution: {integrity: sha512-D+EBOJHXdNZcLJRBkhENNG8Wji2kgc9AZ9KiPr1JuZjsNtyHzrsfLRrY0tk2H2aoFu6RANO1y1iPPUCDYWkb5g==}
@@ -2442,6 +2448,10 @@ snapshots:
       '@codexteam/icons': 0.0.4
 
   '@editorjs/simple-image@1.6.0':
+    dependencies:
+      '@codexteam/icons': 0.0.6
+
+  '@editorjs/table@2.3.0':
     dependencies:
       '@codexteam/icons': 0.0.6
 
