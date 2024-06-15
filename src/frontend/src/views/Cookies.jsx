@@ -11,9 +11,9 @@ export default function Cookies() {
           archivos de texto que se almacenan en tu dispositivo cuando visitas
           nuestro sitio.
         </p>
-        <h3 className="mt-4 text-xl font-semibold text-gray-800 dark:text-white">
+        <h2 className="mt-4 text-xl font-semibold text-gray-800 dark:text-white">
           Tipos de Cookies
-        </h3>
+        </h2>
         <ul className="mt-2 list-disc pl-6 text-gray-800 dark:text-neutral-200">
           <li>
             <strong>Cookies esenciales:</strong> Necesarias para el
