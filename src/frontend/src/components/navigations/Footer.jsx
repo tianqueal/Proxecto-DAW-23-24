@@ -108,6 +108,7 @@ export default function Footer() {
               <li className="flex items-center gap-1">
                 <AtSymbol className="size-5" aria-hidden="true" />
                 <a
+                  id="contact-heading"
                   href="mailto:masternote@alwaysdata.net"
                   className="hover:underline"
                   aria-label="Correo Electrónico"
