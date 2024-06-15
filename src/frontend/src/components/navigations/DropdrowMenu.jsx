@@ -35,7 +35,6 @@ const DropdownMenu = ({
     <section
       className="relative inline-block whitespace-nowrap text-left"
       ref={ref}
-      role="menubar"
     >
       <button
         type="button"
@@ -50,7 +49,7 @@ const DropdownMenu = ({
       </button>
 
       {isOpen && (
-        <DropdownWindow customClasses="flex flex-col mt-4">
+        <DropdownWindow customClasses="flex flex-col mt-4" role="menubar">
           {children}
         </DropdownWindow>
       )}

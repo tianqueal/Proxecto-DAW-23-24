@@ -8,6 +8,7 @@ export default function DropMenuOption({
   onClick,
   children,
   customClasses = '',
+  ...props
   // isActive,
   // uniqueId,
 }) {
@@ -23,6 +24,7 @@ export default function DropMenuOption({
         onClick={onClick}
         role="menuitem"
         aria-label={option}
+        {...props}
       >
         <span className="relative mx-4 my-2">
           {children ?? option}
@@ -44,6 +46,7 @@ export default function DropMenuOption({
       className={`flex w-full items-center ${commonClasses} ${customClasses}`}
       role="menuitem"
       aria-label={option}
+      {...props}
     >
       <span className="relative mx-4 my-2">
         {children ?? option}

@@ -36,6 +36,7 @@ const UserActionSelector = ({ username, isOpen, setIsOpen, uniqueId }) => {
           onClick={handleOptionClick}
           option="Perfil"
           to="/profile"
+          role="menuitemradio"
           // isActive={isCurrentPath('/profile')}
           // uniqueId={uniqueId}
         />
@@ -44,6 +45,7 @@ const UserActionSelector = ({ username, isOpen, setIsOpen, uniqueId }) => {
             to="/admin/dashboard"
             option="Administración"
             onClick={handleOptionClick}
+            role="menuitemradio"
             // isActive={isCurrentPath('/admin/dashboard')}
             uniqueId={uniqueId}
           />
@@ -53,6 +55,7 @@ const UserActionSelector = ({ username, isOpen, setIsOpen, uniqueId }) => {
             to="/my-notes"
             option="Mis notas"
             onClick={handleOptionClick}
+            role="menuitemradio"
             // isActive={isCurrentPath('/my-notes')}
             // uniqueId={uniqueId}
           />
@@ -62,10 +65,11 @@ const UserActionSelector = ({ username, isOpen, setIsOpen, uniqueId }) => {
             onClick={() => handleOptionClick('logout')}
             option="Salir"
             customClasses="text-red-500 dark:text-red-400"
+            role="menuitemradio"
           />
         )}
         {isLogoutLoading && (
-          <DropMenuOption option="Cerrando sesión...">
+          <DropMenuOption option="Cerrando sesión..." role="menuitemradio">
             <DotPulseLoader
               dotColor={currentTheme === 'light' ? '#000' : '#fff'}
             />

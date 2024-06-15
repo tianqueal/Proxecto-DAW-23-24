@@ -28,14 +28,17 @@ export default function ThemeSelector({ isOpen, setIsOpen }) {
       <DropMenuOption
         onClick={() => handleOptionClick('light')}
         option="Claro"
+        role="menuitemradio"
       />
       <DropMenuOption
         onClick={() => handleOptionClick('dark')}
         option="Oscuro"
+        role="menuitemradio"
       />
       <DropMenuOption
         onClick={() => handleOptionClick('system')}
         option="Sistema"
+        role="menuitemradio"
       />
     </DropdownMenu>
   )
