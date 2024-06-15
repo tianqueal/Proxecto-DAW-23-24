@@ -55,11 +55,9 @@ export default function TopicSearch({ onChange }) {
         ref={ref}
       >
         <label htmlFor="topic_name">
-          {
-            <span className="hidden" aria-hidden="true">
-              Buscar temas
-            </span>
-          }
+          <span className="hidden" aria-hidden="true">
+            Buscar temas
+          </span>
           <Hashtag className="size-5 dark:text-gray-200" aria-hidden="true" />
         </label>
         <div className="relative">

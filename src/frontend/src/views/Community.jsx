@@ -59,11 +59,9 @@ export default function Community() {
 
       <div className="my-8 flex flex-col items-center gap-2 md:flex-row md:items-start md:justify-between">
         <label className="flex max-w-56 items-center gap-3" htmlFor="content">
-          {
-            <span className="hidden" aria-hidden="true">
-              Buscar por contenido
-            </span>
-          }
+          <span className="hidden" aria-hidden="true">
+            Buscar por contenido
+          </span>
           <MagnifyingGlass className="size-5" />
           <InputField
             id="content"
