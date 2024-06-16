@@ -19,11 +19,15 @@ setGlobalDispatcher(
 )
 
 function isValidPath(requestedPath) {
-  const fullPath = path.join(__dirname, "public", requestedPath)
-  return fullPath.startsWith(path.join(__dirname, "public"))
-}
+  const publicDir = path.join(__dirname, "public")
+  const fullPath = path.join(publicDir, requestedPath)
+  const normalizedPath = path.normalize(fullPath)
 
-// app.use(express.static(path.join(__dirname, "public")))
+  return (
+    normalizedPath.startsWith(publicDir + path.sep) &&
+    !path.relative(publicDir, normalizedPath).includes("..")
+  )
+}
 
 app.get("/:path", function (req, res) {
   let requestedPath = req.params.path
