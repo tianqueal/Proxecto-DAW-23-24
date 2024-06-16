@@ -1,50 +1,87 @@
 import { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
+import { useLocation } from 'react-router-dom'
 import useAuth from '../../hooks/useAuth'
+import useApi from '../../hooks/useApi'
 import Logo from './Logo'
 import NavbarLink from './NavbarLink'
 import DotPulseLoader from '../loaders/DotPulseLoader'
 import UserActionSelector from './UserActionSelector'
 import ThemeSelector from './ThemeSelector'
-import useApi from '../../hooks/useApi'
-import Sun from '../../assets/heroicons/Sun'
-import Moon from '../../assets/heroicons/Moon'
 import MenuToggle from './MenuToggle'
+import Sun from '../../assets/heroicons/solid/Sun'
+import Moon from '../../assets/heroicons/solid/Moon'
 import './Navbar.css'
 
 export default function Navbar() {
-  const { currentTheme, setTheme } = useApi()
+  const { currentTheme, setTheme } = useApi() ?? {}
   const { user, logout } = useAuth({})
   const [isMenuOpen, setIsMenuOpen] = useState(false)
   const [isLogoutLoading, setIsLogoutLoading] = useState(false)
   const [isMenuThemeOpen, setIsMenuThemeOpen] = useState(false)
   const [isMenuUserOpen, setIsMenuUserOpen] = useState(false)
+  const location = useLocation()
 
   const handleMenuClose = () => {
     setIsMenuOpen(false)
   }
 
+  const isCurrentPath = (path) => location.pathname === path
+
   return (
-    /* overlay-A positioner sticky top-0 z-30 flex h-16 w-full justify-center bg-white bg-opacity-30 px-2 backdrop-blur-lg backdrop-saturate-150 dark:bg-gray-900 dark:bg-opacity-30 */
-    <nav className="overlay__blur sticky top-0 z-10 flex h-16 w-full justify-center px-2">
-      <div className="z-30 flex w-full max-w-7xl items-center justify-between">
+    <nav
+      className="overlay__blur sticky top-0 z-10 flex h-16 w-full justify-center px-2"
+      role="navigation"
+      aria-label="Main navigation"
+    >
+      <div
+        className="z-30 flex w-full max-w-7xl items-center justify-between"
+        role="group"
+      >
         <NavbarLink to="/">
           <Logo />
         </NavbarLink>
-        <ul className="hidden items-center gap-4 md:flex">
-          <NavbarLink to="/community" option="Comunidad" />
-          <NavbarLink to="/discord" option="Discord" />
+        <ul className="hidden items-center gap-4 md:flex" role="menubar">
+          <NavbarLink
+            to="/"
+            option="Inicio"
+            isActive={isCurrentPath('/')}
+            uniqueId="desktop"
+          />
+          <NavbarLink
+            to="/community"
+            option="Comunidad"
+            isActive={isCurrentPath('/community')}
+            uniqueId="desktop"
+          />
+          <NavbarLink
+            to="/discord"
+            option="Discord"
+            isActive={isCurrentPath('/discord')}
+            uniqueId="desktop"
+          />
           {user && (
             <UserActionSelector
               username={user?.username ?? 'user'}
               isOpen={isMenuUserOpen}
               setIsOpen={setIsMenuUserOpen}
+              uniqueId="desktop"
             />
           )}
           {!user && (
             <>
-              <NavbarLink to="/register" option="Registro" />
-              <NavbarLink to="/login" option="Iniciar sesión" />
+              <NavbarLink
+                to="/register"
+                option="Registro"
+                isActive={isCurrentPath('/register')}
+                uniqueId="desktop"
+              />
+              <NavbarLink
+                to="/login"
+                option="Iniciar sesión"
+                isActive={isCurrentPath('/login')}
+                uniqueId="desktop"
+              />
             </>
           )}
           <ThemeSelector
@@ -70,50 +107,70 @@ export default function Navbar() {
             transition={{ duration: 0.4 }}
             className="overlay__blur fixed inset-0 z-20 flex h-screen flex-col items-center justify-center md:hidden"
             role="dialog"
+            aria-label="Mobile menu"
           >
-            <ul className="z-50 mt-10 flex flex-col items-center gap-4 text-gray-700 dark:text-gray-300">
-              {!user && (
-                <NavbarLink to="/" option="Inicio" onClick={handleMenuClose} />
-              )}
+            <ul
+              className="z-50 mt-10 flex flex-col items-center gap-4 text-gray-700 dark:text-gray-300"
+              role="menu"
+            >
+              <NavbarLink
+                to="/"
+                option="Inicio"
+                isActive={isCurrentPath('/')}
+                onClick={handleMenuClose}
+                uniqueId="mobile"
+              />
               <NavbarLink
                 to="/community"
                 option="Comunidad"
+                isActive={isCurrentPath('/community')}
                 onClick={handleMenuClose}
+                uniqueId="mobile"
               />
               <NavbarLink
                 to="/discord"
                 option="Discord"
+                isActive={isCurrentPath('/discord')}
                 onClick={handleMenuClose}
+                uniqueId="mobile"
               />
               {user && (
                 <div className="mt-4 flex flex-col items-center gap-4">
                   <NavbarLink
                     to="/profile"
                     option="Perfil"
+                    isActive={isCurrentPath('/profile')}
                     onClick={handleMenuClose}
+                    uniqueId="mobile"
                   />
                   {user?.isAdmin === true && (
                     <NavbarLink
                       to="/admin/dashboard"
-                      option="Administrador"
+                      option="Administración"
+                      isActive={isCurrentPath('/admin/dashboard')}
                       onClick={handleMenuClose}
+                      uniqueId="mobile"
                     />
                   )}
                   {user?.isAdmin === false && (
                     <NavbarLink
                       to="/my-notes"
                       option="Mis notas"
+                      isActive={isCurrentPath('/my-notes')}
                       onClick={handleMenuClose}
+                      uniqueId="mobile"
                     />
                   )}
                   {!isLogoutLoading && (
                     <NavbarLink
                       to="/"
                       option="Cerrar sesión"
+                      className="text-red-500 dark:text-red-400"
                       onClick={async () => {
                         await logout({ setIsLoading: setIsLogoutLoading })
                         handleMenuClose()
                       }}
+                      uniqueId="mobile"
                     />
                   )}
                   {isLogoutLoading && (
@@ -128,12 +185,16 @@ export default function Navbar() {
                   <NavbarLink
                     to="/register"
                     option="Registro"
+                    isActive={isCurrentPath('/register')}
                     onClick={handleMenuClose}
+                    uniqueId="mobile"
                   />
                   <NavbarLink
                     to="/login"
                     option="Iniciar sesión"
+                    isActive={isCurrentPath('/login')}
                     onClick={handleMenuClose}
+                    uniqueId="mobile"
                   />
                 </>
               )}
@@ -143,14 +204,14 @@ export default function Navbar() {
                     onClick={() => setTheme('dark')}
                     aria-label="Cambiar a modo oscuro"
                   >
-                    <Sun customClasses="size-10" />
+                    <Sun className="size-10" />
                   </motion.span>
                 ) : (
                   <motion.span
                     onClick={() => setTheme('light')}
                     aria-label="Cambiar a modo claro"
                   >
-                    <Moon customClasses="size-10" />
+                    <Moon className="size-10" />
                   </motion.span>
                 )}
               </NavbarLink>

@@ -1,6 +1,9 @@
 {
-    "private": true,
+    "name": "masternote-api",
+    "private": false,
+    "version": "1.0.0",
     "type": "module",
+    "description": "Masternote API for Laravel",
     "scripts": {
         "dev": "vite",
         "build": "vite build"

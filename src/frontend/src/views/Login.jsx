@@ -2,6 +2,7 @@ import { useState } from 'react'
 import FormLogin from '../components/auth/FormLogin'
 import useAuth from '../hooks/useAuth'
 import { useNavigate } from 'react-router-dom'
+import SuccessToastify from '../components/alerts/SuccessToastify'
 
 export default function Login() {
   const { login } = useAuth({
@@ -23,7 +24,8 @@ export default function Login() {
       formData,
       setIsLoading,
       setErrors,
-      onSuccess: ({ navigateTo }) => {
+      onSuccess: ({ message, navigateTo }) => {
+        SuccessToastify({ message })
         navigate(navigateTo)
       },
     })

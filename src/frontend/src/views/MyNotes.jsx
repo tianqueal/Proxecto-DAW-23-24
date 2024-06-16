@@ -1,12 +1,12 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { AnimatePresence, motion } from 'framer-motion'
+import { AnimatePresence } from 'framer-motion'
 import debounce from 'just-debounce-it'
 import useApi from '../hooks/useApi'
 import useAuth from '../hooks/useAuth'
 import useNotes from '../hooks/useNotes'
 import { NoteFetchTypes } from '../helpers/constants'
-import MagnifyingGlass from '../assets/heroicons/MagnifyingGlass'
+import MagnifyingGlass from '../assets/heroicons/solid/MagnifyingGlass'
 import InputField from '../components/form/InputField'
 import TopicSearch from '../components/notes/TopicSearch'
 import NoteListSkeleton from '../components/skeletons/NoteListSkeleton'
@@ -17,6 +17,8 @@ import NoteNotFound from '../components/notes/NoteNotFound'
 import Button from '../components/form/Button'
 import BouncyLoader from '../components/loaders/BouncyLoader'
 import TopicSearchGeneric from '../components/notes/TopicSearchGeneric'
+import SimpleModal from '../components/navigations/SimpleModal'
+import FirstNoteContainer from '../components/notes/FirstNoteContainer'
 
 export default function MyNotes() {
   const {
@@ -48,7 +50,7 @@ export default function MyNotes() {
     setFilters,
     isError,
     isLoading,
-    isValidating,
+    /* isValidating, */
     mutateNotes,
   } = useNotes({
     type: NoteFetchTypes.MY_NOTES,
@@ -194,6 +196,12 @@ export default function MyNotes() {
     setNoteTopicDropdown(show)
   }
 
+  const MyNotesEmptyResult = useCallback(() => {
+    const userAccountCreatedToday =
+      new Date(user.createdAt).toDateString() === new Date().toDateString()
+    return userAccountCreatedToday ? <FirstNoteContainer /> : <NoteNotFound />
+  }, [user])
+
   return (
     <>
       <header className="mt-8 flex items-center justify-between">
@@ -206,14 +214,16 @@ export default function MyNotes() {
         />
       </header>
 
-      <div className="my-8 flex flex-col items-center md:flex-row md:items-start md:justify-between">
+      <section
+        className="my-8 flex flex-col items-center gap-2 md:flex-row md:items-start md:justify-between"
+        role="form"
+      >
         <label className="flex max-w-56 items-center gap-3" htmlFor="content">
-          {
-            <span className="hidden" aria-hidden="true">
-              Buscar por contenido
-            </span>
-          }
-          <MagnifyingGlass customClasses={'w-5 h-5'} />
+          <span className="hidden" aria-hidden="true">
+            Buscar por contenido
+          </span>
+
+          <MagnifyingGlass className="size-5" />
           <InputField
             id="content"
             type="text"
@@ -224,13 +234,14 @@ export default function MyNotes() {
           />
         </label>
 
-        <div className="flex flex-col items-center md:items-end">
+        <section
+          className="flex flex-col items-center md:items-end"
+          role="group"
+        >
           <TopicSearch onChange={handleTopicSearchChange} />
-        </div>
-      </div>
-      {!isLoading && !isError && !isValidating && notes?.length === 0 && (
-        <NoteNotFound />
-      )}
+        </section>
+      </section>
+      {!isLoading && !isError && notes?.length === 0 && <MyNotesEmptyResult />}
       {!isLoading && notes && notes.length > 0 && (
         <NoteList
           notes={notes}
@@ -240,55 +251,32 @@ export default function MyNotes() {
           errorActionNote={errorActionNote}
         />
       )}
-      {(isLoading || isError || isValidating) && notes?.length !== 0 && (
-        <NoteListSkeleton />
-      )}
+      {(isLoading || isError) && notes?.length !== 0 && <NoteListSkeleton />}
       <AnimatePresence>
         {selectedNoteId && (
-          <motion.div
-            className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 dark:bg-opacity-30"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            role="dialog"
+          <SimpleModal
+            title="Temas de la nota"
+            handleOnClose={() => setSelectedNoteId(null)}
+            className="h-auto w-11/12 md:h-1/5 md:w-2/4"
           >
-            <motion.div
-              className="mx-auto h-60 w-11/12 rounded-lg bg-white p-4 shadow-md dark:bg-neutral-900 md:w-2/4"
-              initial={{ scale: 0.8, opacity: 0 }}
-              animate={{ scale: 1, opacity: 1 }}
-              exit={{ scale: 0.8, opacity: 0 }}
-            >
-              <motion.section>
-                <header className="flex items-center justify-between">
-                  <motion.h2 className="mb-2 text-xl font-bold text-emerald-600 dark:text-emerald-500">
-                    Temas de la nota
-                  </motion.h2>
-                  <Button
-                    type="button"
-                    onClick={() => setSelectedNoteId(null)}
-                    text="Cerrar"
-                    className="bg-red-500 px-2 py-1 text-center text-white"
+            <section className="mt-5 flex items-start justify-center">
+              {isActionNoteLoading && !errorActionNote && <BouncyLoader />}
+              {!isActionNoteLoading && noteTopics && (
+                <section className="flex w-full flex-col items-center justify-between gap-3 md:flex-row md:items-start">
+                  <TopicSearchGeneric
+                    onSelectTopic={handleSyncNoteTopics}
+                    onRemoveTopic={handleSyncNoteTopics}
+                    onSearchChange={handleSearchTopicChange}
+                    selectedTopics={noteTopics}
+                    searchTopicName={searchTopicName}
+                    showDropdown={showNoteTopicDropdown}
+                    setShowDropdown={handleSetShowDropdown}
+                    identifier="my_note_topics"
                   />
-                </header>
-                <section className="mt-5 flex items-start justify-center">
-                  {isActionNoteLoading && !errorActionNote && <BouncyLoader />}
-                  {!isActionNoteLoading && noteTopics && (
-                    <section className="flex w-full items-start justify-between">
-                      <TopicSearchGeneric
-                        onSelectTopic={handleSyncNoteTopics}
-                        onRemoveTopic={handleSyncNoteTopics}
-                        onSearchChange={handleSearchTopicChange}
-                        selectedTopics={noteTopics}
-                        searchTopicName={searchTopicName}
-                        showDropdown={showNoteTopicDropdown}
-                        setShowDropdown={handleSetShowDropdown}
-                      />
-                    </section>
-                  )}
                 </section>
-              </motion.section>
-            </motion.div>
-          </motion.div>
+              )}
+            </section>
+          </SimpleModal>
         )}
       </AnimatePresence>
     </>

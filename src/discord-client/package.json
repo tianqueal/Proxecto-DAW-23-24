@@ -1,17 +1,23 @@
 {
-  "name": "masternote-bot",
+  "name": "masternote-discord-client",
+  "private": false,
   "version": "1.0.0",
-  "description": "",
+  "description": "Discord API Client for Masternote Bot",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node ."
   },
   "keywords": [],
-  "author": "",
-  "license": "ISC",
+  "author": "tianqueal",
+  "license": "MIT",
   "dependencies": {
     "discord.js": "^14.14.1",
-    "dotenv": "^16.4.5"
+    "dotenv": "^16.4.5",
+    "express": "^4.19.2",
+    "undici": "^6.18.2"
+  },
+  "devDependencies": {
+    "jest": "^29.7.0"
   }
 }

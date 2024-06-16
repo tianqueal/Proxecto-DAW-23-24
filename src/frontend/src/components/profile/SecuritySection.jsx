@@ -1,6 +1,6 @@
 import { PropTypes } from 'prop-types'
 import Button from '../form/Button'
-import Check from '../../assets/heroicons/Check'
+import Check from '../../assets/heroicons/solid/Check'
 import BouncyLoader from '../loaders/BouncyLoader'
 
 function SecurityAction({
@@ -11,7 +11,7 @@ function SecurityAction({
   actionLoading,
   actionKey,
   isVerified,
-  addClasses,
+  className: addClasses,
 }) {
   return (
     <div className="mt-4 dark:bg-gray-800 md:flex md:flex-col">
@@ -20,9 +20,9 @@ function SecurityAction({
       <Button
         onClick={onClick}
         type="button"
-        className={`flex h-10 w-full items-center justify-center gap-3 border dark:focus:ring-gray-500 ${addClasses}`}
+        className={`flex h-10 w-full items-center justify-center gap-3 border dark:focus:ring-gray-500 md:w-72 ${addClasses}`}
       >
-        {isVerified && <Check customClasses="size-5" />}
+        {isVerified && <Check className="size-5" />}
         {!actionLoading?.[actionKey]?.isLoading && buttonText}
         {actionLoading?.[actionKey]?.isLoading && <BouncyLoader white={true} />}
       </Button>
@@ -38,7 +38,7 @@ SecurityAction.propTypes = {
   actionLoading: PropTypes.object,
   actionKey: PropTypes.string.isRequired,
   isVerified: PropTypes.bool,
-  addClasses: PropTypes.string,
+  className: PropTypes.string,
 }
 
 export default function SecuritySection({
@@ -63,10 +63,10 @@ export default function SecuritySection({
         actionLoading={actionLoading}
         actionKey="resendEmailVerification"
         isVerified={!!emailVerifiedAt}
-        addClasses={
+        className={
           emailVerifiedAt
-            ? 'bg-white text-green-700 focus:bg-green-100 dark:bg-gray-800 dark:text-green-500 dark:focus:bg-green-900 focus:ring-green-200'
-            : 'text-white bg-green-500 hover:bg-green-500 focus:ring-green-200 dark:bg-green-800 dark:hover:bg-green-700'
+            ? 'bg-white text-green-700 hover:bg-green-50 focus:bg-green-100 focus:ring-green-200 dark:bg-gray-800 dark:text-green-500 dark:hover:bg-green-900 dark:focus:bg-green-900'
+            : 'bg-green-700 text-white hover:bg-green-800 focus:ring-green-200 dark:bg-green-800 dark:hover:bg-green-900'
         }
       />
       <SecurityAction
@@ -76,7 +76,7 @@ export default function SecuritySection({
         onClick={handleLogoutOtherDevices}
         actionLoading={actionLoading}
         actionKey="logoutOtherDevices"
-        addClasses="text-white bg-indigo-700 focus:ring-indigo-200 dark:bg-indigo-800 dark:hover:bg-indigo-700"
+        className="bg-indigo-700 text-white hover:bg-indigo-800 focus:ring-indigo-200 dark:bg-indigo-800 dark:hover:bg-indigo-900"
       />
       <SecurityAction
         title="Eliminar cuenta de forma permanente"
@@ -85,7 +85,7 @@ export default function SecuritySection({
         onClick={handleDeleteAccount}
         actionLoading={actionLoading}
         actionKey="deleteAccount"
-        addClasses="text-white bg-red-600 focus:ring-red-200 dark:bg-red-800 dark:hover:bg-red-700"
+        className="bg-red-600 text-white hover:bg-red-700 focus:ring-red-200 dark:bg-red-800 dark:hover:bg-red-900"
       />
     </div>
   )

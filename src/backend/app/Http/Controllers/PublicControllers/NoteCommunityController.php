@@ -19,6 +19,12 @@ class NoteCommunityController extends Controller
      */
     public function index(Request $request)
     {
+        $validated = $request->validate([
+            'perPage' => 'integer|min:1|max:50'
+        ]);
+
+        $perPage = $validated['perPage'] ?? Config::get('query_filters.note.perPage');
+
         $noteFilters = Config::get('query_filters.note');
 
         $filter = new NoteFilter($noteFilters->filters);
@@ -28,7 +34,7 @@ class NoteCommunityController extends Controller
 
         $query = $filter->apply($request, $query);
 
-        $communityNotes = $query->paginate($noteFilters->perPage);
+        $communityNotes = $query->paginate($perPage);
 
         return NoteFilteredResource::collection($communityNotes);
     }
@@ -59,7 +65,7 @@ class NoteCommunityController extends Controller
             ], Response::HTTP_NOT_FOUND);
         }
 
-        $communityNote->loadMissing(['user', 'topics']);
+        $communityNote->loadMissing(['user', 'user.roles', 'topics']);
 
         return NoteResource::make($communityNote);
     }

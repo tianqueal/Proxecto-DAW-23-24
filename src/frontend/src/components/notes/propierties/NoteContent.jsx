@@ -21,8 +21,11 @@ const headerClasses = {
   6: 'text-base dark:text-white',
 }
 
-const NoteContent = ({ content }) => {
+const NoteContent = ({ noteId, content }) => {
   const renderContent = (block) => {
+    if (block.data?.text.length >= 80)
+      block.data.text = `${block.data.text.substring(0, 80)}...`
+
     switch (block.type) {
       case 'header':
         return (
@@ -53,16 +56,23 @@ const NoteContent = ({ content }) => {
   return (
     <section
       aria-label="Contenido de la nota"
-      className="flex flex-1 flex-col gap-2"
+      className="flex flex-1 flex-col gap-2 text-wrap"
     >
-      {content.map((block, index) => (
-        <section key={index}>{renderContent(block)}</section>
-      ))}
+      {content.length > 0 ? (
+        content.map((block, index) => (
+          <section key={index}>{renderContent(block)}</section>
+        ))
+      ) : (
+        <section>
+          <h2 className={`${headerClasses[3]} italic`}>Sin título #{noteId}</h2>
+        </section>
+      )}
     </section>
   )
 }
 
 NoteContent.propTypes = {
+  noteId: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   content: PropTypes.array.isRequired,
 }
 

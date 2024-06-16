@@ -18,6 +18,12 @@ class AdminTopicController extends Controller
      */
     public function index(Request $request)
     {
+        $validated = $request->validate([
+            'perPage' => 'integer|min:1|max:50'
+        ]);
+
+        $perPage = $validated['perPage'] ?? Config::get('query_filters.topic.perPage');
+
         $topicFilters = Config::get('query_filters.topic');
         $filter = new TopicFilter($topicFilters->filters);
 
@@ -25,7 +31,7 @@ class AdminTopicController extends Controller
 
         $topics = $filter->apply($request, $query->newQuery());
 
-        $topics = $topics->paginate($topicFilters->perPage);
+        $topics = $topics->paginate($perPage);
 
         return TopicResource::collection($topics);
     }

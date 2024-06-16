@@ -1,8 +1,8 @@
 import { PropTypes } from 'prop-types'
-import XMark from '../../assets/heroicons/XMark'
+import XMark from '../../assets/heroicons/solid/XMark'
 import InputField from '../form/InputField'
 import DropdownWindow from '../navigations/DropdownWindow'
-import Hashtag from '../../assets/heroicons/Hashtag'
+import Hashtag from '../../assets/heroicons/solid/Hashtag'
 import { useEffect, useRef } from 'react'
 import BouncyLoader from '../loaders/BouncyLoader'
 import useTopics from '../../hooks/useTopics'
@@ -15,6 +15,7 @@ const TopicSearchGeneric = ({
   searchTopicName,
   showDropdown,
   setShowDropdown,
+  identifier,
 }) => {
   const { lastTopicElementRef, isError, isLoading, topics } = useTopics()
   const ref = useRef(null)
@@ -54,19 +55,22 @@ const TopicSearchGeneric = ({
         className="flex max-w-56 items-center justify-end gap-3"
         ref={ref}
       >
-        <label htmlFor="topic_name">
+        <label htmlFor={identifier}>
+          <span className="sr-only">
+            Buscador de temas para la referencia {identifier}
+          </span>
           <Hashtag className="size-5 dark:text-gray-200" aria-hidden="true" />
         </label>
         <div className="relative">
           <InputField
-            id="topic_name"
+            id={identifier}
             type="text"
-            name="topic_name"
+            name={identifier}
             inputRef={topicName}
             placeholder="Buscar temas"
             onChange={onSearchChange}
             className="dark:bg-gray-800 dark:text-gray-200"
-            autoComplete='off'
+            autoComplete="off"
           />
           {isLoading && (
             <DropdownWindow customClasses="flex justify-center p-2 dark:bg-gray-800">
@@ -110,7 +114,7 @@ const TopicSearchGeneric = ({
             )}
         </div>
       </section>
-      <div className="mt-2 flex flex-wrap justify-center gap-2 text-sm font-medium dark:text-gray-200 md:justify-end">
+      <div className="flex flex-wrap justify-center gap-2 text-sm font-medium dark:text-gray-200 md:justify-end">
         {selectedTopics.map((topic) => (
           <div
             key={topic.id}
@@ -121,10 +125,7 @@ const TopicSearchGeneric = ({
               className="mr-1 rounded-full p-1 transition-all hover:bg-gray-300 dark:hover:bg-gray-700"
               aria-label={`Remove topic ${topic.name}`}
             >
-              <XMark
-                customClasses="size-5 dark:text-gray-200"
-                aria-hidden="true"
-              />
+              <XMark className="size-5 dark:text-gray-200" aria-hidden="true" />
             </button>
             {topic.name}
           </div>
@@ -142,6 +143,7 @@ TopicSearchGeneric.propTypes = {
   searchTopicName: PropTypes.string,
   showDropdown: PropTypes.bool,
   setShowDropdown: PropTypes.func,
+  identifier: PropTypes.string,
 }
 
 export default TopicSearchGeneric

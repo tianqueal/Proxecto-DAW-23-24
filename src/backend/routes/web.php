@@ -17,11 +17,12 @@ use Illuminate\Support\Facades\Route;
 Route::get('email/verify/{id}', [VerificationController::class, 'verify'])
     ->middleware(['signed'])
     ->name('verification.verify');
-
+/*
 // Ruta que redirige todas las solicitudes a la vista index.blade.php, excepto las rutas definidas anteriormente
 Route::get('/{any}', function () {
     return view('index');
 })->where('any', '^(?!email\/verify).*');
-
-/* 
-Route::view('email/verify', 'emails.verify_success', ['subject' => 'qqq', 'app' => 'qqq', 'url' => 'qqq']); */
+*/
+Route::get('/', function () {
+    return view('welcome');
+});

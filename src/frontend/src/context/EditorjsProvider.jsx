@@ -56,7 +56,6 @@ export const EditorJsProvider = ({ children }) => {
           onSuccess: editorInitData.onSuccess,
         })
       } catch (error) {
-        console.error('Error: ', error)
         setError(error)
       } finally {
         setIsSaving(false)
@@ -76,6 +75,8 @@ export const EditorJsProvider = ({ children }) => {
         readOnly: editorInitData.readOnly,
         onChange: debouncedSaveData,
         placeholder: '¡Escribe algo increíble!',
+        defaultBlock: null,
+        logLevel: 'ERROR',
       })
     } else {
       instance.current.isReady.then(() => {

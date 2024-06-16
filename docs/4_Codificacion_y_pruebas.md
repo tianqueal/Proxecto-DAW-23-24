@@ -34,6 +34,7 @@ Para el diseño y la experiencia del usuario (UX), he optado por TailwindCSS y F
 Los desafíos principales del proyecto han sido la integración y unificación efectiva de todas estas tecnologías, aplicando conocimientos adquiridos tanto en formación como en práctica. Todas las tecnologías elegidas fueron evaluadas y probadas exhaustivamente antes del desarrollo del proyecto. Se realizaron aproximadamente 10 pruebas de diferentes funcionalidades, algunas de las cuales incluyen:
 
 - Inicio de sesión, registro, verificación de correo electrónico, cerrado de sesión actual y en todos los dispositivos y persistencia de sesiones usando Laravel 11 (Monolithic application) y el kit de inicio Laravel Breeze.
+- Funcionalidad CRUD usando React Redux Toolkit, TypeScript y Tremor React Components, con el propósito de probar alternativas a API Context propio de React.
 - Funcionalidad CRUD usando Express.js, React, Sequelize, TailwindCSS y Editor.js con una base de datos MariaDB sin registro ni control de usuarios con el propósito de probar la librería en un entorno familiarizado.
 - Funcionalidad CRUD usando Laravel 11 (Monolithic application) y Editor.js con subida de ficheros (editorjs/image) usando una base de datos MariaDB sin registro ni control de usuarios. El propósito de esta prueba fue comprobar el funcionamiento de Editorjs con diferentes tipos de bloques y en un entorno fuera de JavaScript.
 - Pruebas de consultas y respuestas usando Postman y Laravel 10 como API REST a una base de datos MariaDB de prueba.
@@ -55,7 +56,7 @@ Durante el desarrollo se han hecho pruebas unitarias mediante la herramienta Pos
 Para la automatización de pruebas, se ha usado el integrado por Laravel: PHPUnit. Aquí solo se han programado las pruebas por funcionalidad y no por unidad a las principales rutas de la aplicación.
 En primera instancia, las pruebas borraban todo el contenido de las tablas de la base de datos. Por lo que investigando, se ha optado por cambiar el trait encargado de hacer los Refresh por uno que ejecuta las operaciones en memoria mediante transacciones y luego son revertidas al finalizar las pruebas.
 
-En total hay 11 ficheros de pruebas programadas de funcionalidad en el back-end. Cada uno con diferentes métodos que verifican peticiones y respuestas comunes que se tendrían que hacer a la API. Cada test es resuelto si el código de respuesta es el esperado según sea la acción y ruta llamada. En la Wiki se describen los comandos a usar en caso de pruebas. Un ejemplo de uso:
+En total hay 11 ficheros de pruebas programadas de funcionalidad en el back-end. Cada uno con diferentes métodos que verifican peticiones y respuestas comunes que se tendrían que hacer a la API. Cada test es resuelto si el código de respuesta es el esperado según sea la acción y ruta llamada. En la [Wiki](https://github.com/tianqueal/Proxecto-DAW-23-24/wiki/ES_DOCS#pruebas) se describen los comandos a usar en caso de pruebas. Un ejemplo de uso:
 
 ```bash
 
@@ -89,8 +90,57 @@ php artisan test --exclude-group=database
 - Listar los temas disponibles
 - Mostrar un tema disponible
 - Cambiar el estado de una nota
-- Verificar que solo un usuario administrador puede acceder a las rutas ``/admin`` y gestionar los recursos
+- Verificar que solo un usuario administrador puede acceder a las rutas `/admin` y gestionar los recursos
 
 ### Front-end
 
-[Por completar. Estimación: 7-10 días]
+Verificar una aplicación con React puede llegar a ser un proceso realmente complejo.
+
+Para ello existen librerías dedicadas que facilitan la automatización de pruebas sobre un DOM emulado.
+
+Se ha tenido en cuenta la posibilidad de implementar esas pruebas automatizadas además de las pruebas manuales ejercidas sobre el software.
+
+Estas pruebas automatizadas en esta versión se enfocan en verificar el correcto renderizado de las vistas a través de diferenes búsquedas sobre el documento. Estas pruebas pueden extenderse y establecer una complejidad con precisión.
+
+Vitest es la principal librería usada, es compatible con el empaquetador Vite y proporciona compatibilidad con las librerías de testing propias de React.
+
+Para ejecutar las pruebas automatizadas sobre el Frontend, se debe ejecutar el siguiente comando:
+
+```bash
+npm run test
+```
+
+Esto permite ejecutar las pruebas en cola, devolviendo un resumen de los tests hecho y el resultado de los mismos.
+
+La idea a futuro es mejorar estos tests permitiendo una mejor precisión sobre las características del software.
+
+### Cliente Discord
+
+A pesar de no haber tenido experiencia previa en la programación de tests automatizados durante el desarrollo de bots, la intención de implementar pruebas automatizadas en este bot, ha sido un primer paso hacia la mejora de la calidad y fiabilidad del software. Se ha utilizado la librería `jest` para crear un entorno de pruebas que simula interacciones con el bot, permitiendo así verificar su comportamiento de manera automatizada.
+
+```js
+test("Ping Command Test", async () => {
+    const interaction = {
+      reply: jest.fn(),
+    }
+
+    await commandsMap.get("ping")(interaction)
+
+    expect(interaction.reply).toHaveBeenCalledWith("Pong!")
+  })
+```
+
+El código proporcionado muestra un test para el comando "ping" en el bot de Discord.
+
+El test comienza con la creación de un mock del Client de discord.js usando jest.mock(). Esto permite simular la creación de un cliente de Discord sin necesidad de establecer una conexión real con el servicio de Discord. Luego, en el bloque beforeAll, se inicializa este cliente simulado. 
+
+Se simula la ejecución del comando "ping" por parte del bot. Para ello, se crea un objeto interaction que simula una interacción de comando en Discord, con una función reply espiada (mockeada) para verificar si se llama correctamente. Al ejecutar el comando "ping" con este objeto de interacción, se espera que la función reply sea llamada con el argumento "Pong!", lo cual se verifica con expect(interaction.reply).toHaveBeenCalledWith("Pong!").
+
+```bash
+# El siguiente comando ejecuta los tests automatizados
+npx jest
+```
+
+Aunque la experiencia previa en la programación de tests automatizados con Discord.js no era extensa, la implementación de estas pruebas representa un paso importante hacia el desarrollo de software más confiable.
+
+Las prubeas manuales sobre el cliente fueron satisfactorias, lo que permite el despliegue a producción en la próxima versión estable.

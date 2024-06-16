@@ -1,8 +1,7 @@
 import { useEffect, useRef } from 'react'
 import PropTypes from 'prop-types'
-import ChevronDown from '../../assets/heroicons/ChevronDown'
 import DropdownWindow from './DropdownWindow'
-import { motion } from 'framer-motion'
+import DropdownIcon from './DropdownIcon'
 
 const DropdownMenu = ({
   children,
@@ -33,7 +32,10 @@ const DropdownMenu = ({
   }
 
   return (
-    <div className="relative inline-block text-left" ref={ref}>
+    <section
+      className="relative inline-block whitespace-nowrap text-left"
+      ref={ref}
+    >
       <button
         type="button"
         onClick={handleToggleClick}
@@ -42,32 +44,16 @@ const DropdownMenu = ({
         aria-expanded={isOpen}
       >
         {openerIcon}
-        {openerText ?? <span className='hidden'>Opciones</span>}
-        {isOpen ? (
-          <motion.figure
-            initial={{ rotate: 0 }}
-            animate={{ rotate: 180 }}
-            exit={{ rotate: 0 }}
-          >
-            <ChevronDown customClasses="size-5" />
-          </motion.figure>
-        ) : (
-          <motion.figure
-            initial={{ rotate: 0 }}
-            animate={{ rotate: 0 }}
-            exit={{ rotate: 180 }}
-          >
-            <ChevronDown customClasses="size-5" />
-          </motion.figure>
-        )}
+        {openerText ?? <span className="hidden">Opciones</span>}
+        <DropdownIcon isOpen={isOpen} />
       </button>
 
       {isOpen && (
-        <DropdownWindow customClasses="flex flex-col mt-4">
+        <DropdownWindow customClasses="flex flex-col mt-4" role="menubar">
           {children}
         </DropdownWindow>
       )}
-    </div>
+    </section>
   )
 }
 

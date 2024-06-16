@@ -1,12 +1,12 @@
-import Moon from '../../assets/heroicons/Moon'
-import Sun from '../../assets/heroicons/Sun'
+import Moon from '../../assets/heroicons/solid/Moon'
+import Sun from '../../assets/heroicons/solid/Sun'
 import DropMenuOption from './DropMenuOption'
 import useApi from '../../hooks/useApi'
 import DropdownMenu from './DropdrowMenu'
 import { PropTypes } from 'prop-types'
 
 export default function ThemeSelector({ isOpen, setIsOpen }) {
-  const { currentTheme, setTheme } = useApi()
+  const { currentTheme, setTheme } = useApi() ?? {}
 
   const handleOptionClick = (theme) => {
     setTheme(theme)
@@ -17,9 +17,9 @@ export default function ThemeSelector({ isOpen, setIsOpen }) {
     <DropdownMenu
       openerIcon={
         currentTheme === 'light' ? (
-          <Sun customClasses="size-5" />
+          <Sun className="size-5" />
         ) : (
-          <Moon customClasses="size-5" />
+          <Moon className="size-5" />
         )
       }
       isOpen={isOpen}
@@ -28,14 +28,17 @@ export default function ThemeSelector({ isOpen, setIsOpen }) {
       <DropMenuOption
         onClick={() => handleOptionClick('light')}
         option="Claro"
+        role="menuitemradio"
       />
       <DropMenuOption
         onClick={() => handleOptionClick('dark')}
         option="Oscuro"
+        role="menuitemradio"
       />
       <DropMenuOption
         onClick={() => handleOptionClick('system')}
         option="Sistema"
+        role="menuitemradio"
       />
     </DropdownMenu>
   )

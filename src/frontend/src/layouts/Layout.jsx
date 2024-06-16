@@ -6,7 +6,7 @@ import useApi from '../hooks/useApi'
 import Footer from '../components/navigations/Footer'
 
 export default function Layout({ className }) {
-  const { currentTheme } = useApi()
+  const { currentTheme } = useApi() ?? {}
   return (
     <>
       <div

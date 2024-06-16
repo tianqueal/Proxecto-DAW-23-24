@@ -19,15 +19,21 @@ class AdminNoteController extends Controller
      */
     public function index(Request $request)
     {
+        $validated = $request->validate([
+            'perPage' => 'integer|min:1|max:50',
+        ]);
+
+        $perPage = $validated['perPage'] ?? Config::get('query_filters.note.perPage');
+
         $noteFilters = Config::get('query_filters.note');
 
         $filter = new NoteFilter($noteFilters->filters);
         $query = Note::orderBy($noteFilters->sorting, $noteFilters->order)
-            ->with('topics')->where('is_public', true);
+            ->with(['user', 'topics'])->where('is_public', true);
 
         $query = $filter->apply($request, $query);
 
-        $notes = $query->paginate($noteFilters->perPage);
+        $notes = $query->paginate($perPage);
 
         return NoteFilteredResource::collection($notes);
     }

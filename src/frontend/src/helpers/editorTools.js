@@ -1,5 +1,5 @@
 // import Embed from '@editorjs/embed'
-// import Table from '@editorjs/table'
+import Table from '@editorjs/table'
 // import Paragraph from '@editorjs/paragraph'
 // import List from '@editorjs/list'
 // import Warning from '@editorjs/warning'
@@ -19,7 +19,13 @@ export const EDITOR_JS_TOOLS = {
   // NOTE: Paragraph is default tool. Declare only when you want to change paragraph option.
   // paragraph: Paragraph,
   // embed: Embed,
-  // table: Table,
+  table: {
+    class: Table,
+    inlineToolbar: true,
+    config: {
+      withHeadings: true,
+    },
+  },
   // list: List,
   // warning: Warning,
   code: Code,

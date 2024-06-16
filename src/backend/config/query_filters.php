@@ -7,13 +7,14 @@ return [
             'email' => 'email',
             'username' => 'username'
         ],
-        'sorting' => 'username',
+        'sorting' => 'id',
         'order' => 'asc',
-        'perPage' => 15,
+        'perPage' => 10,
     ],
     'note' => (object) [
         'filters' => [
             'userId' => 'user_id',
+            'username' => 'username',
             'topicId' => 'topic_id',
             'content' => 'content'
         ],
@@ -26,7 +27,7 @@ return [
             'id' => 'id',
             'name' => 'name',
         ],
-        'sorting' => 'name',
+        'sorting' => 'id',
         'order' => 'asc',
         'perPage' => 15
     ]
