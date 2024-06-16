@@ -15,9 +15,17 @@
     "discord.js": "^14.14.1",
     "dotenv": "^16.4.5",
     "express": "^4.19.2",
+    "express-rate-limit": "^7.3.1",
+    "sanitize-filename": "^1.6.3",
     "undici": "^6.18.2"
   },
   "devDependencies": {
     "jest": "^29.7.0"
+  },
+  "pnpm": {
+    "overrides": {
+      "undici@<5.28.4": ">=5.28.4",
+      "undici@<=5.28.2": ">=5.28.3"
+    }
   }
 }
