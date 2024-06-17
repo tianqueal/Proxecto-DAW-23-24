@@ -38,7 +38,7 @@ export default function Navbar() {
         className="z-30 flex w-full max-w-7xl items-center justify-between"
         role="group"
       >
-        <ul>
+        <ul role="menubar">
           <NavbarLink to="/">
             <Logo />
           </NavbarLink>
@@ -137,7 +137,7 @@ export default function Navbar() {
                 uniqueId="mobile"
               />
               {user && (
-                <div className="mt-4 flex flex-col items-center gap-4">
+                <>
                   <NavbarLink
                     to="/profile"
                     option="Perfil"
@@ -180,7 +180,7 @@ export default function Navbar() {
                       <DotPulseLoader />
                     </div>
                   )}
-                </div>
+                </>
               )}
               {!user && (
                 <>
