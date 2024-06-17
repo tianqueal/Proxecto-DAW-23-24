@@ -48,26 +48,26 @@ export default function Navbar() {
             to="/"
             option="Inicio"
             isActive={isCurrentPath('/')}
-            uniqueId="desktop"
+            uniqueid="desktop"
           />
           <NavbarLink
             to="/community"
             option="Comunidad"
             isActive={isCurrentPath('/community')}
-            uniqueId="desktop"
+            uniqueid="desktop"
           />
           <NavbarLink
             to="/discord"
             option="Discord"
             isActive={isCurrentPath('/discord')}
-            uniqueId="desktop"
+            uniqueid="desktop"
           />
           {user && (
             <UserActionSelector
               username={user?.username ?? 'user'}
               isOpen={isMenuUserOpen}
               setIsOpen={setIsMenuUserOpen}
-              uniqueId="desktop"
+              uniqueid="desktop"
             />
           )}
           {!user && (
@@ -76,13 +76,13 @@ export default function Navbar() {
                 to="/register"
                 option="Registro"
                 isActive={isCurrentPath('/register')}
-                uniqueId="desktop"
+                uniqueid="desktop"
               />
               <NavbarLink
                 to="/login"
                 option="Iniciar sesión"
                 isActive={isCurrentPath('/login')}
-                uniqueId="desktop"
+                uniqueid="desktop"
               />
             </>
           )}
@@ -120,21 +120,21 @@ export default function Navbar() {
                 option="Inicio"
                 isActive={isCurrentPath('/')}
                 onClick={handleMenuClose}
-                uniqueId="mobile"
+                uniqueid="mobile"
               />
               <NavbarLink
                 to="/community"
                 option="Comunidad"
                 isActive={isCurrentPath('/community')}
                 onClick={handleMenuClose}
-                uniqueId="mobile"
+                uniqueid="mobile"
               />
               <NavbarLink
                 to="/discord"
                 option="Discord"
                 isActive={isCurrentPath('/discord')}
                 onClick={handleMenuClose}
-                uniqueId="mobile"
+                uniqueid="mobile"
               />
               {user && (
                 <>
@@ -143,7 +143,7 @@ export default function Navbar() {
                     option="Perfil"
                     isActive={isCurrentPath('/profile')}
                     onClick={handleMenuClose}
-                    uniqueId="mobile"
+                    uniqueid="mobile"
                   />
                   {user?.isAdmin === true && (
                     <NavbarLink
@@ -151,7 +151,7 @@ export default function Navbar() {
                       option="Administración"
                       isActive={isCurrentPath('/admin/dashboard')}
                       onClick={handleMenuClose}
-                      uniqueId="mobile"
+                      uniqueid="mobile"
                     />
                   )}
                   {user?.isAdmin === false && (
@@ -160,7 +160,7 @@ export default function Navbar() {
                       option="Mis notas"
                       isActive={isCurrentPath('/my-notes')}
                       onClick={handleMenuClose}
-                      uniqueId="mobile"
+                      uniqueid="mobile"
                     />
                   )}
                   {!isLogoutLoading && (
@@ -172,7 +172,7 @@ export default function Navbar() {
                         await logout({ setIsLoading: setIsLogoutLoading })
                         handleMenuClose()
                       }}
-                      uniqueId="mobile"
+                      uniqueid="mobile"
                     />
                   )}
                   {isLogoutLoading && (
@@ -189,14 +189,14 @@ export default function Navbar() {
                     option="Registro"
                     isActive={isCurrentPath('/register')}
                     onClick={handleMenuClose}
-                    uniqueId="mobile"
+                    uniqueid="mobile"
                   />
                   <NavbarLink
                     to="/login"
                     option="Iniciar sesión"
                     isActive={isCurrentPath('/login')}
                     onClick={handleMenuClose}
-                    uniqueId="mobile"
+                    uniqueid="mobile"
                   />
                 </>
               )}

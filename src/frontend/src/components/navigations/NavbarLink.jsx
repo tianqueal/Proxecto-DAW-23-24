@@ -9,7 +9,7 @@ export default function NavbarLink({
   children,
   className = '',
   isActive = false,
-  uniqueId,
+  uniqueid,
 }) {
   const commonClasses = `relative text-2xl font-semibold text-gray-700 transition-colors duration-300 hover:text-indigo-500 focus:outline-none dark:text-gray-300 dark:hover:text-indigo-300 md:text-base ${className}`
   const underlineClasses =
@@ -25,7 +25,7 @@ export default function NavbarLink({
       {children ?? option}
       {isActive && (
         <motion.span
-          layoutId={`underline-${uniqueId}`}
+          layoutId={`underline-${uniqueid}`}
           className={underlineClasses}
         />
       )}
@@ -41,7 +41,7 @@ export default function NavbarLink({
       {children ?? option}
       {isActive && (
         <motion.span
-          layoutId={`underline-${uniqueId}`}
+          layoutId={`underline-${uniqueid}`}
           className={underlineClasses}
         />
       )}
@@ -69,5 +69,5 @@ NavbarLink.propTypes = {
   children: PropTypes.node,
   className: PropTypes.string,
   isActive: PropTypes.bool,
-  uniqueId: PropTypes.string,
+  uniqueid: PropTypes.string,
 }
