@@ -55,6 +55,9 @@ RUN composer update --no-interaction --optimize-autoloader \
     && php artisan optimize:clear \
     && php artisan optimize
 
+# Ejecutar las migraciones sobre la base de datos
+# RUN php artisan migrate --seed
+
 # Puerto de escucha del servidor Apache
 EXPOSE 80
 COPY src/backend/000-default.conf /etc/apache2/sites-enabled/000-default.conf
