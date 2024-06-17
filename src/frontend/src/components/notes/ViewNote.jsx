@@ -42,5 +42,5 @@ export default function ViewNote({ noteId }) {
 }
 
 ViewNote.propTypes = {
-  noteId: PropTypes.string.isRequired,
+  noteId: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
 }
