@@ -10,16 +10,17 @@ export default function AnimatedHeaderPreviewEditor() {
   ]
 
   return (
-    <div className="mx-auto px-4 text-2xl font-semibold md:w-3/5 2xl:w-2/5 lg:text-3xl">
+    <div className="mx-auto px-4 text-2xl font-semibold md:w-3/5 lg:text-3xl 2xl:w-2/5">
       {textParts.map((part, index) => (
         <motion.h2
           key={index}
-          className={`inline-block ${part.highlight ? 'text-indigo-500 dark:text-indigo-300' : ''}`}
+          className={`inline-block ${part.highlight ? 'text-indigo-600 dark:text-indigo-200' : ''}`}
           initial={{ opacity: 0, y: -10 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: part.delay, duration: 0.6 }}
         >
-          {part.text}{'\u00A0'}
+          {part.text}
+          {'\u00A0'}
         </motion.h2>
       ))}
     </div>
