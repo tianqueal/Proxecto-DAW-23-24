@@ -49,7 +49,7 @@ export default function NavbarLink({
   )
 
   return (
-    <li className="list-none px-2 py-2">
+    <li className="list-none px-2 py-2" role="presentation">
       <motion.span
         whileHover={{ scale: 1.02 }}
         whileTap={{ scale: 0.9 }}

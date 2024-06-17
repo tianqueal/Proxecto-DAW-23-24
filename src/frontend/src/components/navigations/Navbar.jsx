@@ -31,16 +31,18 @@ export default function Navbar() {
   return (
     <nav
       className="overlay__blur sticky top-0 z-10 flex h-16 w-full justify-center px-2"
-      role="navigation"
+      role="menubar"
       aria-label="Main navigation"
     >
       <div
         className="z-30 flex w-full max-w-7xl items-center justify-between"
         role="group"
       >
-        <NavbarLink to="/">
-          <Logo />
-        </NavbarLink>
+        <ul>
+          <NavbarLink to="/">
+            <Logo />
+          </NavbarLink>
+        </ul>
         <ul className="hidden items-center gap-4 md:flex" role="menubar">
           <NavbarLink
             to="/"

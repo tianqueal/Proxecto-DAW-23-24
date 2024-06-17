@@ -24,6 +24,7 @@ export default function ThemeSelector({ isOpen, setIsOpen }) {
       }
       isOpen={isOpen}
       setIsOpen={setIsOpen}
+      ariaLabel="Selector de tema"
     >
       <DropMenuOption
         onClick={() => handleOptionClick('light')}
