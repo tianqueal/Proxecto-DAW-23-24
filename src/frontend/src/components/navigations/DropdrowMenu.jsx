@@ -9,6 +9,7 @@ const DropdownMenu = ({
   openerText,
   isOpen,
   setIsOpen,
+  ariaLabel,
 }) => {
   const ref = useRef(null)
 
@@ -42,9 +43,16 @@ const DropdownMenu = ({
         className="inline-flex w-full justify-center gap-2 rounded-md px-2 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 focus:ring-offset-gray-100 dark:text-gray-300 dark:hover:bg-gray-700 dark:focus:ring-offset-gray-800"
         aria-haspopup="true"
         aria-expanded={isOpen}
+        aria-label={
+          openerText
+            ? `Abrir menú desplegable ${openerText}`
+            : 'Abrir menú desplegable'
+        }
       >
         {openerIcon}
-        {openerText ?? <span className="hidden">Opciones</span>}
+        <span className={`${!openerText ? `sr-only` : ``}`}>
+          {openerText ?? ariaLabel}
+        </span>
         <DropdownIcon isOpen={isOpen} />
       </button>
 
@@ -63,6 +71,7 @@ DropdownMenu.propTypes = {
   children: PropTypes.node.isRequired,
   isOpen: PropTypes.bool.isRequired,
   setIsOpen: PropTypes.func.isRequired,
+  ariaLabel: PropTypes.string,
 }
 
 export default DropdownMenu

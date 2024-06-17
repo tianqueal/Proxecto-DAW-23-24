@@ -31,41 +31,43 @@ export default function Navbar() {
   return (
     <nav
       className="overlay__blur sticky top-0 z-10 flex h-16 w-full justify-center px-2"
-      role="navigation"
+      role="menubar"
       aria-label="Main navigation"
     >
       <div
         className="z-30 flex w-full max-w-7xl items-center justify-between"
         role="group"
       >
-        <NavbarLink to="/">
-          <Logo />
-        </NavbarLink>
+        <ul role="menubar">
+          <NavbarLink to="/">
+            <Logo />
+          </NavbarLink>
+        </ul>
         <ul className="hidden items-center gap-4 md:flex" role="menubar">
           <NavbarLink
             to="/"
             option="Inicio"
             isActive={isCurrentPath('/')}
-            uniqueId="desktop"
+            uniqueid="desktop"
           />
           <NavbarLink
             to="/community"
             option="Comunidad"
             isActive={isCurrentPath('/community')}
-            uniqueId="desktop"
+            uniqueid="desktop"
           />
           <NavbarLink
             to="/discord"
             option="Discord"
             isActive={isCurrentPath('/discord')}
-            uniqueId="desktop"
+            uniqueid="desktop"
           />
           {user && (
             <UserActionSelector
               username={user?.username ?? 'user'}
               isOpen={isMenuUserOpen}
               setIsOpen={setIsMenuUserOpen}
-              uniqueId="desktop"
+              uniqueid="desktop"
             />
           )}
           {!user && (
@@ -74,13 +76,13 @@ export default function Navbar() {
                 to="/register"
                 option="Registro"
                 isActive={isCurrentPath('/register')}
-                uniqueId="desktop"
+                uniqueid="desktop"
               />
               <NavbarLink
                 to="/login"
                 option="Iniciar sesión"
                 isActive={isCurrentPath('/login')}
-                uniqueId="desktop"
+                uniqueid="desktop"
               />
             </>
           )}
@@ -118,30 +120,30 @@ export default function Navbar() {
                 option="Inicio"
                 isActive={isCurrentPath('/')}
                 onClick={handleMenuClose}
-                uniqueId="mobile"
+                uniqueid="mobile"
               />
               <NavbarLink
                 to="/community"
                 option="Comunidad"
                 isActive={isCurrentPath('/community')}
                 onClick={handleMenuClose}
-                uniqueId="mobile"
+                uniqueid="mobile"
               />
               <NavbarLink
                 to="/discord"
                 option="Discord"
                 isActive={isCurrentPath('/discord')}
                 onClick={handleMenuClose}
-                uniqueId="mobile"
+                uniqueid="mobile"
               />
               {user && (
-                <div className="mt-4 flex flex-col items-center gap-4">
+                <>
                   <NavbarLink
                     to="/profile"
                     option="Perfil"
                     isActive={isCurrentPath('/profile')}
                     onClick={handleMenuClose}
-                    uniqueId="mobile"
+                    uniqueid="mobile"
                   />
                   {user?.isAdmin === true && (
                     <NavbarLink
@@ -149,7 +151,7 @@ export default function Navbar() {
                       option="Administración"
                       isActive={isCurrentPath('/admin/dashboard')}
                       onClick={handleMenuClose}
-                      uniqueId="mobile"
+                      uniqueid="mobile"
                     />
                   )}
                   {user?.isAdmin === false && (
@@ -158,7 +160,7 @@ export default function Navbar() {
                       option="Mis notas"
                       isActive={isCurrentPath('/my-notes')}
                       onClick={handleMenuClose}
-                      uniqueId="mobile"
+                      uniqueid="mobile"
                     />
                   )}
                   {!isLogoutLoading && (
@@ -170,7 +172,7 @@ export default function Navbar() {
                         await logout({ setIsLoading: setIsLogoutLoading })
                         handleMenuClose()
                       }}
-                      uniqueId="mobile"
+                      uniqueid="mobile"
                     />
                   )}
                   {isLogoutLoading && (
@@ -178,7 +180,7 @@ export default function Navbar() {
                       <DotPulseLoader />
                     </div>
                   )}
-                </div>
+                </>
               )}
               {!user && (
                 <>
@@ -187,14 +189,14 @@ export default function Navbar() {
                     option="Registro"
                     isActive={isCurrentPath('/register')}
                     onClick={handleMenuClose}
-                    uniqueId="mobile"
+                    uniqueid="mobile"
                   />
                   <NavbarLink
                     to="/login"
                     option="Iniciar sesión"
                     isActive={isCurrentPath('/login')}
                     onClick={handleMenuClose}
-                    uniqueId="mobile"
+                    uniqueid="mobile"
                   />
                 </>
               )}

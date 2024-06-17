@@ -8,7 +8,7 @@ import useApi from '../../hooks/useApi'
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 
-const UserActionSelector = ({ username, isOpen, setIsOpen, uniqueId }) => {
+const UserActionSelector = ({ username, isOpen, setIsOpen, uniqueid }) => {
   const { user, logout } = useAuth({})
   const { currentTheme } = useApi() ?? {}
   const [isLogoutLoading, setIsLogoutLoading] = useState(false)
@@ -38,7 +38,7 @@ const UserActionSelector = ({ username, isOpen, setIsOpen, uniqueId }) => {
           to="/profile"
           role="menuitemradio"
           // isActive={isCurrentPath('/profile')}
-          // uniqueId={uniqueId}
+          // uniqueid={uniqueid}
         />
         {user?.isAdmin === true && (
           <DropMenuOption
@@ -47,7 +47,7 @@ const UserActionSelector = ({ username, isOpen, setIsOpen, uniqueId }) => {
             onClick={handleOptionClick}
             role="menuitemradio"
             // isActive={isCurrentPath('/admin/dashboard')}
-            uniqueId={uniqueId}
+            uniqueid={uniqueid}
           />
         )}
         {user?.isAdmin === false && (
@@ -57,7 +57,7 @@ const UserActionSelector = ({ username, isOpen, setIsOpen, uniqueId }) => {
             onClick={handleOptionClick}
             role="menuitemradio"
             // isActive={isCurrentPath('/my-notes')}
-            // uniqueId={uniqueId}
+            // uniqueid={uniqueid}
           />
         )}
         {!isLogoutLoading && (
@@ -84,7 +84,7 @@ UserActionSelector.propTypes = {
   username: PropTypes.string.isRequired,
   isOpen: PropTypes.bool.isRequired,
   setIsOpen: PropTypes.func.isRequired,
-  uniqueId: PropTypes.string,
+  uniqueid: PropTypes.string,
 }
 
 export default UserActionSelector

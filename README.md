@@ -40,9 +40,17 @@ La aplicación será inicialmente de forma gratuita y de código abierto, con la
 
 ## Instalación - Puesta en servicio
 
+Todo el código de los servicios desarrollados se encuentran en el directorio `src`.
+
+- Código fuente de la API: [Laravel - Backend](src/backend)
+- Código fuente del Front-end [React - Frontend](src/frontend)
+- Código fuente del cliente Discord [Discordjs - Backend](src/discord-client)
+
+Otros ficheros que se encuentran en la raíz se utilizan para la configuración de CI/CD, el despligue a Google Cloud, los `scripts` del servicio de contenedores, ficheros de ejemplo, entre otros.
+
 ### Vista previa
 
-Se garantiza el despligue temporal de la aplicación durante al menos tres meses después de la finalización del desarrollo inicial y superada la fase de pruebas. Puede probarse de manera instantánea el funcionamiento completo del software mediante el enlace en la esquina superior derecha, en la descripción del proyecto. Se recomienda utilizar el servicio con responsabilidad.
+Se garantiza el despligue temporal de la aplicación durante al menos tres meses después de la finalización del desarrollo inicial y superada la fase de pruebas. Puede probarse de manera instantánea el funcionamiento **completo** del software mediante el enlace en la esquina superior derecha, en la descripción del proyecto. Se recomienda utilizar el servicio con responsabilidad.
 
 #### Software necesario para la Vista Previa
 
@@ -100,6 +108,10 @@ Tras completar las credenciales en el fichero `.env`, el `docker-compose` e inst
 docker-compose up --build
 ```
 
+Para ejecutar las migraciones sobre la base de datos, puede hacer
+- Incluyendo en el fichero `Dockerfile-api` el comando de migración, por defecto está comentado.
+- O ejecutar el comando sobre el contenedor mendiante la terminal incorporada: `docker exec -it masternote_api php artisan migrate --seed`.
+
 <img width="469" alt="image" src="https://github.com/tianqueal/Proxecto-DAW-23-24/assets/132884719/9428616f-fffc-47d3-80c4-aa7e32c204e3">
 
 <img width="752" alt="image" src="https://github.com/tianqueal/Proxecto-DAW-23-24/assets/132884719/774e9df8-9dcf-4c57-bb57-8502ad3bbbc6">
@@ -148,6 +160,18 @@ npm i
 php artisan key:generate
 ```
 
+##### Paso 1.B. Migraciones (solo Backend)
+
+```bash
+# Crea todo el sistema de tablas y genera datos de prueba
+php artisan migrate --seed
+
+# O como alternativa, borrar todo el contenido de la base de datos, crear las tablas y generar los datos
+php artisan migrate:refresh --seed
+```
+
+Más sobre las [migraciones](docs/5_Implantación.md#modo-desarrollo-del-proyecto).
+
 ##### Paso 2. Pruebas (Opcional)
 
 ```bash
@@ -174,7 +198,7 @@ npm run dev
 npm start
 ```
 
-##### Paso 3.A. Compilación (solo Frontend)
+##### Paso 3.A. Compilación (Opcional, solo Frontend)
 
 El código del Frontend puede llevarse como ficheros estáticos a cualquier otra instancia, como servidores, proveedores de hostings de sitios estáticos (Vercel, GitHub), etc.
 
@@ -183,7 +207,7 @@ El código del Frontend puede llevarse como ficheros estáticos a cualquier otra
 npm run build
 ```
 
-Para información adicional, puede consultarse [Modo desarrollo del proyecto](docs/5_Implantación.md#modo-desarrollo-del-proyecto)
+Para información adicional, puede consultarse [Modo desarrollo del proyecto](docs/5_Implantación.md#modo-desarrollo-del-proyecto).
 
 ## Uso
 

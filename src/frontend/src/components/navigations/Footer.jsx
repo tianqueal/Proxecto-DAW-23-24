@@ -30,14 +30,11 @@ export default function Footer() {
             </article>
             <article className="mt-4">
               <h2 className="text-xl font-bold">Idioma</h2>
-              <label
-                htmlFor="language"
-                className="mt-2 inline-flex items-center gap-2"
-              >
-                <p aria-hidden="true" className="hidden">
-                  Seleccionar idioma
-                </p>
-                <Language className="size-5" />
+              <div className="mt-2 inline-flex items-center gap-2" role="group">
+                <label htmlFor="language">
+                  <span className="sr-only">Seleccionar idioma</span>
+                  <Language className="size-5" />
+                </label>
                 <select
                   name="language"
                   id="language"
@@ -47,7 +44,7 @@ export default function Footer() {
                   <option disabled>Seleccionar idioma</option>
                   <option defaultValue={LanguageConstant.ES}>Español</option>
                 </select>
-              </label>
+              </div>
             </article>
           </section>
 

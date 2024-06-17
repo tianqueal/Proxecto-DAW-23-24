@@ -2,6 +2,7 @@
 import Table from '@editorjs/table'
 // import Paragraph from '@editorjs/paragraph'
 // import List from '@editorjs/list'
+import NestedList from '@editorjs/nested-list'
 // import Warning from '@editorjs/warning'
 import Code from '@editorjs/code'
 // import LinkTool from '@editorjs/link'
@@ -27,6 +28,13 @@ export const EDITOR_JS_TOOLS = {
     },
   },
   // list: List,
+  list: {
+    class: NestedList,
+    inlineToolbar: true,
+    config: {
+      defaultStyle: 'unordered',
+    },
+  },
   // warning: Warning,
   code: Code,
   // linkTool: LinkTool,

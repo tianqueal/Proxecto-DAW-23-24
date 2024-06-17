@@ -10,7 +10,7 @@ export default function Layout({ className }) {
   return (
     <>
       <div
-        role="html"
+        role="main"
         className="flex min-h-screen flex-col bg-neutral-50 text-neutral-900 transition-colors duration-500 dark:bg-neutral-900 dark:text-neutral-50"
       >
         <Navbar />
