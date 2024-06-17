@@ -19,20 +19,21 @@ const motionProps = {
 }
 
 export default function NoteEditor() {
-  const { noteId } = useParams()
+  const { noteId: paramNoteId } = useParams()
   const {
     isSaving,
     error: isError,
+    noteId: currentNoteId,
     setNoteId,
     editorInitData,
     isNoteLoading,
   } = useEditorjs()
 
   useEffect(() => {
-    if (noteId) {
-      setNoteId(noteId)
+    if (paramNoteId) {
+      setNoteId(paramNoteId)
     }
-  }, [])
+  }, [paramNoteId, setNoteId])
 
   return (
     <>
@@ -70,19 +71,22 @@ export default function NoteEditor() {
                 />
               </motion.figure>
             )}
-            {!isSaving && !isError && !editorInitData?.readOnly && !noteId && (
-              <motion.figure {...motionProps}>
-                <PencilSquare
-                  className="size-8 text-yellow-500 dark:text-yellow-300"
-                  aria-label="Escribe una nueva nota"
-                />
-              </motion.figure>
-            )}
+            {!isSaving &&
+              !isError &&
+              !editorInitData?.readOnly &&
+              !currentNoteId && (
+                <motion.figure {...motionProps}>
+                  <PencilSquare
+                    className="size-8 text-yellow-500 dark:text-yellow-300"
+                    aria-label="Escribe una nueva nota"
+                  />
+                </motion.figure>
+              )}
             {!isSaving &&
               !isError &&
               !isNoteLoading &&
               !editorInitData?.readOnly &&
-              noteId && (
+              currentNoteId && (
                 <motion.figure {...motionProps}>
                   <Check
                     className="size-8 text-green-500 dark:text-green-400"
@@ -107,7 +111,7 @@ export default function NoteEditor() {
             id="editorjs"
             className={`${isNoteLoading || isError ? 'hidden' : ''}`}
           ></div>
-          {noteId ? <ViewNote noteId={noteId} /> : <CreateNote />}
+          {paramNoteId ? <ViewNote noteId={paramNoteId} /> : <CreateNote />}
         </section>
       </section>
     </>
