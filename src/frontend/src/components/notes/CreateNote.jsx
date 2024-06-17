@@ -1,14 +1,14 @@
-/* import { Roles } from '../../helpers/constants'
-import useAuth from '../../hooks/useAuth' */
+import useEditorjs from '../../hooks/useEditorjs'
 import DisplayEditor from './DisplayEditor'
-import { useNavigate } from 'react-router-dom'
 
 export default function CreateNote() {
-  /* useAuth({ middleware: 'auth', requiredRole: Roles.USER}) */
-  const navigate = useNavigate()
+  const { noteIdRef } = useEditorjs()
 
   const onSuccess = (newNoteId) => {
-    navigate(`/notes/${newNoteId}`)
+    if (noteIdRef.current) return
+    noteIdRef.current = newNoteId
+    const newUrl = `/notes/${newNoteId}`
+    window.history.pushState({}, '', newUrl)
   }
   return <DisplayEditor data={null} isOwner={true} onSuccess={onSuccess} />
 }
