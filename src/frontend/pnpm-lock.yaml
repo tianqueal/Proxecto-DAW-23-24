@@ -26,6 +26,9 @@ importers:
       '@editorjs/marker':
         specifier: ^1.4.0
         version: 1.4.0
+      '@editorjs/nested-list':
+        specifier: ^1.4.2
+        version: 1.4.2
       '@editorjs/paragraph':
         specifier: ^2.11.4
         version: 2.11.4
@@ -150,6 +153,9 @@ packages:
     resolution: {integrity: sha512-UwgBRMjJP+xv857DCngvqXI3Iq6J4v0wXmwc6sapg+zyhbwmQX67LUEFrkK5tbyJ30jGuG3ZvWpBiB9LCy1kWw==}
     engines: {node: '>=6.9.0'}
 
+  '@codexteam/icons@0.0.2':
+    resolution: {integrity: sha512-KdeKj3TwaTHqM3IXd5YjeJP39PBUZTb+dtHjGlf5+b0VgsxYD4qzsZkb11lzopZbAuDsHaZJmAYQ8LFligIT6Q==}
+
   '@codexteam/icons@0.0.4':
     resolution: {integrity: sha512-V8N/TY2TGyas4wLrPIFq7bcow68b3gu8DfDt1+rrHPtXxcexadKauRJL6eQgfG7Z0LCrN4boLRawR4S9gjIh/Q==}
 
@@ -179,6 +185,9 @@ packages:
 
   '@editorjs/marker@1.4.0':
     resolution: {integrity: sha512-5ipEXfL44jTTRzgNp/p/YjMO7jT08S5z4V8qA3FFJTfdhKgQyM3mvP1zpdYKw47ZZpVWMCncvk5Nto3BxihEtg==}
+
+  '@editorjs/nested-list@1.4.2':
+    resolution: {integrity: sha512-qb1dAoJ+bihqmlR3822TC2GuIxEjTCLTZsZVWNces3uJIZ+W4019G3IJKBt/MOOgz4Evzad/RvUEKwPCPe6YOQ==}
 
   '@editorjs/paragraph@2.11.4':
     resolution: {integrity: sha512-OuTINHoHrJwKxlpTm6FtiXazwagALJbP49hfbQWBOLTNiBICncqPe1hdGfgDpeEgH9ZEGZsJelhEDxw2iwcmPA==}
@@ -2413,6 +2422,8 @@ snapshots:
     dependencies:
       regenerator-runtime: 0.14.1
 
+  '@codexteam/icons@0.0.2': {}
+
   '@codexteam/icons@0.0.4': {}
 
   '@codexteam/icons@0.0.5': {}
@@ -2442,6 +2453,10 @@ snapshots:
   '@editorjs/marker@1.4.0':
     dependencies:
       '@codexteam/icons': 0.0.5
+
+  '@editorjs/nested-list@1.4.2':
+    dependencies:
+      '@codexteam/icons': 0.0.2
 
   '@editorjs/paragraph@2.11.4':
     dependencies:
