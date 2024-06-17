@@ -4,6 +4,9 @@ const path = require("path")
 const config = require("./config")
 const { startBot } = require("./startBot")
 const app = express()
+
+app.set("trust proxy", true)
+
 const port = config.PORT || 80
 const { setGlobalDispatcher, Agent, Pool } = require("undici")
 const rateLimit = require("express-rate-limit")

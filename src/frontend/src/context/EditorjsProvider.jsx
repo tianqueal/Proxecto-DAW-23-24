@@ -4,66 +4,72 @@ import {
   createContext,
   useEffect,
   useMemo,
-  useCallback,
+  /* useCallback, */
 } from 'react'
 import EditorJS from '@editorjs/editorjs'
 import { EDITOR_JS_TOOLS } from '../helpers/editorTools'
 import PropTypes from 'prop-types'
 import debounce from 'just-debounce-it'
 import useApi from '../hooks/useApi'
-import { useNavigate } from 'react-router-dom'
+// import { useNavigate } from 'react-router-dom'
+import { saveNoteData } from '../helpers/saveNoteData'
 
 const EditorJsContext = createContext()
 
 export const EditorJsProvider = ({ children }) => {
   const instance = useRef(null)
-  const navigate = useNavigate()
+  // const navigate = useNavigate()
+  // const [noteId, setNoteId] = useState(null)
+  const noteIdRef = useRef(null)
   const [editorInitData, setEditorInitData] = useState({
     readOnly: false,
     autofocus: false,
     onSuccess: (newNoteId) => {
-      navigate(`/notes/${newNoteId}`)
+      if (noteIdRef.current) return
+      noteIdRef.current = newNoteId
+      const newUrl = `/notes/${newNoteId}`
+      window.history.pushState({}, '', newUrl)
     },
   })
   const [isSaving, setIsSaving] = useState(false)
   const [error, setError] = useState(null)
-  const [noteId, setNoteId] = useState(null)
   const [isNoteLoading, setIsNoteLoading] = useState(false)
   const { saveNoteToDatabase } = useApi()
 
-  const saveData = useCallback(async () => {
-    if (isSaving || !instance.current || editorInitData.readOnly) {
-      return
-    }
-    if (instance.current && !editorInitData.readOnly) {
-      setIsSaving(true)
-
-      try {
-        const outputData = await instance.current.save()
-        if (
-          !outputData ||
-          !outputData.blocks ||
-          outputData.blocks.length === 0
-        ) {
-          setIsSaving(false)
-          return
-        }
-
-        await saveNoteToDatabase({
+  /* const debouncedSaveData = useCallback(
+    debounce(
+      () =>
+        saveData({
+          isSaving,
+          instance,
+          editorInitData,
+          setIsSaving,
+          saveNoteToDatabase,
           noteId,
-          data: outputData,
           setError,
-          onSuccess: editorInitData.onSuccess,
-        })
-      } catch (error) {
-        setError(error)
-      } finally {
-        setIsSaving(false)
-      }
-    }
-  }, [editorInitData, noteId, saveNoteToDatabase, isSaving])
+        }),
+      2000,
+    ),
+    [saveData, noteId],
+  ) */
 
-  const debouncedSaveData = debounce(saveData, 2000)
+  /* const debouncedSaveData = useMemo(
+    () =>
+      debounce(
+        () =>
+          saveData({
+            isSaving,
+            instance,
+            editorInitData,
+            setIsSaving,
+            saveNoteToDatabase,
+            noteId,
+            setError,
+          }),
+        2000,
+      ),
+    [saveData, noteId],
+  ) */
 
   useEffect(() => {
     if (!instance.current) {
@@ -73,7 +79,19 @@ export const EditorJsProvider = ({ children }) => {
         autofocus: editorInitData.autofocus,
         data: editorInitData.data,
         readOnly: editorInitData.readOnly,
-        onChange: debouncedSaveData,
+        onChange: debounce(
+          () =>
+            saveNoteData({
+              isSaving,
+              instance,
+              editorInitData,
+              setIsSaving,
+              saveNoteToDatabase,
+              noteId: noteIdRef.current,
+              setError,
+            }),
+          2000,
+        ),
         placeholder: '¡Escribe algo increíble!',
         defaultBlock: null,
         logLevel: 'ERROR',
@@ -89,7 +107,7 @@ export const EditorJsProvider = ({ children }) => {
     }
 
     return () => {
-      debouncedSaveData.cancel()
+      /* debouncedSaveData.cancel() */
       if (instance.current && typeof instance.current.destroy === 'function') {
         instance.current.destroy()
         instance.current = null
@@ -106,7 +124,11 @@ export const EditorJsProvider = ({ children }) => {
       setIsSaving,
       error,
       setError,
-      setNoteId,
+      noteId: noteIdRef.current,
+      noteIdRef,
+      setNoteId: (newNoteId) => {
+        noteIdRef.current = newNoteId
+      },
       isNoteLoading,
       setIsNoteLoading,
     }),
