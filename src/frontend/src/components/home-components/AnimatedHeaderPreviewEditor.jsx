@@ -14,7 +14,7 @@ export default function AnimatedHeaderPreviewEditor() {
       {textParts.map((part, index) => (
         <motion.h2
           key={index}
-          className={`inline-block ${part.highlight ? 'text-indigo-600 dark:text-indigo-200' : ''}`}
+          className={`inline-block ${part.highlight ? 'text-indigo-700 dark:text-indigo-200' : ''}`}
           initial={{ opacity: 0, y: -10 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: part.delay, duration: 0.6 }}
